@@ -1,8 +1,7 @@
+// Copyright 2024 Federico Bustaffa
 #include <stdio.h>
 
-int main()
-{
+int main() {
     printf("Hello World\n");
-    int* x;
     return 0;
 }
