@@ -7,3 +7,8 @@ cp ./.clang-format ~/.clang-format
 
 cp -r nvim ~/.config/
 cp -r alacritty ~/.config/
+
+# Neovim dependencies
+sudo apt install clangd clang-format pylint ripgrep npm
+pip install pyright
+
