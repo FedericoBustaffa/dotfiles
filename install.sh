@@ -9,6 +9,6 @@ cp -r nvim ~/.config/
 cp -r alacritty ~/.config/
 
 # Neovim dependencies
-sudo apt install clangd clang-format pylint ripgrep npm
+sudo apt install clangd clang-format pylint ripgrep npm python3-venv
 pip install pyright
 
