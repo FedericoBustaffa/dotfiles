@@ -1,4 +1,4 @@
-BasedOnStyle: clang-format
+BasedOnStyle: Microsoft
 IndentWidth: 4
 ---
 Language: Cpp
