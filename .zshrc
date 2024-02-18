@@ -116,7 +116,7 @@ alias reload='source .zshrc && source .p10k.zsh'
 alias gcc-arm='arm-linux-gnueabihf-gcc -ggdb3 -static'
 alias objdump-arm='arm-linux-gnueabihf-objdump -d'
 
-export PATH=$PATH:/home/federico/scripts/:/home/federico/.local/bin/
+export PATH=$PATH:$HOME/scripts/:$HOME/.local/bin/
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
