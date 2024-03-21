@@ -8,6 +8,7 @@ return {
 				null_ls.builtins.formatting.clang_format, -- C/C++
 				null_ls.builtins.formatting.black, -- Python
 				null_ls.builtins.formatting.isort,
+				null_ls.builtins.diagnostics.pylint,
 			},
 		})
 
