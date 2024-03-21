@@ -1,3 +1,6 @@
+-- Treesitter serve a creare AST per il linguaggio di turno
+-- serve per avere highlighting, e indentazione
+
 return {
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
