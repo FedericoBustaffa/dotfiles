@@ -7,12 +7,12 @@ return {
 				null_ls.builtins.formatting.stylua, -- Lua
 				null_ls.builtins.formatting.clang_format, -- C/C++
 				null_ls.builtins.diagnostics.cpplint,
-				null_ls.builtins.diagnostics.pylint.with({
+				null_ls.builtins.diagnostics.pylint.with({ -- Python
 					diagnostics_postprocess = function(diagnostic)
 						diagnostic.code = diagnostic.message_id
 					end,
 				}),
-				null_ls.builtins.formatting.black, -- Python
+				null_ls.builtins.formatting.black,
 				null_ls.builtins.formatting.isort,
 			},
 		})
