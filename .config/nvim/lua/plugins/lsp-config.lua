@@ -13,6 +13,7 @@ return {
 					"lua_ls",
 					"clangd",
 					"pyright",
+					"texlab",
 				},
 			})
 		end,
@@ -26,6 +27,7 @@ return {
 			lspconfig.lua_ls.setup({ capabilities = capabilities })
 			lspconfig.clangd.setup({ capabilities = capabilities })
 			lspconfig.pyright.setup({ capabilities = capabilities })
+			lspconfig.texlab.setup({ capabilities = capabilities })
 
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})

@@ -1,8 +1,14 @@
-// Copyright
 #include <iostream>
 #include <vector>
 
-int main() {
+int add(int a, int b)
+{
+    return a + b;
+}
+
+int main()
+{
+    std::cout << add(1, 2) << std::endl;
     std::vector<int> v;
     v.push_back(1);
     for (const auto& i : v)
