@@ -2,13 +2,10 @@
 
 cp ./.zshrc ~/.zshrc
 cp ./.p10k.zsh ~/.p10k.zsh
-cp ./.tmux.conf ~/.tmux.conf
 cp ./.clang-format ~/.clang-format
 
 cp -r nvim ~/.config/
 cp -r alacritty ~/.config/
 
-# Neovim dependencies
-sudo apt install clangd clang-format pylint ripgrep npm python3-venv
-pip install pyright
-
+cp ./.tmux.conf ~/.tmux.conf
+cp -r ./.tmux/ ~/
