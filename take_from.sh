@@ -8,5 +8,4 @@ cp -r ~/.config/nvim ./.config/
 cp -r ~/.config/alacritty ./.config/
 
 cp ~/.tmux.conf ./
-cp -r ~/.tmux/ ./
 
