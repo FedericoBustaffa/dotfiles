@@ -12,8 +12,6 @@ return {
 				null_ls.builtins.diagnostics.pylint.with({
 					only_local = ".env/bin/",
 				}),
-				null_ls.builtins.formatting.latexindent,
-				null_ls.builtins.diagnostics.vale,
 			},
 		})
 
