@@ -14,6 +14,7 @@ return {
 					"black",
 					"isort",
 					"pylint",
+					"biome",
 				},
 			})
 		end,
@@ -32,10 +33,9 @@ return {
 					null_ls.builtins.diagnostics.pylint.with({
 						only_local = ".env/bin/",
 					}),
+					null_ls.builtins.formatting.biome,
 				},
 			})
-
-			vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
 		end,
 	},
 }
