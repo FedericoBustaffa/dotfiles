@@ -1,0 +1,27 @@
+---------- APT packages ----------
+
+zsh
+git
+htop
+tmux
+neovim
+python3-pip
+python3-venv
+neofetch
+build-essentials
+stow
+texlive-full
+i3
+
+--------- SNAP packages ----------
+
+alacritty
+
+--------- Repositories ---------
+
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+
