@@ -27,7 +27,6 @@ return {
 				sources = {
 					null_ls.builtins.formatting.stylua, -- Lua
 					null_ls.builtins.formatting.clang_format, -- C/C++
-					null_ls.builtins.diagnostics.cppcheck,
 					null_ls.builtins.formatting.black, -- Python
 					null_ls.builtins.formatting.isort,
 					null_ls.builtins.diagnostics.pylint.with({

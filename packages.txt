@@ -1,5 +1,4 @@
 ---------- APT packages ----------
-
 zsh
 git
 htop
@@ -12,13 +11,23 @@ build-essentials
 stow
 texlive-full
 i3
+polybar
+ripgrep
+fd-find
+fswatch
+
+--------- PIP packages -----------
+neovim
+virtualenv
+
+--------- NPM packages -----------
+neovim
+tree-sitter
 
 --------- SNAP packages ----------
-
 alacritty
 
 --------- Repositories ---------
-
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 
