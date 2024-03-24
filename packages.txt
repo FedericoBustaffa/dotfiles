@@ -15,6 +15,14 @@ polybar
 ripgrep
 fd-find
 fswatch
+cmake
+libdbus-1-dev
+libglib2.0-dev
+python3-pygments
+libcairo2-dev
+gobject-introspection
+libgirepository1.0-dev
+libsystemd-dev
 
 --------- PIP packages -----------
 neovim
