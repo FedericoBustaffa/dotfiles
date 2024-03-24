@@ -9,11 +9,49 @@ return {
 	},
 	{
 		"hrsh7th/nvim-cmp",
+		event = { "BufReadPost", "BufNewFile" },
+		dependencies = { "onsails/lspkind.nvim" },
 		config = function()
 			local cmp = require("cmp")
+			local lspkind = require("lspkind")
 			require("luasnip.loaders.from_vscode").lazy_load()
-
 			cmp.setup({
+				formatting = {
+					format = lspkind.cmp_format({
+						mode = "symbol_text",
+						maxwidth = 50,
+						ellipsis_char = "...",
+						show_labelDetails = true,
+						symbol_map = {
+							Copilot = "",
+							Text = "󰉿",
+							Method = "󰆧",
+							Function = "󰊕",
+							Constructor = "",
+							Field = "󰜢",
+							Variable = "󰀫",
+							Class = "󰠱",
+							Interface = "",
+							Module = "",
+							Property = "󰜢",
+							Unit = "󰑭",
+							Value = "󰎠",
+							Enum = "",
+							Keyword = "󰌋",
+							Snippet = "",
+							Color = "󰏘",
+							File = "󰈙",
+							Reference = "󰈇",
+							Folder = "󰉋",
+							EnumMember = "",
+							Constant = "󰏿",
+							Struct = "󰙅",
+							Event = "",
+							Operator = "󰆕",
+							TypeParameter = "",
+						},
+					}),
+				},
 				snippet = {
 					-- REQUIRED - you must specify a snippet engine
 					expand = function(args)
@@ -33,10 +71,14 @@ return {
 				}),
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
-					{ name = "luasnip" }, -- For luasnip users.
-				}, {
-					{ name = "buffer" },
+					{ name = "buffer", max_item_count = 5 },
+					{ name = "copilot" },
+					{ name = "path", max_item_count = 3 },
+					{ name = "luasnip" },
 				}),
+				experimental = {
+					ghost_text = true,
+				},
 			})
 		end,
 	},
