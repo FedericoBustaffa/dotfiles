@@ -1,6 +1,16 @@
-BasedOnStyle: LLVM
-IndentWidth: 4
----
 Language: Cpp
-DerivePointerAlignment: false
-PointerAlignment: Left
+BasedOnStyle: Google
+IndentWidth: 4
+UseTab: Never
+TabWidth: 8
+ColumnLimit: 99
+PointerAlignment: Right
+AccessModifierOffset: -2
+BreakBeforeBraces: Allman
+DerivePointerAlignment: true
+AllowShortFunctionsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: false
+AlwaysBreakAfterDefinitionReturnType: None
+AlwaysBreakTemplateDeclarations: true
