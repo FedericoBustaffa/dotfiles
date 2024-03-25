@@ -1,3 +1,4 @@
 .config/nvim/lazy-lock.json
 .config/nvim/package.json
 .config/nvim/package-lock.json
+.config/nvim/node_modules/
