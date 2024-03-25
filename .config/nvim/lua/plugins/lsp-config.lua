@@ -18,6 +18,7 @@ return {
                     "clangd",
                     "pyright",
                     "biome",
+                    "cmake",
                 },
             })
         end,
@@ -32,6 +33,7 @@ return {
             lspconfig.clangd.setup({ capabilities = capabilities })
             lspconfig.pyright.setup({ capabilities = capabilities })
             lspconfig.biome.setup({ capabilities = capabilities })
+            lspconfig.cmake.setup({ capabilities = capabilities })
 
             local opts = {}
             vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
