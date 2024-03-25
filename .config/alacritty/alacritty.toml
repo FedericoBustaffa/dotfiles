@@ -1,4 +1,4 @@
-import = ["/home/federico/.config/alacritty/catppuccin/catppuccin-mocha.toml"]
+import = ["~/.config/alacritty/catppuccin/catppuccin-mocha.toml"]
 
 [cursor.style]
 blinking = "Always"
