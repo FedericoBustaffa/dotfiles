@@ -45,3 +45,6 @@ vim.keymap.set("v", "<A-Up>", ":m '<-2<CR>gv=gv")
 
 -- turn of serch results
 vim.keymap.set("n", "<leader>no", ":noh<CR>", { silent = true })
+
+-- centering buffer
+vim.keymap.set("n", "G", "Gzz")
