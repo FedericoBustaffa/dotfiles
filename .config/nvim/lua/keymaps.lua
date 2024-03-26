@@ -19,10 +19,10 @@ vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", { silent = true })
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { silent = true })
 
 -- move between panes with arrows
-vim.keymap.set("n", "<C-Left>", ":wincmd h<CR>", { silent = true })
-vim.keymap.set("n", "<C-Down>", ":wincmd j<CR>", { silent = true })
-vim.keymap.set("n", "<C-Up>", ":wincmd k<CR>", { silent = true })
-vim.keymap.set("n", "<C-Right>", ":wincmd l<CR>", { silent = true })
+-- vim.keymap.set("n", "<C-Left>", ":wincmd h<CR>", { silent = true })
+-- vim.keymap.set("n", "<C-Down>", ":wincmd j<CR>", { silent = true })
+-- vim.keymap.set("n", "<C-Up>", ":wincmd k<CR>", { silent = true })
+-- vim.keymap.set("n", "<C-Right>", ":wincmd l<CR>", { silent = true })
 
 -- select all
 vim.keymap.set("n", "<C-a>", "ggVG", { silent = true })

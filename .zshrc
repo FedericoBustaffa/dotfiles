@@ -116,7 +116,11 @@ alias reload='source .zshrc && source .p10k.zsh'
 alias gcc-arm='arm-linux-gnueabihf-gcc -ggdb3 -static'
 alias objdump-arm='arm-linux-gnueabihf-objdump -d'
 
-export PATH=$PATH:$HOME/scripts/:$HOME/.local/bin/
+export PATH=$PATH:$HOME/scripts/
+export PATH=$PATH:$HOME/.local/bin/
+export PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin
+
+eval "$(tmuxifier init -)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
