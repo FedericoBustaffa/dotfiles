@@ -16,7 +16,8 @@ return {
 					"pylint",
 					"biome",
 					"checkmake",
-					"cmakelang",
+					"cmakelint",
+                    "gersemi"
 				},
 			})
 		end,
@@ -35,8 +36,8 @@ return {
 						only_local = ".env/bin/",
 					}),
 					null_ls.builtins.formatting.biome, -- JSON
-					null_ls.builtins.diagnostics.cmakelang, -- CMAKE
-					null_ls.builtins.formatting.cmakelang,
+					null_ls.builtins.diagnostics.cmake_lint, -- CMAKE
+					null_ls.builtins.formatting.gersemi,
 				},
 			})
 		end,
