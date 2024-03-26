@@ -23,6 +23,7 @@ libcairo2-dev
 gobject-introspection
 libgirepository1.0-dev
 libsystemd-dev
+inkscape
 
 --------- PIP packages -----------
 neovim
