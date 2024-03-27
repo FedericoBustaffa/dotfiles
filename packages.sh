@@ -2,6 +2,7 @@
 
 # ---------- APT packages ----------
 apt_packages=(
+	spapd
 	zsh
 	clangd
 	git
@@ -14,9 +15,9 @@ apt_packages=(
 	neofetch
 	build-essential
 	stow
-	texlive-full
-	i3
-	polybar
+	# texlive-full
+	# i3
+	# polybar
 	ripgrep
 	fd-find
 	fswatch
@@ -41,6 +42,8 @@ sudo apt install ${apt_packages[@]}
 # --------- Repositories ---------
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
+chsh -s $(which zsh)
+
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
@@ -62,6 +65,7 @@ pip_packages=(
 	notebook
 	jupyterlab
 	pybind11
+	requests
 )
 
 pip install ${pip_packages[@]}
@@ -81,6 +85,6 @@ npm install -g ${npm_packages[@]}
 npm fund
 
 # --------- SNAP packages ----------
-# alacritty
+sudo snap install alacritty --classic
 # code
 

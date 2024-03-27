@@ -1,3 +1,4 @@
 \.git
 settings.json
 packages.sh
+.gitignore
