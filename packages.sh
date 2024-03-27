@@ -60,6 +60,7 @@ pip_packages=(
 	ipykernel
 	notebook
 	jupyterlab
+	pybind11
 )
 
 pip install ${pip_packages[@]}
@@ -76,6 +77,7 @@ source ~/.zshrc
 nvm install lts/iron
 
 npm install -g ${npm_packages[@]}
+npm fund
 
 # --------- SNAP packages ----------
 # alacritty
