@@ -36,7 +36,6 @@ sudo apt autoremove -y
 sudo apt autoclean
 
 sudo apt install ${apt_packages[@]}
-stow .
 
 # --------- Repositories ---------
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -45,7 +44,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
-source ~/.zshrc
+# source ~/.zshrc
 
 # --------- PIP packages -----------
 pip_packages=(
