@@ -3,6 +3,7 @@
 # ---------- APT packages ----------
 apt_packages=(
 	zsh
+	clangd
 	git
 	htop
 	tmux
