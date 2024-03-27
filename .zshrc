@@ -121,6 +121,7 @@ export PATH=$PATH:$HOME/.local/bin/
 export PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin
 
 eval "$(tmuxifier init -)"
+export EDITOR=nvim
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
