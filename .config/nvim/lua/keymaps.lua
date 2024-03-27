@@ -31,7 +31,7 @@ vim.keymap.set("n", "<C-a>", "ggVG", { silent = true })
 vim.keymap.set("n", "<leader>q", ":q<CR>")
 
 -- swap between last 2 buffers
-vim.keymap.set("n", "<leader>p", "<C-^>", {})
+-- vim.keymap.set("n", "<leader>p", "<C-^>", {})
 
 -- jump to start/end of the line
 vim.keymap.set("n", "L", "$", {})
@@ -48,3 +48,8 @@ vim.keymap.set("n", "<leader>no", ":noh<CR>", { silent = true })
 
 -- centering buffer
 vim.keymap.set("n", "G", "Gzz")
+
+-- loop through buffers
+vim.keymap.set("n", "<leader>n", ":bn<CR>")
+vim.keymap.set("n", "<leader>p", ":bp<CR>")
+
