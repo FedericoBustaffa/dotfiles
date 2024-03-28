@@ -2,3 +2,5 @@
 .config/nvim/package.json
 .config/nvim/package-lock.json
 .config/nvim/node_modules/
+.config/htop/
+.config/neofetch/
