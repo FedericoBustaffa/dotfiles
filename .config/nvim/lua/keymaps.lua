@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+vim.g.maplocalleader = " "
 
 -- return to normal mode
 vim.keymap.set("i", "<localleader><leader>", "<ESC>")
