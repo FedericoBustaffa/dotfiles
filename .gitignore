@@ -4,3 +4,5 @@
 .config/nvim/node_modules/
 .config/htop/
 .config/neofetch/
+.config/lazygit/
+.config/vscode-sqltools/
