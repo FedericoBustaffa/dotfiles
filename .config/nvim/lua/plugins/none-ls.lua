@@ -17,7 +17,7 @@ return {
 					"biome",
 					"checkmake",
 					"cmakelint",
-                    "gersemi"
+					"gersemi",
 				},
 			})
 		end,
