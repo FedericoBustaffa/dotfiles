@@ -25,6 +25,15 @@ return {
 		end,
 	},
 	{
+		"folke/neodev.nvim",
+		config = function()
+			-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+			require("neodev").setup({
+				-- add any options here, or leave empty to use the default settings
+			})
+		end,
+	},
+	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
@@ -84,24 +93,38 @@ return {
 
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+			require("neodev").setup({})
 			local mason_lspconfig = require("mason-lspconfig")
 			mason_lspconfig.setup_handlers({
 				function(server_name)
 					lspconfig[server_name].setup({ capabilities = capabilities })
 				end,
+				["lua_ls"] = function()
+					-- configure svelte server
+					lspconfig.lua_ls.setup({
+						capabilities = capabilities,
+						settings = {
+							Lua = {
+								completion = {
+									callSnippet = "Replace",
+								},
+							},
+						},
+					})
+				end,
 			})
-
-			-- lspconfig.lua_ls.setup({ capabilities = capabilities })
-			-- lspconfig.clangd.setup({ capabilities = capabilities })
-			-- lspconfig.pyright.setup({ capabilities = capabilities })
-			-- lspconfig.biome.setup({ capabilities = capabilities })
-			-- lspconfig.cmake.setup({ capabilities = capabilities })
-			-- lspconfig.marksman.setup({ capabilities = capabilities })
-
-			-- local opts = {}
-			-- vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
-			-- vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
-			-- vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 		end,
+
+		-- lspconfig.lua_ls.setup({ capabilities = capabilities })
+		-- lspconfig.clangd.setup({ capabilities = capabilities })
+		-- lspconfig.pyright.setup({ capabilities = capabilities })
+		-- lspconfig.biome.setup({ capabilities = capabilities })
+		-- lspconfig.cmake.setup({ capabilities = capabilities })
+		-- lspconfig.marksman.setup({ capabilities = capabilities })
+
+		-- local opts = {}
+		-- vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
+		-- vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+		-- vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 	},
 }
