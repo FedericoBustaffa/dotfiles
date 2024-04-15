@@ -1,13 +1,14 @@
 return {
 	{
 		"jay-babu/mason-null-ls.nvim",
-		-- event = { "BufReadPre", "BufNewFile" },
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			"williamboman/mason.nvim",
 			"nvimtools/none-ls.nvim",
 		},
 		config = function()
 			require("mason-null-ls").setup({
+				automatic_installation = true,
 				ensure_installed = {
 					"stylua",
 					"clang_format",
@@ -38,6 +39,7 @@ return {
 					null_ls.builtins.formatting.biome, -- JSON
 					null_ls.builtins.diagnostics.cmake_lint, -- CMAKE
 					null_ls.builtins.formatting.gersemi,
+					-- null_ls.builtins.formatting.latexindent,
 				},
 			})
 		end,

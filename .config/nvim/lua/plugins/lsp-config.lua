@@ -20,6 +20,7 @@ return {
 					"biome",
 					"cmake",
 					"marksman",
+					"texlab",
 				},
 			})
 		end,
