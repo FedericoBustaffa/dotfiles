@@ -6,7 +6,7 @@ vim.keymap.set("i", "<localleader><leader>", "<ESC>")
 vim.keymap.set("v", "<localleader><leader>", "<ESC>")
 
 -- save with Space + w
-vim.keymap.set("n", "<leader>w", ":w<CR>")
+vim.keymap.set("n", "<leader>w", ":w<CR>", { desc = "save" })
 
 -- move lines up and down
 vim.keymap.set("n", "<A-k>", "ddkP", { silent = true })
@@ -53,3 +53,8 @@ vim.keymap.set("n", "G", "Gzz")
 vim.keymap.set("n", "<leader>n", ":bn<CR>")
 vim.keymap.set("n", "<leader>p", ":bp<CR>")
 
+-- open Lazy manager
+vim.keymap.set("n", "<leader>l", ":Lazy<CR>", { desc = "Lazy" })
+
+-- open Mason
+vim.keymap.set("n", "<leader>m", ":Mason<CR>", { desc = "Mason" })

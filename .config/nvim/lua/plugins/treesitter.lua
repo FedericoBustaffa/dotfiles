@@ -7,10 +7,21 @@ return {
 	config = function()
 		local config = require("nvim-treesitter.configs")
 		config.setup({
-  			ensure_installed = { "java", "cpp", "python", "c", "lua", "markdown" },
+			modules = {},
+			auto_install = false,
+			ignore_install = {},
+			ensure_installed = {
+				"java",
+				"cpp",
+				"python",
+				"c",
+				"lua",
+				"latex",
+				"bibtex",
+			},
 			sync_install = false,
 			highlight = { enable = true },
 			indent = { enable = true },
 		})
-	end
+	end,
 }
