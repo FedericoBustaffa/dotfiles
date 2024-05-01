@@ -8,7 +8,7 @@ shape = "Block"
 TERM = "xterm-256color"
 
 [font]
-size = 13.0
+size = 10.0
 
 [font.glyph_offset]
 x = 0
