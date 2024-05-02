@@ -7,6 +7,7 @@ apt_packages=(
 	clangd
 	git
 	htop
+    cargo
 	tmux
 	neovim
 	python3-pip
@@ -66,23 +67,26 @@ pip_packages=(
 	jupyterlab
 	pybind11
 	requests
+    neovim
+    manim
 )
 
 pip install ${pip_packages[@]}
 
 # --------- NPM packages -----------
 npm_packages=(
-	neovim
-	tree-sitter
+    neovim
 )
 
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 source ~/.zshrc
 nvm install lts/iron
 
 npm install -g ${npm_packages[@]}
 npm fund
+
+# --------- CARGO packages ---------
+cargo install tree-sitter-cli
 
 # --------- SNAP packages ----------
 sudo snap install alacritty --classic
