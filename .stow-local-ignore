@@ -1,4 +1,6 @@
 \.git
 settings.json
 packages.sh
+apt_packages.sh
+pip_packages.sh
 .gitignore
