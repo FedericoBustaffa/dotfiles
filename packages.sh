@@ -1,27 +1,5 @@
 #!/bin/bash
 
-# --------- PIP packages -----------
-pip_packages=(
-	neovim
-	virtualenv
-	numpy
-	matplotlib
-	pandas
-	scipy
-	networkx
-	bs4
-	selenium
-	ipykernel
-	notebook
-	jupyterlab
-	pybind11
-	requests
-    neovim
-    manim
-)
-
-pipx install ${pip_packages[@]}
-
 # --------- NPM packages -----------
 npm_packages=(
    neovim

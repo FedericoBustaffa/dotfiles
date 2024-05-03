@@ -6,6 +6,10 @@ apt_packages=(
 	zsh
 	clangd
     pipx
+    openjdk-21-jdk
+    cmake-format
+    luarocks
+    composer
 	git
 	htop
 	cargo
