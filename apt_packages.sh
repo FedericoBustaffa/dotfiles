@@ -3,6 +3,8 @@
 # ---------- APT packages ----------
 apt_packages=(
 	snapd
+    zsh-autosuggestions
+    zsh-syntax-highlighting
 	zsh
 	clangd
     pipx
