@@ -14,6 +14,8 @@ apt_packages=(
     composer
 	git
 	htop
+    zoxide
+    eza
 	cargo
 	tmux
 	neovim

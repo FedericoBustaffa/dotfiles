@@ -111,6 +111,10 @@ alias cls='clear'
 alias py='python3'
 alias nv='nvim'
 alias reload='source .zshrc && source .p10k.zsh'
+alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions"
+alias cd="z"
+
+eval "$(zoxide init zsh)"
 
 # alias ARM
 alias gcc-arm='arm-linux-gnueabihf-gcc -ggdb3 -static'
