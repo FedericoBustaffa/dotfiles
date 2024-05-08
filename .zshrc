@@ -112,9 +112,6 @@ alias py='python3'
 alias nv='nvim'
 alias reload='source .zshrc && source .p10k.zsh'
 alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions"
-alias cd="z"
-
-eval "$(zoxide init zsh)"
 
 # alias ARM
 alias gcc-arm='arm-linux-gnueabihf-gcc -ggdb3 -static'
@@ -139,3 +136,5 @@ export NVM_DIR="$HOME/.nvm"
 
 # source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+[ -f "/home/federico/.ghcup/env" ] && . "/home/federico/.ghcup/env" # ghcup-env
