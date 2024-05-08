@@ -19,7 +19,6 @@ return {
                     "checkmake",
                     "cmakelint",
                     "gersemi",
-                    "fourmolu",
                 },
             })
         end,
@@ -40,7 +39,6 @@ return {
                     null_ls.builtins.formatting.biome, -- JSON
                     null_ls.builtins.diagnostics.cmake_lint, -- CMAKE
                     null_ls.builtins.formatting.gersemi,
-                    null_ls.builtins.formatting.fourmolu,
                     -- null_ls.builtins.formatting.latexindent,
                 },
             })
