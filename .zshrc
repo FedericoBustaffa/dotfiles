@@ -137,4 +137,4 @@ export NVM_DIR="$HOME/.nvm"
 # source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-[ -f "/home/federico/.ghcup/env" ] && . "/home/federico/.ghcup/env" # ghcup-env
+[ -f "~/.ghcup/env" ] && . "~/.ghcup/env" # ghcup-env
