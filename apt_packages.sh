@@ -7,6 +7,7 @@ apt_packages=(
     zsh-syntax-highlighting
 	zsh
 	clangd
+    xclip
     pipx
     openjdk-21-jdk
     cmake-format
@@ -15,7 +16,6 @@ apt_packages=(
 	git
 	htop
     zoxide
-    eza
 	cargo
 	tmux
 	neovim
@@ -51,12 +51,12 @@ sudo apt autoclean
 sudo apt install ${apt_packages[@]}
 
 # --------- Repositories ---------
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-chsh -s $(which zsh)
+# chsh -s $(which zsh)
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+# git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
 # source ~/.zshrc
