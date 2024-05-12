@@ -8,6 +8,7 @@ apt_packages=(
 	zsh
 	clangd
     xclip
+    fzf
     pipx
     openjdk-21-jdk
     cmake-format
