@@ -22,6 +22,7 @@ return {
                     "marksman",
                     "texlab",
                     "hls",
+                    "glslls",
                 },
             })
         end,
