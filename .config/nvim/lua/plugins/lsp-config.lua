@@ -22,7 +22,7 @@ return {
                     "marksman",
                     "texlab",
                     "hls",
-                    "glslls",
+                    "glsl_analyzer",
                 },
             })
         end,
