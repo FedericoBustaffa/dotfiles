@@ -108,7 +108,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias cls='clear'
-alias py='python3'
+alias py='python3.12'
 alias nv='nvim'
 alias reload='source .zshrc && source .p10k.zsh'
 alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions"
