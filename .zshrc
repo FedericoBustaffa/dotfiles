@@ -138,3 +138,6 @@ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 [ -f "~/.ghcup/env" ] && . "~/.ghcup/env" # ghcup-env
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
