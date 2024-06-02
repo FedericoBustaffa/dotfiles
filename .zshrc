@@ -121,6 +121,7 @@ export PATH=$PATH:$HOME/scripts/
 export PATH=$PATH:$HOME/.local/bin/
 export PATH=$PATH:$HOME/.cargo/bin/
 export PATH=$PATH:$HOME/.ghcup/bin/
+export PATH=$PATH:$HOME/premake-core/bin/release/
 export PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin
 
 eval "$(tmuxifier init -)"
