@@ -15,6 +15,7 @@ return {
 				"cpp",
 				"python",
 				"c",
+				"cuda",
 				"lua",
 				"latex",
 				"bibtex",
