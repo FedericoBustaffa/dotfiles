@@ -1,5 +1,5 @@
 Language: Cpp
-BasedOnStyle: Google
+BasedOnStyle: Microsoft
 IndentWidth: 4
 UseTab: Never
 TabWidth: 8
@@ -14,4 +14,3 @@ AllowShortLoopsOnASingleLine: false
 AllowShortBlocksOnASingleLine: false
 AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakTemplateDeclarations: true
-NamespaceIndentetion: All
