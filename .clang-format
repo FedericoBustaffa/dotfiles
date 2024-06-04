@@ -15,3 +15,4 @@ AllowShortBlocksOnASingleLine: false
 AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakTemplateDeclarations: true
 NamespaceIndentetion: All
+SortIncludes: false
