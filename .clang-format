@@ -1,12 +1,12 @@
 Language: Cpp
-BasedOnStyle: LLVM
+BasedOnStyle: Microsoft
 IndentWidth: 4
 UseTab: Never
 TabWidth: 8
 ColumnLimit: 99
 PointerAlignment: Right
 AccessModifierOffset: -2
-BreakBeforeBraces: Allman
+  # BreakBeforeBraces: Allmann
 DerivePointerAlignment: true
 AllowShortFunctionsOnASingleLine: true
 AllowShortIfStatementsOnASingleLine: false
@@ -14,5 +14,5 @@ AllowShortLoopsOnASingleLine: false
 AllowShortBlocksOnASingleLine: false
 AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakTemplateDeclarations: true
-NamespaceIndentetion: All
+  # NamespaceIndentetion: All
 SortIncludes: false
