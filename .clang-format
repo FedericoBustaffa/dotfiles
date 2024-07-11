@@ -1,5 +1,5 @@
 Language: Cpp
-BasedOnStyle: Microsoft
+BasedOnStyle: LLVM
 IndentWidth: 4
 UseTab: Never
 TabWidth: 8
