@@ -1,12 +1,12 @@
 Language: Cpp
 BasedOnStyle: Microsoft
+UseTab: Always
+# TabWidth: 8
 IndentWidth: 4
-UseTab: Never
-TabWidth: 8
-ColumnLimit: 99
-PointerAlignment: Right
-AccessModifierOffset: -2
-  # BreakBeforeBraces: Allmann
+ColumnLimit: 100
+PointerAlignment: Left
+AccessModifierOffset: -4
+# BreakBeforeBraces: Allmann
 DerivePointerAlignment: true
 AllowShortFunctionsOnASingleLine: true
 AllowShortIfStatementsOnASingleLine: false
@@ -14,5 +14,6 @@ AllowShortLoopsOnASingleLine: false
 AllowShortBlocksOnASingleLine: false
 AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakTemplateDeclarations: true
-  # NamespaceIndentetion: All
+# NamespaceIndentetion: All
+# IndentNamespaces: true
 SortIncludes: false
