@@ -21,8 +21,8 @@ return {
                     "cmake",
                     "marksman",
                     "texlab",
-                    "hls",
                     "glsl_analyzer",
+                    -- "hls",
                 },
             })
         end,
