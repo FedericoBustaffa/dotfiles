@@ -18,7 +18,7 @@
       }
     }
   },
-  "vim_mode": false,
+  "vim_mode": true,
   "base_keymap": "VSCode",
   "assistant": {
     "default_model": {
