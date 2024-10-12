@@ -23,7 +23,13 @@
   {
     "context": "Editor && vim_mode == insert",
     "bindings": {
-      "j k": ["workspace::SendKeystrokes", "escape"]
+      "\\ space": ["workspace::SendKeystrokes", "escape"]
+    }
+  },
+  {
+    "context": "Editor && vim_mode == visual",
+    "bindings": {
+      "\\ space": ["workspace::SendKeystrokes", "escape"]
     }
   }
 ]
