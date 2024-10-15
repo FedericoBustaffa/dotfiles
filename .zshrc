@@ -112,6 +112,7 @@ alias py='python3.12'
 alias nv='nvim'
 alias reload='source .zshrc && source .p10k.zsh'
 alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions"
+alias bat="batcat"
 
 # alias ARM
 alias gcc-arm='arm-linux-gnueabihf-gcc -ggdb3 -static'
@@ -143,3 +144,6 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+EDITOR="nvim"
+
