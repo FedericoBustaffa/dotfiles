@@ -2,46 +2,41 @@
 
 # ---------- APT packages ----------
 apt_packages=(
-	snapd
+    snapd
     zsh-autosuggestions
     zsh-syntax-highlighting
-	zsh
-	clangd
+    zsh
+    clangd
+    libstdc++-12-dev
     xclip
     fzf
     pipx
-    openjdk-21-jdk
     cmake-format
     luarocks
     composer
-	git
-	htop
+    git
+    htop
     zoxide
-	cargo
-	tmux
-	neovim
+    cargo
+    tmux
+    neovim
     unzip
-	python3-pip
-	python3-venv
-	python3-pygments
-	neofetch
-	build-essential
-	stow
-	texlive-full
-	# i3
-	# polybar
-	ripgrep
-	fd-find
-	fswatch
-	cmake
-	curl
-	libdbus-1-dev
-	libglib2.0-dev
-	libcairo2-dev
-	gobject-introspection
-	libgirepository1.0-dev
-	libsystemd-dev
-	inkscape
+    python3-pip
+    python3-venv
+    python3-pygments
+    neofetch
+    build-essential
+    stow
+    # texlive-full
+    # i3
+    # polybar
+    ripgrep
+    fd-find
+    fswatch
+    cmake
+    curl
+    libsystemd-dev
+    inkscape
 )
 
 sudo apt update -y
