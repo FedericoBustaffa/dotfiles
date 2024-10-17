@@ -7,6 +7,7 @@ apt_packages=(
     zsh-syntax-highlighting
     zsh
     clangd
+    libstdc++-12-dev
     xclip
     fzf
     pipx
