@@ -25,7 +25,8 @@
     "bindings": {
       "space w": "workspace::Save",
       "space q": "pane::CloseActiveItem",
-      "space f f": "file_finder::Toggle"
+      "space f f": "file_finder::Toggle",
+      "g d": "editor::GoToDefinition"
     }
   },
   {
@@ -36,12 +37,6 @@
   },
   {
     "context": "Editor && vim_mode == insert",
-    "bindings": {
-      "\\ space": ["workspace::SendKeystrokes", "escape"]
-    }
-  },
-  {
-    "context": "Editor && vim_mode == visual",
     "bindings": {
       "\\ space": ["workspace::SendKeystrokes", "escape"]
     }
