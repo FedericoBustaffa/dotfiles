@@ -113,6 +113,7 @@ alias nv='nvim'
 alias reload='source .zshrc && source .p10k.zsh'
 alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions"
 alias bat="batcat"
+alias jupyter="jupyter-lab . --no-browser"
 
 # alias ARM
 alias gcc-arm='arm-linux-gnueabihf-gcc -ggdb3 -static'
