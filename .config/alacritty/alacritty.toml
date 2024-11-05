@@ -1,5 +1,3 @@
-import = ["~/.config/alacritty/catppuccin-mocha.toml"]
-
 [cursor.style]
 blinking = "Always"
 shape = "Block"
@@ -27,4 +25,7 @@ opacity = 1.0
 [window.dimensions]
 columns = 100
 lines = 24
+
+[general]
+import = ["~/.config/alacritty/catppuccin-mocha.toml"]
 
