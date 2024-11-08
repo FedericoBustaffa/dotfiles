@@ -110,21 +110,13 @@ source $ZSH/oh-my-zsh.sh
 alias cls='clear'
 alias py='python3.12'
 alias nv='nvim'
-alias reload='source .zshrc && source .p10k.zsh'
 alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions"
 alias bat="batcat"
 alias jupyter="jupyter-lab . --no-browser"
 
-# alias ARM
-alias gcc-arm='arm-linux-gnueabihf-gcc -ggdb3 -static'
-alias objdump-arm='arm-linux-gnueabihf-objdump -d'
-
 export PATH=$PATH:$HOME/scripts/
-export PATH=$PATH:/usr/local/cuda/bin/
 export PATH=$PATH:$HOME/.local/bin/
 export PATH=$PATH:$HOME/.cargo/bin/
-export PATH=$PATH:$HOME/.ghcup/bin/
-export PATH=$PATH:$HOME/premake-core/bin/release/
 export PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin
 
 eval "$(tmuxifier init -)"
@@ -145,6 +137,3 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
-
-EDITOR="nvim"
-
