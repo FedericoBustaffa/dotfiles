@@ -7,13 +7,26 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "ssh_connections": [
+    {
+      "host": "sobigdatas01.isti.cnr.it",
+      "username": "fbustaffa",
+      "projects": [
+        {
+          "paths": [
+            "/home/fbustaffa/dev/thesis/src"
+          ]
+        }
+      ]
+    }
+  ],
   "terminal": {
     "font_family": "JetBrainsMono Nerd Font",
     "font_size": 15,
     "dock": "right",
     "detect_venv": {
       "on": {
-        "directories": [".env", "env", ".venv", "venv"],
+        "directories": [".env"],
         "activate_script": "default"
       }
     }
