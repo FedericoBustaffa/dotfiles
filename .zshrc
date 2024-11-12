@@ -1,6 +1,10 @@
+
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+
 eval "$(starship init zsh)"
 
 alias cls='clear'
+alias la="ls -a"
 alias py='python3'
 alias nv='nvim'
 alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions"
@@ -12,8 +16,8 @@ export PATH=$PATH:$HOME/.local/bin/
 export PATH=$PATH:$HOME/.cargo/bin/
 export PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin
 
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 eval "$(tmuxifier init -)"
 export EDITOR=nvim
