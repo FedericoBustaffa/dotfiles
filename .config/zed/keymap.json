@@ -21,12 +21,10 @@
     }
   },
   {
-    "context": "vim_mode == normal",
+    "context": "Editor && vim_mode == normal",
     "bindings": {
       "space w": "workspace::Save",
-      "space q": "pane::CloseActiveItem",
-      "space f f": "file_finder::Toggle",
-      "g d": "editor::GoToDefinition"
+      "space q": "pane::CloseActiveItem"
     }
   },
   {
