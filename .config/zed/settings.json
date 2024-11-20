@@ -13,9 +13,7 @@
       "username": "fbustaffa",
       "projects": [
         {
-          "paths": [
-            "/home/fbustaffa/dev/thesis/src"
-          ]
+          "paths": ["/home/fbustaffa/dev/thesis/src"]
         }
       ]
     }
