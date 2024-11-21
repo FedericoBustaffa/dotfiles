@@ -3,6 +3,7 @@
 # ---------- APT packages ----------
 apt_packages=(
     openssh-server
+    btop
     code
     npm
     snapd
