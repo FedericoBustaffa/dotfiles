@@ -2,7 +2,11 @@
 
 # ---------- APT packages ----------
 apt_packages=(
+    openssh-server
+    code
+    npm
     snapd
+    gnome-tweaks
     zsh-autosuggestions
     zsh-syntax-highlighting
     zsh
@@ -27,9 +31,7 @@ apt_packages=(
     neofetch
     build-essential
     stow
-    # texlive-full
-    # i3
-    # polybar
+    texlive-full
     ripgrep
     fd-find
     fswatch
