@@ -19,10 +19,25 @@
         },
         {
           "paths": [
+            "~/dev"
+          ]
+        },
+        {
+          "paths": [
+            "~/dev/explain"
+          ]
+        },
+        {
+          "paths": [
             "~/dev/ppga"
           ]
         }
       ]
+    },
+    {
+      "host": "sobigdatas01.isti.cnr.it",
+      "username": "fbustaffa",
+      "projects": []
     }
   ],
   "terminal": {
