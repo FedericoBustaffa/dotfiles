@@ -13,24 +13,16 @@
       "username": "fbustaffa",
       "projects": [
         {
-          "paths": [
-            "/home/fbustaffa/dev/thesis/src"
-          ]
+          "paths": ["/home/fbustaffa/dev/thesis/src"]
         },
         {
-          "paths": [
-            "~/dev"
-          ]
+          "paths": ["~/dev"]
         },
         {
-          "paths": [
-            "~/dev/explain"
-          ]
+          "paths": ["~/dev/explain"]
         },
         {
-          "paths": [
-            "~/dev/ppga"
-          ]
+          "paths": ["~/dev/ppga"]
         }
       ]
     },
