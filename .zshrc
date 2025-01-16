@@ -134,4 +134,5 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$PATH:$HOME/.rvm/bin"
 
 export TERM=xterm-256color
+export OVERLEAF_TOKEN="olp_3ZTcD7IqOv48ZGdSwKdtmUZOI18BK80OqRWn"
 
