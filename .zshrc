@@ -113,6 +113,7 @@ alias nv='nvim'
 alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions"
 alias bat="batcat"
 alias jupyter="jupyter-lab . --no-browser"
+alias nvcc="nvcc -arch=sm_35 -ccbin /usr/bin/gcc-10 -Wno-deprecated-gpu-targets"
 
 export PATH=$PATH:$HOME/scripts/
 export PATH=$PATH:$HOME/.local/bin/
@@ -136,3 +137,5 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export TERM=xterm-256color
 export OVERLEAF_TOKEN="olp_3ZTcD7IqOv48ZGdSwKdtmUZOI18BK80OqRWn"
 
+export PATH=/usr/local/cuda-11.4/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-11.4/lib64:$LD_LIBRARY_PATH

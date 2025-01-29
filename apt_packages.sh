@@ -4,7 +4,7 @@
 apt_packages=(
     openssh-server
     btop
-    code
+    # code
     npm
     snapd
     gnome-tweaks
