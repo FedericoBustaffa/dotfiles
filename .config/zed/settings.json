@@ -7,6 +7,9 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "features": {
+    "edit_prediction_provider": "zed"
+  },
   "ssh_connections": [
     {
       "host": "sobigdatas01.isti.cnr.it",
@@ -53,7 +56,7 @@
   "theme": {
     "mode": "system",
     "light": "Catppuccin Latte",
-    "dark": "VSCode Dark Modern"
+    "dark": "Catppuccin Mocha"
   },
   "languages": {
     "C++": {
