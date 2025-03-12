@@ -62,7 +62,7 @@
     "C++": {
       "language_servers": ["clangd"],
       "format_on_save": "on",
-      "extra_clang_arguments": ["-std=c++20"]
+      "extra_clang_arguments": ["-std=c++17"]
     },
     "C": {
       "language_servers": ["clangd"],
