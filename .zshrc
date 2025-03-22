@@ -119,6 +119,9 @@ export PATH=$PATH:$HOME/scripts/
 export PATH=$PATH:$HOME/.local/bin/
 export PATH=$PATH:$HOME/.cargo/bin/
 export PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin
+export PATH=/usr/local/cuda-11.4/bin:$PATH
+
+export LD_LIBRARY_PATH=/usr/local/cuda-11.4/lib64:$LD_LIBRARY_PATH
 
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -137,5 +140,3 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export TERM=xterm-256color
 export OVERLEAF_TOKEN="olp_3ZTcD7IqOv48ZGdSwKdtmUZOI18BK80OqRWn"
 
-export PATH=/usr/local/cuda-11.4/bin:$PATH
-export LD_LIBRARY_PATH=/usr/local/cuda-11.4/lib64:$LD_LIBRARY_PATH
