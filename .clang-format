@@ -8,7 +8,7 @@ PointerAlignment: Left
 AccessModifierOffset: -4
 # BreakBeforeBraces: Allmann
 DerivePointerAlignment: true
-AllowShortFunctionsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: false
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
 AllowShortBlocksOnASingleLine: false
