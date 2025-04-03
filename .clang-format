@@ -23,8 +23,8 @@ AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: false
 AlwaysBreakTemplateDeclarations: true
-BreakBeforeFunctionDeclarationName: Always
-BreakBeforeFunctionDefinitionName: Always
+# BreakBeforeFunctionDeclarationName: Always
+# BreakBeforeFunctionDefinitionName: Always
 AttributeMacros:
   - __capability
 BinPackArguments: true
