@@ -20,9 +20,11 @@ AllowShortLambdasOnASingleLine: All
 AllowShortIfStatementsOnASingleLine: Never
 AllowShortLoopsOnASingleLine: false
 AlwaysBreakAfterDefinitionReturnType: None
-AlwaysBreakAfterReturnType: None
+AlwaysBreakAfterReturnType: TopLevelDefinitions
 AlwaysBreakBeforeMultilineStrings: false
-AlwaysBreakTemplateDeclarations: MultiLine
+AlwaysBreakTemplateDeclarations: true
+BreakBeforeFunctionDeclarationName: Always
+BreakBeforeFunctionDefinitionName: Always
 AttributeMacros:
   - __capability
 BinPackArguments: true
@@ -56,7 +58,7 @@ BreakConstructorInitializersBeforeComma: false
 BreakConstructorInitializers: BeforeColon
 BreakAfterJavaFieldAnnotations: false
 BreakStringLiterals: true
-ColumnLimit: 120
+ColumnLimit: 80
 CommentPragmas: "^ IWYU pragma:"
 QualifierAlignment: Leave
 CompactNamespaces: false
