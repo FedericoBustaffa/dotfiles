@@ -1,0 +1,42 @@
+return {
+    {
+        'nvim-telescope/telescope.nvim',
+        tag = '0.1.8',
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            { "nvim-telescope/telescope-fzf-native.nvim", build = "make" }
+        },
+        config = function()
+            require('telescope').setup({
+                pickers = {
+                    find_files = {
+                        -- theme = "ivy"
+                    }
+                },
+                extensions = {
+                    fzf = {}
+                }
+            })
+
+            -- enable fzf
+            require("telescope").load_extension("fzf")
+
+            -- Key Bindings
+            local builtin = require("telescope.builtin")
+            vim.keymap.set("n", "<leader>sf", builtin.find_files)
+            vim.keymap.set("n", "<leader>en", function()
+                require("telescope.builtin").find_files {
+                    cwd = vim.fn.stdpath("config")
+                }
+            end)
+            vim.keymap.set("n", "<leader>sb", builtin.buffers)
+            vim.keymap.set("n", "<leader>sg", builtin.live_grep)
+            vim.keymap.set("n", "<leader>sh", builtin.help_tags)
+
+            -- LSP telescope
+            vim.keymap.set("n", "da", builtin.diagnostics)
+            vim.keymap.set("n", "gd", builtin.lsp_definitions)
+            vim.keymap.set("n", "gi", builtin.lsp_implementations)
+        end
+    }
+}
