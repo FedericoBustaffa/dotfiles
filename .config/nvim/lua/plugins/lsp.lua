@@ -18,9 +18,12 @@ return {
         'stylua',
         'black',
         'isort',
+        'cpplint',
+        'ruff',
         'clang-format',
         'beautysh',
         'checkmake',
+        'biome',
       }
 
       for _, tool in ipairs(tools) do
@@ -39,7 +42,9 @@ return {
           'lua_ls',
           'clangd',
           'pyright',
+          'pylsp',
           'bashls',
+          'biome',
         },
         automatic_installation = true,
       }
@@ -63,8 +68,9 @@ return {
     },
     config = function()
       local capabilities = require('blink.cmp').get_lsp_capabilities()
-      require('lspconfig').lua_ls.setup { capabilities = capabilities }
-      require('lspconfig').clangd.setup {
+      local lspconfig = require 'lspconfig'
+      lspconfig.lua_ls.setup { capabilities = capabilities }
+      lspconfig.clangd.setup {
         capabilities = capabilities,
         cmd = {
           'clangd',
@@ -74,7 +80,7 @@ return {
           '--header-insertion=never',
         },
       }
-      require('lspconfig').pyright.setup {
+      lspconfig.pyright.setup {
         capabilities = capabilities,
         settings = {
           python = {
@@ -86,6 +92,7 @@ return {
           },
         },
       }
+      lspconfig.biome.setup { capabilities = capabilities }
     end,
   },
 }

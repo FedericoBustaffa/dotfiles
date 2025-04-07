@@ -7,10 +7,15 @@ return {
           lua = { 'stylua' },
           python = { 'isort', 'black' },
           cpp = { 'clang-format' },
+          json = { 'biome' },
         },
         format_on_save = {
           lsp_fallback = true,
           timeout_ms = 1000,
+        },
+        linters = {
+          cpp = { 'cpplint' },
+          python = { 'ruff' },
         },
       }
       vim.api.nvim_create_autocmd('LspAttach', {

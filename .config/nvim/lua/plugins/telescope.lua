@@ -10,9 +10,10 @@ return {
     config = function()
       require('telescope').setup {
         pickers = {
-          -- find_files = {
-          --   theme = 'default',
-          -- },
+          find_files = {
+            -- theme = 'default',
+            hidden = true,
+          },
           -- diagnostics = {
           --   theme = 'default',
           -- },
