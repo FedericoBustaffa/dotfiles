@@ -1,11 +1,7 @@
 \.git
 settings.json
 
-packages.sh
-apt_packages.sh
-pip_packages.sh
-npm_packages.sh
-cargo_packages.sh
-snap_packages.sh
+install.sh
+uninstall.sh
 
 .gitignore

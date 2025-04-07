@@ -4,6 +4,8 @@
 # on Debian based distros
 #
 # ---------- APT packages ----------
+sudo apt purge nodejs # remove too old package
+
 apt_packages=(
     openssh-server
     btop
@@ -13,6 +15,7 @@ apt_packages=(
     gnome-tweaks
     zsh-autosuggestions
     zsh-syntax-highlighting
+    kitty
     zsh
     clangd
     clang-format
@@ -67,19 +70,21 @@ sudo apt install ${apt_packages[@]}
 
 
 # --------- NPM packages -----------
-# curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-# source ~/.zshrc
-# nvm install lts/iron
-# npm install -g neovim
-# npm fund
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+source ~/.zshrc
+nvm install lts/iron
+npm install -g neovim
+npm fund
 
 # --------- Repositories ---------
 # Install tmux TPM
-read -p "do you want to install tmux tpm? [y/N]: " install
-install=${install:-n}
-install=${install,,}
-if [ $install == "y" ]; then
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+if [ ! -d "~/.tmux/plugins/tpm" ]; then
+    read -p "do you want to install tmux tpm? [y/N]: " install
+    install=${install:-n}
+    install=${install,,}
+    if [ $install == "y" ]; then
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    fi
 fi
 
 # Install Neovim from source
@@ -88,7 +93,7 @@ install=${install:-n}
 install=${install,,}
 if [ $install == "y" ]; then
     git clone -b v0.11.0 https://github.com/neovim/neovim.git ~/neovim/
-    cd neovim
+    cd ~/neovim
     make -j CMAKE_BUILD_TYPE=RelWithDebInfo
     sudo make install
     cd
