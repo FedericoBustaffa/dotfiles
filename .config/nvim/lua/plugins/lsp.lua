@@ -18,7 +18,6 @@ return {
         'stylua',
         'black',
         'isort',
-        'cpplint',
         'ruff',
         'clang-format',
         'beautysh',

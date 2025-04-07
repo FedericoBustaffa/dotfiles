@@ -8,13 +8,14 @@ return {
           python = { 'isort', 'black' },
           cpp = { 'clang-format' },
           json = { 'biome' },
+          sh = { 'beautysh' },
+          bash = { 'beautysh' },
         },
         format_on_save = {
           lsp_fallback = true,
           timeout_ms = 1000,
         },
         linters = {
-          cpp = { 'cpplint' },
           python = { 'ruff' },
         },
       }
