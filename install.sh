@@ -2,7 +2,7 @@
 
 # Install script for most used packages
 # on Debian based distros
-
+#
 # ---------- APT packages ----------
 apt_packages=(
     openssh-server
@@ -56,12 +56,13 @@ sudo apt autoclean
 
 sudo apt install ${apt_packages[@]}
 
+
 # --------- NPM packages -----------
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-source ~/.zshrc
-nvm install lts/iron
-npm install -g neovim
-npm fund
+# curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+# source ~/.zshrc
+# nvm install lts/iron
+# npm install -g neovim
+# npm fund
 
 # --------- Repositories ---------
 # Install tmux TPM
@@ -90,4 +91,11 @@ install=${install:-n}
 install=${install,,}
 if [ $install == "y" ]; then
     curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+fi
+
+read -p "do you want to install starship? [y/N]: " install
+install=${install:-n}
+install=${install,,}
+if [ $install == "y" ]; then
+    curl -sS https://starship.rs/install.sh | sh
 fi
