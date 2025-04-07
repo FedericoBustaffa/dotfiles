@@ -24,16 +24,25 @@ apt_packages=(
     pipx
     cmake-format
     luarocks
+    lua5.1
+    liblua5.1-0-dev
+    gettext
     composer
     git
     htop
     zoxide
     cargo
     tmux
+    tree
+    hwloc
+    libfmt-dev
     unzip
     python3-pip
     python3-venv
     python3-pygments
+    python3-nbconvert
+    pandoc
+    bat
     neofetch
     build-essential
     stow
