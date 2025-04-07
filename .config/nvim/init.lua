@@ -15,12 +15,18 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.keymap.set('n', '<space><space>x', '<cmd>source %<CR>')
+
 require 'keymaps'
 require 'options'
 
 require('lazy').setup {
   spec = {
     { import = 'plugins' },
+  },
+  change_detection = {
+    enable = true,
+    notify = false,
   },
 }
 

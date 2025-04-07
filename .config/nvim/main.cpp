@@ -1,8 +1,9 @@
 #include <cstdio>
 
-int main(int argc, char **argv)
+int main(int argc, const char **argv)
 {
-    std::printf("cfiao\n");
+    const char *s = "Hello World";
+    std::printf("%s\n", s);
 
     return 0;
 }
