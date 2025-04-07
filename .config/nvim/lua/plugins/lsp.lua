@@ -46,13 +46,32 @@ return {
     'williamboman/mason.nvim',
     config = function()
       require('mason').setup {
-        ensure_installed = {
-          'lua-language-server',
-          'clang-format',
-          'black',
-          'isor',
+        ui = {
+          icons = {
+            package_installed = '✓',
+            package_pending = '➜',
+            package_uninstalled = '✗',
+          },
         },
       }
+
+      -- install tools se non presenti
+      local mason_registry = require 'mason-registry'
+      local tools = {
+        'stylua',
+        'black',
+        'isort',
+        'clang-format',
+        'beautysh',
+        'checkmake',
+      }
+
+      for _, tool in ipairs(tools) do
+        local p = mason_registry.get_package(tool)
+        if not p:is_installed() then
+          p:install()
+        end
+      end
     end,
   },
   {
@@ -60,8 +79,10 @@ return {
     config = function()
       require('mason-lspconfig').setup {
         ensure_installed = {
+          'lua_ls',
           'clangd',
           'pyright',
+          'bashls',
         },
         automatic_installation = true,
       }

@@ -35,7 +35,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 vim.diagnostic.config {
   virtual_text = {
-    prefix = '●', -- puoi usare anche "●", "▶", "»", "→", "■", etc.
+    prefix = '●',
     spacing = 2,
   },
   signs = true,

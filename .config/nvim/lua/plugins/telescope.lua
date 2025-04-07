@@ -5,6 +5,7 @@ return {
     dependencies = {
       'nvim-lua/plenary.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+      { 'nvim-telescope/telescope-ui-select.nvim' },
     },
     config = function()
       require('telescope').setup {
@@ -18,11 +19,15 @@ return {
         },
         extensions = {
           fzf = {},
+          ['ui-select'] = {
+            require('telescope.themes').get_dropdown {},
+          },
         },
       }
 
       -- enable fzf
       require('telescope').load_extension 'fzf'
+      require('telescope').load_extension 'ui-select'
 
       -- Key Bindings
       local builtin = require 'telescope.builtin'
