@@ -1,5 +1,12 @@
 #!/bin/bash
 
+read -p "are you sure you want to uninstall all the packages? [y/N]: " choice
+choice=${choice:-n}
+choice=${choice,,}
+if [ $choice == "n" ]; then
+    exit 0
+fi
+
 # ---------- APT packages ----------
 apt_packages=(
     openssh-server
@@ -12,6 +19,7 @@ apt_packages=(
     zsh-syntax-highlighting
     zsh
     clangd
+    clang-format
     libstdc++-12-dev
     bear
     valgrind
@@ -26,7 +34,6 @@ apt_packages=(
     zoxide
     cargo
     tmux
-    neovim
     unzip
     python3-pip
     python3-venv
@@ -34,7 +41,9 @@ apt_packages=(
     neofetch
     build-essential
     stow
-    texlive-full
+    # texlive-full
+    eza
+    tree-sitter-cli
     ripgrep
     fd-find
     fswatch
@@ -44,20 +53,9 @@ apt_packages=(
     inkscape
 )
 
+sudo apt purge ${apt_packages[@]}
+
 sudo apt update -y
 sudo apt upgrade -y
 sudo apt autoremove -y
 sudo apt autoclean
-
-sudo apt install ${apt_packages[@]}
-
-# --------- Repositories ---------
-# git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-# chsh -s $(which zsh)
-
-# curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-
-# git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-
-# source ~/.zshrc
