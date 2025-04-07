@@ -4,22 +4,6 @@ return {
     name = 'catppuccin',
     lazy = false,
     priority = 1000,
-    config = function()
-      require('catppuccin').setup {
-        flavour = 'mocha',
-        transparent_background = true,
-        integrations = {
-          -- tutto quello che usi, per esempio:
-          cmp = true,
-          gitsigns = true,
-          telescope = true,
-          treesitter = true,
-          native_lsp = {
-            enabled = true,
-          },
-        },
-      }
-    end,
   },
   {
     'folke/tokyonight.nvim',
