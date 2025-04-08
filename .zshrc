@@ -109,7 +109,6 @@ eval "$(starship init zsh)"
 alias cls='clear'
 alias la="ls -a"
 alias py='python3'
-alias nv='nvim'
 alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions"
 alias bat="batcat"
 alias jupyter="jupyter-lab . --no-browser"
