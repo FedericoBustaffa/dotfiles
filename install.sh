@@ -71,7 +71,6 @@ sudo apt install ${apt_packages[@]}
 
 # --------- NPM packages -----------
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-source ~/.zshrc
 nvm install lts/iron
 npm install -g neovim
 npm fund
@@ -100,7 +99,7 @@ if [ $install == "y" ]; then
 fi
 
 # ZSH stuff
-read -p "do you want to install zsh as default shell? [y/N]: " install
+read -p "do you want to install Oh My Zsh for zsh? [y/N]: " install
 install=${install:-n}
 install=${install,,}
 if [ $install == "y" ]; then
