@@ -25,8 +25,19 @@ vim.g.maplocalleader = '\\'
 -- Setup lazy.nvim
 require('lazy').setup {
   spec = {
-    -- import your plugins
-    { import = 'plugins' },
+    require 'plugins.autopairs',
+    require 'plugins.colorschemes',
+    require 'plugins.completions',
+    require 'plugins.explorer',
+    require 'plugins.format',
+    require 'plugins.git',
+    require 'plugins.greeter',
+    require 'plugins.indentline',
+    require 'plugins.lsp',
+    require 'plugins.mini',
+    require 'plugins.statusline',
+    require 'plugins.telescope',
+    require 'plugins.tree-sitter',
   },
   -- automatically check for plugin updates
   checker = {

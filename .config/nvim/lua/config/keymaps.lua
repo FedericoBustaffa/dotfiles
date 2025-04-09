@@ -42,8 +42,8 @@ vim.keymap.set('v', '<A-j>', ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=g
 vim.keymap.set('v', '<A-k>', ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = 'Move Up' })
 
 -- Buffers
-vim.keymap.set('n', 'bp', '<cmd>bprevious<cr>', { desc = 'Prev Buffer' })
-vim.keymap.set('n', 'bn', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
+vim.keymap.set('n', '<leader>p', '<cmd>bprevious<cr>', { desc = 'Prev Buffer' })
+vim.keymap.set('n', '<leader>b', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
 
 -- Lazy
 vim.keymap.set('n', '<leader>L', ':Lazy<CR>', { desc = 'Open Lazy' })
