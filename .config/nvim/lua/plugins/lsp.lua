@@ -1,18 +1,6 @@
 return {
   {
     'williamboman/mason.nvim',
-    opts = {
-      ensure_installed = {
-        'stylua',
-        'black',
-        'isort',
-        'ruff',
-        'clang-format',
-        'beautysh',
-        'checkmake',
-        'biome',
-      },
-    },
     ui = {
       icons = {
         package_installed = '✓',
@@ -20,27 +8,36 @@ return {
         package_uninstalled = '✗',
       },
     },
+    opts = {},
   },
   {
-    'williamboman/mason-lspconfig.nvim',
-    config = function()
-      require('mason-lspconfig').setup {
-        ensure_installed = {
-          'lua_ls',
-          'clangd',
-          'pyright',
-          'pylsp',
-          'bashls',
-          'biome',
-        },
-        automatic_installation = true,
-      }
-    end,
+    'WhoIsSethDaniel/mason-tool-installer.nvim',
+    dependencies = { 'mason.nvim' },
+    lazy = false,
+    opts = {
+      ensure_installed = {
+        -- LUA
+        'lua-language-server',
+        'stylua',
+        -- C/C++
+        'clangd',
+        'clang-format',
+        -- Python
+        'python-lsp-server',
+        'ruff',
+        -- Bash
+        'bash-language-server',
+        'beautysh',
+        -- Json
+        'biome',
+      },
+      run_on_start = true,
+    },
   },
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      'saghen/blink.cmp',
+      { 'williamboman/mason.nvim' },
       {
         'folke/lazydev.nvim',
         ft = 'lua', -- only load on lua files
@@ -54,11 +51,10 @@ return {
       },
     },
     config = function()
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
       local lspconfig = require 'lspconfig'
-      lspconfig.lua_ls.setup { capabilities = capabilities }
+
+      lspconfig.lua_ls.setup {}
       lspconfig.clangd.setup {
-        capabilities = capabilities,
         cmd = {
           'clangd',
           '--clang-tidy',
@@ -67,19 +63,8 @@ return {
           '--header-insertion=never',
         },
       }
-      lspconfig.pyright.setup {
-        capabilities = capabilities,
-        settings = {
-          python = {
-            analysis = {
-              typeCheckingMode = 'basic', -- oppure "strict"
-              autoSearchPaths = true,
-              useLibraryCodeForTypes = true,
-            },
-          },
-        },
-      }
-      lspconfig.biome.setup { capabilities = capabilities }
+      lspconfig.biome.setup {}
+      lspconfig.pylsp.setup {}
     end,
   },
 }

@@ -1,26 +1,23 @@
 return {
-    {
-        "goolord/alpha-nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        config = function()
-            local alpha = require("alpha")
-            local dashboard = require("alpha.themes.dashboard")
-
-            -- Footer dinamico con tempo di avvio e plugin caricati
-            local function footer()
-                local stats = require("lazy").stats()
-                local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-                return "⚡ Loaded "
-                    .. stats.loaded .. "/" .. stats.count
-                    .. " plugins in "
-                    .. ms
-                    .. "ms"
-            end
-
-            dashboard.section.footer.val = footer()
-            dashboard.section.footer.opts.hl = "Comment"
-
-            alpha.setup(dashboard.config)
-        end,
-    }
+  -- {
+  --   'goolord/alpha-nvim',
+  --   enabled = false,
+  --   dependencies = { 'nvim-tree/nvim-web-devicons' },
+  --   config = function()
+  --     local alpha = require 'alpha'
+  --     local dashboard = require 'alpha.themes.dashboard'
+  --
+  --     -- Footer dinamico con tempo di avvio e plugin caricati
+  --     local function footer()
+  --       local stats = require('lazy').stats()
+  --       local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+  --       return '⚡ Loaded ' .. stats.loaded .. '/' .. stats.count .. ' plugins in ' .. ms .. 'ms'
+  --     end
+  --
+  --     dashboard.section.footer.val = footer()
+  --     dashboard.section.footer.opts.hl = 'Comment'
+  --
+  --     alpha.setup(dashboard.config)
+  --   end,
+  -- }
 }

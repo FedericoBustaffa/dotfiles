@@ -13,6 +13,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     os.exit(1)
   end
 end
+
 vim.opt.rtp:prepend(lazypath)
 
 -- Make sure to setup `mapleader` and `maplocalleader` before
@@ -27,9 +28,16 @@ require('lazy').setup {
     -- import your plugins
     { import = 'plugins' },
   },
-  -- Configure any other settings here. See the documentation for more details.
-  -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = { 'habamax' } },
   -- automatically check for plugin updates
-  checker = { enabled = true },
+  checker = {
+    -- automatically check for plugin updates
+    enabled = true,
+    notify = true, -- get a notification when new updates are found
+    frequency = 3600, -- check for updates every hour
+    check_pinned = false, -- check for pinned packages that can't be updated
+  },
+  change_detection = {
+    enabled = false,
+    notify = false,
+  },
 }

@@ -1,22 +1,22 @@
 return {
   {
     'stevearc/conform.nvim',
+    dependecies = { 'mason.nvim' },
     config = function()
       require('conform').setup {
-        formatters_by_ft = {
+        formatters_by_ft = { -- specify the extension
           lua = { 'stylua' },
-          python = { 'isort', 'black' },
+          c = { 'clang-format' },
           cpp = { 'clang-format' },
+          py = { 'ruff' },
           json = { 'biome' },
           sh = { 'beautysh' },
           bash = { 'beautysh' },
+          zsh = { 'beautysh' },
         },
         format_on_save = {
           lsp_fallback = true,
           timeout_ms = 1000,
-        },
-        linters = {
-          python = { 'ruff' },
         },
       }
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -30,7 +30,6 @@ return {
             vim.api.nvim_create_autocmd('BufWritePre', {
               buffer = args.buf,
               callback = function()
-                -- vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
                 require('conform').format { bufnr = args.buf, id = client.id }
               end,
             })

@@ -25,7 +25,7 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 vim.opt.updatetime = 250
-vim.opt.timeoutlen = 300
+vim.opt.timeoutlen = 1000
 vim.opt.completeopt = { 'menuone', 'noselect', 'popup' }
 
 vim.opt.showmode = false

@@ -46,7 +46,8 @@ vim.keymap.set('n', 'bp', '<cmd>bprevious<cr>', { desc = 'Prev Buffer' })
 vim.keymap.set('n', 'bn', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
 
 -- Lazy
-vim.keymap.set('n', '<leader>L', ':Lazy<CR>')
+vim.keymap.set('n', '<leader>L', ':Lazy<CR>', { desc = 'Open Lazy' })
+vim.keymap.set('n', '<leader>M', ':Mason<CR>', { desc = 'Open Mason' })
 
 -- Source current file
 vim.keymap.set('n', '<space><space>x', '<cmd>source %<CR>')
