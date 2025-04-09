@@ -1,20 +1,8 @@
 return {
   {
     'williamboman/mason.nvim',
-    config = function()
-      require('mason').setup {
-        ui = {
-          icons = {
-            package_installed = '✓',
-            package_pending = '➜',
-            package_uninstalled = '✗',
-          },
-        },
-      }
-
-      -- install tools se non presenti
-      local mason_registry = require 'mason-registry'
-      local tools = {
+    opts = {
+      ensure_installed = {
         'stylua',
         'black',
         'isort',
@@ -23,15 +11,15 @@ return {
         'beautysh',
         'checkmake',
         'biome',
-      }
-
-      for _, tool in ipairs(tools) do
-        local p = mason_registry.get_package(tool)
-        if not p:is_installed() then
-          p:install()
-        end
-      end
-    end,
+      },
+    },
+    ui = {
+      icons = {
+        package_installed = '✓',
+        package_pending = '➜',
+        package_uninstalled = '✗',
+      },
+    },
   },
   {
     'williamboman/mason-lspconfig.nvim',

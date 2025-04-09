@@ -1,53 +1,23 @@
--- Setup plugin manager Lazy
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-  local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { 'Failed to clone lazy.nvim:\n', 'ErrorMsg' },
-      { out, 'WarningMsg' },
-      { '\nPress any key to exit...' },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
-end
-vim.opt.rtp:prepend(lazypath)
-
-vim.keymap.set('n', '<space><space>x', '<cmd>source %<CR>')
-
-require 'keymaps'
-require 'options'
-
-require('lazy').setup {
-  spec = {
-    { import = 'plugins' },
-  },
-  change_detection = {
-    enable = true,
-    notify = false,
-  },
-}
+require 'config.lazy'
+require 'config.options'
+require 'config.keymaps'
 
 -- highlight the yanked text
 vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking text',
-  group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+    desc = 'Highlight when yanking text',
+    group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
+    callback = function()
+        vim.highlight.on_yank()
+    end,
 })
 
 vim.diagnostic.config {
-  virtual_text = {
-    prefix = '●',
-    spacing = 2,
-  },
-  signs = true,
-  underline = true,
-  update_in_insert = false,
-  severity_sort = true,
+    virtual_text = {
+        prefix = '●',
+        spacing = 2,
+    },
+    signs = true,
+    underline = true,
+    update_in_insert = false,
+    severity_sort = true,
 }
-
-vim.cmd.colorscheme 'catppuccin'
