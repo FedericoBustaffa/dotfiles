@@ -11,44 +11,35 @@ return {
     opts = {},
   },
   {
-    'WhoIsSethDaniel/mason-tool-installer.nvim',
-    dependencies = { 'mason.nvim' },
-    lazy = false,
+    'williamboman/mason-lspconfig',
+    dependencies = { 'williamboman/mason.nvim' },
     opts = {
       ensure_installed = {
-        -- LUA
-        'lua-language-server',
-        'stylua',
-        -- C/C++
+        'lua_ls',
         'clangd',
-        'clang-format',
-        -- Python
-        'python-lsp-server',
+        'pylsp',
         'ruff',
-        -- Bash
-        'bash-language-server',
-        'beautysh',
-        -- Json
+        'bashls',
         'biome',
       },
-      run_on_start = true,
+    },
+  },
+  {
+    'folke/lazydev.nvim',
+    dependencies = {
+      'williamboman/mason-lspconfig',
+    },
+    ft = 'lua', -- only load on lua files
+    opts = {
+      library = {
+        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+      },
     },
   },
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'williamboman/mason.nvim' },
-      {
-        'folke/lazydev.nvim',
-        ft = 'lua', -- only load on lua files
-        opts = {
-          library = {
-            -- See the configuration section for more details
-            -- Load luvit types when the `vim.uv` word is found
-            { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-          },
-        },
-      },
+      'folke/lazydev.nvim',
     },
     config = function()
       local lspconfig = require 'lspconfig'

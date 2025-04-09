@@ -1,7 +1,30 @@
 return {
   {
+    'nvimtools/none-ls.nvim',
+    config = function()
+      require('null-ls').setup {}
+    end,
+  },
+  {
+    'jay-babu/mason-null-ls.nvim',
+    dependecies = {
+      'williamboman/mason.nvim',
+      'nvimtools/none-ls.nvim',
+    },
+    config = function()
+      require('mason-null-ls').setup {
+        ensure_installed = {
+          'stylua',
+          'clang-format',
+          'beautysh',
+        },
+        automatic_installation = true,
+      }
+    end,
+  },
+  {
     'stevearc/conform.nvim',
-    dependecies = { 'mason.nvim' },
+    dependecies = { 'nvimtools/none-ls.nvim' },
     config = function()
       require('conform').setup {
         formatters_by_ft = { -- specify the extension
