@@ -1,6 +1,7 @@
 return {
   {
     'williamboman/mason.nvim',
+    lazy = false,
     ui = {
       icons = {
         package_installed = '✓',
@@ -8,10 +9,13 @@ return {
         package_uninstalled = '✗',
       },
     },
-    opts = {},
+    config = function()
+      require('mason').setup {}
+    end,
   },
   {
     'williamboman/mason-lspconfig',
+    lazy = false,
     dependencies = { 'williamboman/mason.nvim' },
     opts = {
       ensure_installed = {
@@ -22,19 +26,7 @@ return {
         'bashls',
         'biome',
       },
-    },
-  },
-  {
-    'folke/lazydev.nvim',
-    dependencies = {
-      'williamboman/mason-lspconfig',
-      'neovim/nvim-lspconfig',
-    },
-    ft = 'lua',
-    opts = {
-      library = {
-        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-      },
+      automatic_installation = true,
     },
   },
   {
@@ -42,27 +34,51 @@ return {
     dependencies = {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig',
-      'folke/lazydev.nvim',
+      {
+        'folke/lazydev.nvim',
+        ft = 'lua',
+        opts = {
+          library = {
+            { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+          },
+        },
+      },
       'saghen/blink.cmp',
     },
     config = function()
+      local mason_lspconfig = require 'mason-lspconfig'
       local lspconfig = require 'lspconfig'
       local blink = require 'blink.cmp'
 
-      blink.get_lsp_capabilities()
-
-      lspconfig.lua_ls.setup {}
-      lspconfig.clangd.setup {
-        cmd = {
-          'clangd',
-          '--clang-tidy',
-          '--background-index',
-          '--completion-style=detailed',
-          '--header-insertion=never',
-        },
+      local capabilities = blink.get_lsp_capabilities()
+      mason_lspconfig.setup_handlers {
+        function(server_name)
+          lspconfig[server_name].setup {
+            capabilities = capabilities,
+          }
+        end,
+        ['lua_ls'] = function()
+          lspconfig.lua_ls.setup { capabilities = capabilities }
+        end,
+        ['clangd'] = function()
+          lspconfig.clangd.setup {
+            capabilities = capabilities,
+            cmd = {
+              'clangd',
+              '--clang-tidy',
+              '--background-index',
+              '--completion-style=detailed',
+              '--header-insertion=never',
+            },
+          }
+        end,
+        ['pylsp'] = function()
+          lspconfig.pylsp.setup { capabilities = capabilities }
+        end,
+        ['biome'] = function()
+          lspconfig.biome.setup { capabilities = capabilities }
+        end,
       }
-      lspconfig.biome.setup {}
-      lspconfig.pylsp.setup {}
     end,
   },
 }
