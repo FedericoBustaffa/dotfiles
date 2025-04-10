@@ -28,8 +28,9 @@ return {
     'folke/lazydev.nvim',
     dependencies = {
       'williamboman/mason-lspconfig',
+      'neovim/nvim-lspconfig',
     },
-    ft = 'lua', -- only load on lua files
+    ft = 'lua',
     opts = {
       library = {
         { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
@@ -39,10 +40,16 @@ return {
   {
     'neovim/nvim-lspconfig',
     dependencies = {
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig',
       'folke/lazydev.nvim',
+      'saghen/blink.cmp',
     },
     config = function()
       local lspconfig = require 'lspconfig'
+      local blink = require 'blink.cmp'
+
+      blink.get_lsp_capabilities()
 
       lspconfig.lua_ls.setup {}
       lspconfig.clangd.setup {
