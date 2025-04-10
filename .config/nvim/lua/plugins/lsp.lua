@@ -21,6 +21,7 @@ return {
       ensure_installed = {
         'lua_ls',
         'clangd',
+        'cmake',
         'pylsp',
         'ruff',
         'bashls',
@@ -71,6 +72,9 @@ return {
               '--header-insertion=never',
             },
           }
+        end,
+        ['cmake'] = function()
+          lspconfig.cmake.setup { capabilities = capabilities }
         end,
         ['pylsp'] = function()
           lspconfig.pylsp.setup { capabilities = capabilities }

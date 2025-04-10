@@ -17,6 +17,7 @@ return {
           'stylua',
           'clang-format',
           'beautysh',
+          'cmakelang',
         },
         automatic_installation = true,
       }
