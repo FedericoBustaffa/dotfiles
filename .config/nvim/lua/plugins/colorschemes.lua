@@ -1,7 +1,7 @@
 return {
   {
     'catppuccin/nvim',
-    name = "catppuccin",
+    name = 'catppuccin',
     lazy = false,
     priority = 1000,
   },
@@ -12,7 +12,7 @@ return {
   },
   {
     'rose-pine/neovim',
-    name = "rose-pine",
+    name = 'rose-pine',
     lazy = false,
     priority = 1000,
   },

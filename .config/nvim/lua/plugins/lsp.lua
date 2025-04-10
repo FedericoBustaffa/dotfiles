@@ -73,6 +73,9 @@ return {
             },
           }
         end,
+        ['cmake'] = function()
+          lspconfig.cmake.setup { capabilities = capabilities }
+        end,
         ['pylsp'] = function()
           lspconfig.pylsp.setup { capabilities = capabilities }
         end,

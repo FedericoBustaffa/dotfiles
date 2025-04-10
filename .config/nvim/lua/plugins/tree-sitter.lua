@@ -5,15 +5,12 @@ return {
   opts = {
     ensure_installed = {
       'bash',
-      'c',
-      'cpp',
-      'make',
-      'cmake',
-      'python',
+      'doxygen',
+      'query',
       'lua',
+      'luadoc',
       'vim',
       'vimdoc',
-      'json',
     },
     auto_install = true,
     highlight = { enable = true },
