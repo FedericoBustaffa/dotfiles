@@ -21,6 +21,7 @@ return {
       ensure_installed = {
         'lua_ls',
         'clangd',
+        'cmake',
         'pylsp',
         'ruff',
         'bashls',
@@ -77,6 +78,9 @@ return {
         end,
         ['biome'] = function()
           lspconfig.biome.setup { capabilities = capabilities }
+        end,
+        ['cmake'] = function()
+          lspconfig.cmake.setup { capabilities = capabilities }
         end,
       }
     end,
