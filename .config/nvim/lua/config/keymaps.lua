@@ -2,9 +2,8 @@
 vim.keymap.set('i', '<localleader><leader>', '<ESC>')
 vim.keymap.set('v', '<localleader><leader>', '<ESC>')
 
--- Save, quit and turn off search highlight
+-- Save and turn off search highlight
 vim.keymap.set('n', '<leader>w', ':w<CR>')
-vim.keymap.set('n', '<leader>q', ':q<CR>')
 vim.keymap.set('n', '<ESC>', ':nohl<CR>', { silent = true })
 
 -- Better G
@@ -43,7 +42,8 @@ vim.keymap.set('v', '<A-k>', ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<c
 
 -- Buffers
 vim.keymap.set('n', '<leader>p', '<cmd>bprevious<cr>', { desc = 'Prev Buffer' })
-vim.keymap.set('n', '<leader>b', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
+vim.keymap.set('n', '<leader>o', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
+vim.keymap.set('n', '<leader>q', '<cmd>bdelete<cr>', { desc = 'Delete Buffer' })
 
 -- Lazy
 vim.keymap.set('n', '<leader>L', ':Lazy<CR>', { desc = 'Open Lazy' })
