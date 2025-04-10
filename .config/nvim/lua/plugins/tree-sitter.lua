@@ -7,6 +7,8 @@ return {
       'bash',
       'c',
       'cpp',
+      'make',
+      'cmake',
       'python',
       'lua',
       'vim',
