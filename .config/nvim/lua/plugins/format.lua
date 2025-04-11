@@ -18,6 +18,8 @@ return {
           'clang-format',
           'beautysh',
           'cmakelang',
+          'markdownlint',
+          'prettierd',
         },
         automatic_installation = true,
       }
@@ -37,6 +39,7 @@ return {
           sh = { 'beautysh' },
           bash = { 'beautysh' },
           zsh = { 'beautysh' },
+          markdown = { 'prettierd' },
         },
         format_on_save = {
           lsp_fallback = true,

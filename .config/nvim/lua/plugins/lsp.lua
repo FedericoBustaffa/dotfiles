@@ -25,6 +25,7 @@ return {
         'pylsp',
         'ruff',
         'bashls',
+        'marksman',
         'biome',
       },
       automatic_installation = true,
@@ -82,8 +83,8 @@ return {
         ['biome'] = function()
           lspconfig.biome.setup { capabilities = capabilities }
         end,
-        ['cmake'] = function()
-          lspconfig.cmake.setup { capabilities = capabilities }
+        ['marksman'] = function()
+          lspconfig.marksman.setup { capabilities = capabilities }
         end,
       }
     end,

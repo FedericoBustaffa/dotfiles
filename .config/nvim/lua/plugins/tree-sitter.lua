@@ -6,6 +6,8 @@ return {
     ensure_installed = {
       'bash',
       'doxygen',
+      'markdown',
+      'markdown_inline',
       'query',
       'lua',
       'luadoc',
