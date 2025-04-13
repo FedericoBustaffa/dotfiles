@@ -45,7 +45,7 @@ return {
 
       -- LSP telescope
       vim.keymap.set('n', 'ga', builtin.diagnostics)
-      vim.keymap.set('n', 'gd', builtin.lsp_definitions)
+      vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
       vim.keymap.set('n', 'gi', builtin.lsp_implementations)
     end,
   },
