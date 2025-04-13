@@ -13,7 +13,7 @@ return {
         pickers = {
           find_files = {
             -- theme = 'default',
-            hidden = true,
+            -- hidden = true,
           },
           -- diagnostics = {
           --   theme = 'default',
