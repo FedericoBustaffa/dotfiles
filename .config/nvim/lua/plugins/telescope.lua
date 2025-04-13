@@ -33,20 +33,21 @@ return {
 
       -- Key Bindings
       local builtin = require 'telescope.builtin'
-      vim.keymap.set('n', '<leader>sf', builtin.find_files)
-      vim.keymap.set('n', '<leader>en', function()
+      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Search Files' })
+      vim.keymap.set('n', '<leader>fc', function()
         require('telescope.builtin').find_files {
           cwd = vim.fn.stdpath 'config',
         }
-      end)
-      vim.keymap.set('n', '<leader>sb', builtin.buffers)
-      vim.keymap.set('n', '<leader>sg', builtin.live_grep)
-      vim.keymap.set('n', '<leader>sh', builtin.help_tags)
+      end, { desc = 'Search Config Files' })
+      vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = 'Search Buffers' })
+      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = 'Grep Search' })
+      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = 'Helper' })
 
       -- LSP telescope
-      vim.keymap.set('n', 'ga', builtin.diagnostics)
-      vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
-      vim.keymap.set('n', 'gi', builtin.lsp_implementations)
+      vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = 'Diagnostics' })
+      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Go To Definition' })
+      vim.keymap.set('n', 'gi', builtin.lsp_implementations, { desc = 'Go To Implementation' })
+      vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = 'Search In Current Buffer' })
     end,
   },
 }

@@ -15,6 +15,15 @@ return {
     name = 'rose-pine',
     lazy = false,
     priority = 1000,
+    opts = {
+      variant = 'main',
+      dark_variant = 'main',
+      styles = {
+        bold = false,
+        italics = true,
+        transparency = false,
+      },
+    },
   },
   {
     'Mofiqul/vscode.nvim',
@@ -22,7 +31,18 @@ return {
     priority = 1000,
   },
   {
-    'olivercederborg/poimandres.nvim',
+    'rebelot/kanagawa.nvim',
+    lazy = false,
+    priority = 1000,
+  },
+  {
+    'AlexvZyl/nordic.nvim',
+    lazy = false,
+    priority = 1000,
+  },
+
+  {
+    'vague2k/vague.nvim',
     lazy = false,
     priority = 1000,
   },
