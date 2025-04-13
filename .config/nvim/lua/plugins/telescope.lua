@@ -33,15 +33,15 @@ return {
 
       -- Key Bindings
       local builtin = require 'telescope.builtin'
-      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Search Files' })
+      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Find Files' })
       vim.keymap.set('n', '<leader>fc', function()
         require('telescope.builtin').find_files {
           cwd = vim.fn.stdpath 'config',
         }
-      end, { desc = 'Search Config Files' })
-      vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = 'Search Buffers' })
-      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = 'Grep Search' })
-      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = 'Helper' })
+      end, { desc = 'Find Config Files' })
+      vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Find Buffers' })
+      vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Grep Find' })
+      vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Find Help' })
 
       -- LSP telescope
       vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = 'Diagnostics' })
