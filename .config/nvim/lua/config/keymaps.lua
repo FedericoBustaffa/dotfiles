@@ -51,3 +51,6 @@ vim.keymap.set('n', 'M', ':Mason<CR>', { desc = 'Open Mason' })
 
 -- Source current file
 vim.keymap.set('n', '<space><space>x', '<cmd>source %<CR>')
+
+-- LSP
+vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true, desc = 'Hover' })

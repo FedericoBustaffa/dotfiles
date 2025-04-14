@@ -11,16 +11,10 @@ return {
     config = function()
       require('telescope').setup {
         pickers = {
-          find_files = {
-            -- theme = 'default',
-            -- hidden = true,
-          },
-          -- diagnostics = {
-          --   theme = 'default',
-          -- },
+          find_files = {},
         },
         extensions = {
-          fzf = {},
+          ['fzf'] = {},
           ['ui-select'] = {
             require('telescope.themes').get_dropdown {},
           },
@@ -33,6 +27,7 @@ return {
 
       -- Key Bindings
       local builtin = require 'telescope.builtin'
+
       vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Find Files' })
       vim.keymap.set('n', '<leader>fc', function()
         require('telescope.builtin').find_files {
@@ -40,14 +35,16 @@ return {
         }
       end, { desc = 'Find Config Files' })
       vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Find Buffers' })
+      vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = 'Search In Current Buffer' })
       vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Grep Find' })
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Find Help' })
 
       -- LSP telescope
-      vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = 'Diagnostics' })
       vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Go To Definition' })
       vim.keymap.set('n', 'gi', builtin.lsp_implementations, { desc = 'Go To Implementation' })
-      vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = 'Search In Current Buffer' })
+      vim.keymap.set('n', '<leader>D', builtin.diagnostics, { desc = 'Diagnostics' })
+      vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code Actions' })
+      vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { desc = 'Find Document Symbols' })
     end,
   },
 }

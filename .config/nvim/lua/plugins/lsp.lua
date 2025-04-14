@@ -46,13 +46,15 @@ return {
         },
       },
       'saghen/blink.cmp',
+      { 'j-hui/fidget.nvim', opts = {} },
     },
     config = function()
       local mason_lspconfig = require 'mason-lspconfig'
       local lspconfig = require 'lspconfig'
-      local blink = require 'blink.cmp'
 
+      local blink = require 'blink.cmp'
       local capabilities = blink.get_lsp_capabilities()
+
       mason_lspconfig.setup_handlers {
         function(server_name)
           lspconfig[server_name].setup {
