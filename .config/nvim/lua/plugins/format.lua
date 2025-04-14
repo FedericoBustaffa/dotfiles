@@ -20,6 +20,7 @@ return {
           'cmakelang',
           'markdownlint',
           'prettierd',
+          'latexindent',
         },
         automatic_installation = true,
       }
@@ -40,6 +41,7 @@ return {
           bash = { 'beautysh' },
           zsh = { 'beautysh' },
           markdown = { 'prettierd' },
+          latex = { 'latexindent' },
         },
         format_on_save = {
           lsp_fallback = true,

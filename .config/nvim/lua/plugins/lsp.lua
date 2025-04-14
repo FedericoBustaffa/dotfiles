@@ -27,6 +27,7 @@ return {
         'bashls',
         'marksman',
         'biome',
+        'texlab',
       },
       automatic_installation = true,
     },
@@ -87,6 +88,9 @@ return {
         end,
         ['marksman'] = function()
           lspconfig.marksman.setup { capabilities = capabilities }
+        end,
+        ['texlab'] = function()
+          lspconfig.texlab.setup { capabilities = capabilities }
         end,
       }
 
