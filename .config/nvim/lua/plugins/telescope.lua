@@ -40,10 +40,7 @@ return {
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Find Help' })
 
       -- LSP telescope
-      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Go To Definition' })
-      vim.keymap.set('n', 'gi', builtin.lsp_implementations, { desc = 'Go To Implementation' })
       vim.keymap.set('n', '<leader>D', builtin.diagnostics, { desc = 'Diagnostics' })
-      vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code Actions' })
       vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { desc = 'Find Document Symbols' })
     end,
   },

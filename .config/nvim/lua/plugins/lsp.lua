@@ -89,6 +89,11 @@ return {
           lspconfig.marksman.setup { capabilities = capabilities }
         end,
       }
+
+      -- LSP keymaps
+      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Go To Definition' })
+      vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = 'Go To Implementation' })
+      vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code Actions' })
     end,
   },
 }
