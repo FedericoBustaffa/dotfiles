@@ -1,6 +1,8 @@
 return {
   {
     'nvim-lualine/lualine.nvim',
+    lazy = true,
+    event = 'BufReadPre',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('lualine').setup {
@@ -18,6 +20,8 @@ return {
   },
   {
     'akinsho/bufferline.nvim',
+    lazy = true,
+    event = 'BufReadPre',
     version = '*',
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()

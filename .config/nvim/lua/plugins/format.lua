@@ -1,12 +1,16 @@
 return {
   {
     'nvimtools/none-ls.nvim',
+    lazy = true,
+    event = 'VeryLazy',
     config = function()
       require('null-ls').setup {}
     end,
   },
   {
     'jay-babu/mason-null-ls.nvim',
+    lazy = true,
+    event = 'VeryLazy',
     dependecies = {
       'williamboman/mason.nvim',
       'nvimtools/none-ls.nvim',
@@ -28,7 +32,12 @@ return {
   },
   {
     'stevearc/conform.nvim',
-    dependecies = { 'nvimtools/none-ls.nvim' },
+    lazy = true,
+    event = 'BufWritePre',
+    dependencies = {
+      'jay-babu/mason-null-ls.nvim',
+      'nvimtools/none-ls.nvim',
+    },
     config = function()
       require('conform').setup {
         formatters_by_ft = { -- specify the extension

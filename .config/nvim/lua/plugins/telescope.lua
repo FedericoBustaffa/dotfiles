@@ -3,45 +3,90 @@ return {
     'nvim-telescope/telescope.nvim',
     branch = '0.1.x',
     build = 'make',
+    lazy = true,
     dependencies = {
       'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope-ui-select.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-      { 'nvim-telescope/telescope-ui-select.nvim' },
     },
-    config = function()
-      require('telescope').setup {
-        pickers = {
-          find_files = {},
+    keys = {
+      {
+        '<leader>ff',
+        function()
+          require('telescope.builtin').find_files()
+        end,
+        desc = 'Find Files',
+      },
+      {
+        '<leader>fc',
+        function()
+          require('telescope.builtin').find_files {
+            cwd = vim.fn.stdpath 'config',
+          }
+        end,
+        desc = 'Find Config Files',
+      },
+      {
+        '<leader>fb',
+        function()
+          require('telescope.builtin').buffers()
+        end,
+        desc = 'Find Buffers',
+      },
+      {
+        '<leader>/',
+        function()
+          require('telescope.builtin').current_buffer_fuzzy_find()
+        end,
+        desc = 'Search In Current Buffer',
+      },
+      {
+        '<leader>fg',
+        function()
+          require('telescope.builtin').live_grep()
+        end,
+        desc = 'Grep Find',
+      },
+      {
+        '<leader>fh',
+        function()
+          require('telescope.builtin').help_tags()
+        end,
+        { desc = 'Find Help' },
+
+        -- -- LSP telescope
+        {
+          '<leader>D',
+          function()
+            require('telescope.builtin').diagnostics()
+          end,
+          desc = 'Diagnostics',
         },
-        extensions = {
-          ['fzf'] = {},
-          ['ui-select'] = {
-            require('telescope.themes').get_dropdown {},
+        {
+          '<leader>fs',
+          function()
+            require('telescope.builtin').lsp_document_symbols()
+          end,
+          desc = 'Find Document Symbols',
+        },
+      },
+      config = function()
+        require('telescope').setup {
+          pickers = {
+            find_files = {},
           },
-        },
-      }
-
-      -- enable fzf
-      require('telescope').load_extension 'fzf'
-      require('telescope').load_extension 'ui-select'
-
-      -- Key Bindings
-      local builtin = require 'telescope.builtin'
-
-      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Find Files' })
-      vim.keymap.set('n', '<leader>fc', function()
-        require('telescope.builtin').find_files {
-          cwd = vim.fn.stdpath 'config',
+          extensions = {
+            ['fzf'] = {},
+            ['ui-select'] = {
+              require('telescope.themes').get_dropdown {},
+            },
+          },
         }
-      end, { desc = 'Find Config Files' })
-      vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Find Buffers' })
-      vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = 'Search In Current Buffer' })
-      vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Grep Find' })
-      vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Find Help' })
 
-      -- LSP telescope
-      vim.keymap.set('n', '<leader>D', builtin.diagnostics, { desc = 'Diagnostics' })
-      vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { desc = 'Find Document Symbols' })
-    end,
+        -- enable fzf
+        require('telescope').load_extension 'fzf'
+        require('telescope').load_extension 'ui-select'
+      end,
+    },
   },
 }

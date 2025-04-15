@@ -1,18 +1,15 @@
 return {
   {
     'stevearc/oil.nvim',
-    dependencies = {
-      { 'echasnovski/mini.icons', opts = {} },
-      -- { "nvim-tree/nvim-web-devicons" }
-    },
-    lazy = false,
+    lazy = true,
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     keys = {
-      { '-', '<cmd>Oil<CR>', desc = 'Opens Oil file explorer' },
       {
         '<C-e>',
         function()
           require('oil').toggle_float()
         end,
+        desc = 'Open File Explorer',
       },
     },
     opts = {

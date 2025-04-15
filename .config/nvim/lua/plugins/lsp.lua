@@ -2,6 +2,9 @@ return {
   {
     'williamboman/mason.nvim',
     lazy = false,
+    keys = {
+      { 'M', ':Mason<CR>', desc = 'Mason' },
+    },
     ui = {
       icons = {
         package_installed = '✓',
@@ -34,6 +37,8 @@ return {
   },
   {
     'neovim/nvim-lspconfig',
+    lazy = true,
+    event = 'InsertEnter',
     dependencies = {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig',
