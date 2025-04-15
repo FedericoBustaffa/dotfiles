@@ -119,7 +119,6 @@ export PATH=$PATH:$HOME/scripts/
 export PATH=$PATH:$HOME/.local/bin/
 export PATH=$PATH:$HOME/.cargo/bin/
 export PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin
-export PATH=$PATH:$HOME/fzf/bin/
 export PATH=/usr/local/cuda-11.4/bin:$PATH
 
 export LD_LIBRARY_PATH=/usr/local/cuda-11.4/lib64:$LD_LIBRARY_PATH
@@ -140,4 +139,11 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 export TERM=xterm-256color
 
-source <(fzf --zsh)
+fzfh(){
+    cd $(find ~/ -type d | fzf)
+}
+
+fzfc(){
+    cd $(find ./ -type d | fzf)
+}
+
