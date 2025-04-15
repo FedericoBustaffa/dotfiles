@@ -113,11 +113,13 @@ alias ls="eza --color=always --long --icons=always --no-time --no-user --no-perm
 alias bat="batcat"
 alias jupyter="jupyter-lab . --no-browser"
 alias nvcc="nvcc -arch=sm_35 -ccbin /usr/bin/gcc-10 -Wno-deprecated-gpu-targets"
+alias upd="bash ~/scripts/upd.sh"
 
 export PATH=$PATH:$HOME/scripts/
 export PATH=$PATH:$HOME/.local/bin/
 export PATH=$PATH:$HOME/.cargo/bin/
 export PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin
+export PATH=$PATH:$HOME/fzf/bin/
 export PATH=/usr/local/cuda-11.4/bin:$PATH
 
 export LD_LIBRARY_PATH=/usr/local/cuda-11.4/lib64:$LD_LIBRARY_PATH
@@ -138,3 +140,4 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 export TERM=xterm-256color
 
+source <(fzf --zsh)

@@ -46,8 +46,8 @@ return {
     lazy = false,
     priority = 1000,
     opts = {
+      transparent = false,
       style = {
-        -- "none" is the same thing as default. But "italic" and "bold" are also valid options
         boolean = 'none',
         number = 'none',
         float = 'none',
