@@ -147,3 +147,4 @@ fzfc(){
     cd $(find ./ -type d | fzf)
 }
 
+export FZF_DEFAULT_OPTS="--reverse --info=hidden --preview='batcat {} --color=always'"
