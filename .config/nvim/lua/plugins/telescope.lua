@@ -9,6 +9,16 @@ return {
       'nvim-telescope/telescope-ui-select.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     },
+    config = function()
+      require('telescope').setup {
+        extensions = {
+          ['fzf'] = {},
+          ['ui-select'] = {},
+        },
+      }
+      require('telescope').load_extension 'fzf'
+      require('telescope').load_extension 'ui-select'
+    end,
     keys = {
       {
         '<leader>ff',
@@ -52,41 +62,24 @@ return {
         function()
           require('telescope.builtin').help_tags()
         end,
-        { desc = 'Find Help' },
-
-        -- -- LSP telescope
-        {
-          '<leader>D',
-          function()
-            require('telescope.builtin').diagnostics()
-          end,
-          desc = 'Diagnostics',
-        },
-        {
-          '<leader>fs',
-          function()
-            require('telescope.builtin').lsp_document_symbols()
-          end,
-          desc = 'Find Document Symbols',
-        },
+        desc = 'Find Help',
       },
-      config = function()
-        require('telescope').setup {
-          pickers = {
-            find_files = {},
-          },
-          extensions = {
-            ['fzf'] = {},
-            ['ui-select'] = {
-              require('telescope.themes').get_dropdown {},
-            },
-          },
-        }
 
-        -- enable fzf
-        require('telescope').load_extension 'fzf'
-        require('telescope').load_extension 'ui-select'
-      end,
+      -- -- LSP telescope
+      {
+        '<leader>D',
+        function()
+          require('telescope.builtin').diagnostics()
+        end,
+        desc = 'Diagnostics',
+      },
+      {
+        '<leader>fs',
+        function()
+          require('telescope.builtin').lsp_document_symbols()
+        end,
+        desc = 'Find Document Symbols',
+      },
     },
   },
 }

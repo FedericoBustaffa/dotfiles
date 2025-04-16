@@ -107,9 +107,10 @@ source $ZSH/oh-my-zsh.sh
 eval "$(starship init zsh)"
 
 alias cls='clear'
-alias la="ls -a"
 alias py='python3'
-alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions"
+alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions --total-size"
+alias la="ls -a"
+alias tree="ls --tree"
 alias bat="batcat"
 alias jupyter="jupyter-lab . --no-browser"
 alias nvcc="nvcc -arch=sm_35 -ccbin /usr/bin/gcc-10 -Wno-deprecated-gpu-targets"
@@ -147,4 +148,5 @@ fzfc(){
     cd $(find ./ -type d | fzf)
 }
 
-export FZF_DEFAULT_OPTS="--reverse --info=hidden --preview='batcat {} --color=always'"
+# export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g'
+export FZF_DEFAULT_OPTS="--reverse --info=hidden -m --preview='batcat {} --color=always'"
