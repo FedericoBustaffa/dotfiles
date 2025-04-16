@@ -140,13 +140,18 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 export TERM=xterm-256color
 
-fzfh(){
+fh(){
     cd $(find ~/ -type d | fzf)
 }
 
-fzfc(){
+fcd(){
     cd $(find ./ -type d | fzf)
 }
 
-# export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g'
+ftmux(){
+    fh
+    tmuxifier load-session dev
+}
+
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/*"'
 export FZF_DEFAULT_OPTS="--reverse --info=hidden -m --preview='batcat {} --color=always'"

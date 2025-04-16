@@ -11,6 +11,11 @@ return {
     },
     config = function()
       require('telescope').setup {
+        pickers = {
+          find_files = {
+            hidden = true,
+          },
+        },
         extensions = {
           ['fzf'] = {},
           ['ui-select'] = {},
@@ -23,7 +28,14 @@ return {
       {
         '<leader>ff',
         function()
-          require('telescope.builtin').find_files()
+          local builtin = require 'telescope.builtin'
+          local git_root = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
+          print(git_root)
+          if vim.v.shell_error == 0 then
+            builtin.git_files { show_untracked = true }
+          else
+            builtin.find_files { hidden = true }
+          end
         end,
         desc = 'Find Files',
       },

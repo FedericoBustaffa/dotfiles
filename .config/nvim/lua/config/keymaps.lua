@@ -4,7 +4,14 @@ vim.keymap.set('v', '<localleader><leader>', '<ESC>', { desc = 'Exit Visual Mode
 
 -- Save and turn off search highlight
 vim.keymap.set('n', '<leader>w', ':w<CR>', { desc = 'Write Buffer' })
-vim.keymap.set('n', '<leader>q', ':q<CR>', { desc = 'Close' })
+vim.keymap.set('n', '<leader>q', function()
+  local bufs = vim.fn.getbufinfo { buflisted = 1 }
+  if #bufs > 1 then
+    vim.cmd 'bdelete' -- Chiude solo il buffer corrente
+  else
+    vim.cmd 'qa' -- Esce da Neovim
+  end
+end, { desc = 'Close' })
 vim.keymap.set('n', '<ESC>', ':nohl<CR>', { silent = true })
 
 -- Better G
@@ -12,8 +19,8 @@ vim.keymap.set('n', 'G', 'Gzz')
 
 -- Terminal mode
 vim.keymap.set('t', '<ESC>', '<C-\\><C-n>')
-vim.keymap.set('n', 'tt', ':FloatTerminal<CR>i', { silent = true, desc = 'Open Float Terminal' })
-vim.keymap.set('t', 'tt', '<C-\\><C-n>:FloatTerminal<CR>', { silent = true, desc = 'Close Float Terminal' })
+vim.keymap.set('n', '<localleader>tt', ':FloatTerminal<CR>i', { silent = true, desc = 'Open Float Terminal' })
+vim.keymap.set('t', '<localleader>tt', '<C-\\><C-n>:FloatTerminal<CR>', { silent = true, desc = 'Close Float Terminal' })
 
 -- Better Up and Down
 vim.keymap.set({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
