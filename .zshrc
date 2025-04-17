@@ -108,7 +108,7 @@ eval "$(starship init zsh)"
 
 alias cls='clear'
 alias py='python3'
-alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions --total-size"
+alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions"
 alias la="ls -a"
 alias tree="ls --tree"
 alias bat="batcat"
@@ -140,18 +140,20 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 export TERM=xterm-256color
 
-fh(){
+# FZF
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
+
+fzf_open() {
+    nvim $(find ~/ -type f | fzf)
+}
+
+fzf_cd() {
     cd $(find ~/ -type d | fzf)
 }
 
-fcd(){
-    cd $(find ./ -type d | fzf)
-}
-
-ftmux(){
-    fh
-    tmuxifier load-session dev
-}
+bindkey -s "^O" "fzf_open\n"
+bindkey -s "^[c" "fzf_cd\n"
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/*"'
 export FZF_DEFAULT_OPTS="--reverse --info=hidden -m --preview='batcat {} --color=always'"
