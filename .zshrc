@@ -119,6 +119,7 @@ alias upd="bash ~/scripts/upd.sh"
 export PATH=$PATH:$HOME/scripts/
 export PATH=$PATH:$HOME/.local/bin/
 export PATH=$PATH:$HOME/.cargo/bin/
+export PATH=$PATH:$HOME/go/bin/
 export PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin
 export PATH=/usr/local/cuda-11.4/bin:$PATH
 
@@ -153,7 +154,7 @@ fzf_cd() {
 }
 
 bindkey -s "^O" "fzf_open\n"
-bindkey -s "^[c" "fzf_cd\n"
+bindkey -s "^F" "fzf_cd\n"
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/*"'
 export FZF_DEFAULT_OPTS="--reverse --info=hidden -m --preview='batcat {} --color=always'"
