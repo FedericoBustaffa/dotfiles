@@ -148,7 +148,13 @@ fcd(){
     cd $(find ./ -type d | fzf)
 }
 
+
 ftmux(){
+    fh
+    tmux
+}
+
+fdev(){
     fh
     tmuxifier load-session dev
 }
