@@ -153,7 +153,6 @@ fzf_cd() {
     cd $(find ~/ -type d | fzf)
 }
 
-
 bindkey -s "^O" "fzf_open\n"
 bindkey -s "^F" "fzf_cd\n"
 
