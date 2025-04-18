@@ -146,11 +146,17 @@ source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
 
 fzf_open() {
-    nvim $(find ~/ -type f | fzf)
+    file=$(find ~/ -type f | fzf)
+    if [ $? -eq 0 ]; then
+        nvim ${file}
+    fi
 }
 
 fzf_cd() {
-    cd $(find ~/ -type d | fzf)
+    directory=$(find ~/ -type d | fzf)
+    if [ $? -eq 0 ]; then
+        cd ${directory}
+    fi
 }
 
 bindkey -s "^O" "fzf_open\n"
