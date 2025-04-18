@@ -98,11 +98,43 @@ return {
           lspconfig.texlab.setup { capabilities = capabilities }
         end,
       }
-
-      -- LSP keymaps
-      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Go To Definition' })
-      vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = 'Go To Implementation' })
-      vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code Actions' })
     end,
+    keys = {
+      {
+        'gd',
+        function()
+          vim.lsp.buf.definition()
+        end,
+        desc = 'Go To Definition',
+      },
+      {
+        'gi',
+        function()
+          vim.lsp.buf.implementation()
+        end,
+        desc = 'Go To Implementation',
+      },
+      {
+        '<leader>ca',
+        function()
+          vim.lsp.buf.code_action()
+        end,
+        desc = 'Code Actions',
+      },
+      {
+        'K',
+        function()
+          vim.lsp.buf.hover()
+        end,
+        desc = 'Hover',
+      },
+      {
+        '<leader>rn',
+        function()
+          vim.lsp.buf.rename()
+        end,
+        desc = 'Rename',
+      },
+    },
   },
 }

@@ -1,21 +1,29 @@
 -- Exit normal/visual mode
-vim.keymap.set('i', '<localleader><leader>', '<ESC>', { desc = 'Exit Insert Mode' })
-vim.keymap.set('v', '<localleader><leader>', '<ESC>', { desc = 'Exit Visual Mode' })
+vim.keymap.set({ 'i', 'v' }, '<localleader><leader>', '<ESC>', { desc = 'Exit Insert Mode' })
 
 -- Save and turn off search highlight
 vim.keymap.set('n', '<leader>w', ':w<CR>', { desc = 'Write Buffer' })
 vim.keymap.set('n', '<leader>q', function()
   local bufs = vim.fn.getbufinfo { buflisted = 1 }
   if #bufs > 1 then
-    vim.cmd 'bdelete' -- Chiude solo il buffer corrente
+    vim.cmd 'bdelete' -- Only close the current buffer
   else
-    vim.cmd 'qa' -- Esce da Neovim
+    vim.cmd 'qa' -- Quit Neovim
   end
-end, { desc = 'Close' })
+end, { desc = 'Close Buffer/Neovim' })
 vim.keymap.set('n', '<ESC>', ':nohl<CR>', { silent = true })
 
--- Better G
+-- Better movements
 vim.keymap.set('n', 'G', 'Gzz')
+vim.keymap.set('n', 'gg', 'ggzz')
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', 'J', 'mzJ`z')
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
+
+-- Don't override on yank - paste
+vim.keymap.set('x', 'p', '"_dP', { desc = 'Smart Paste' })
 
 -- Terminal mode
 vim.keymap.set('t', '<ESC>', '<C-\\><C-n>')
@@ -41,12 +49,8 @@ vim.keymap.set('n', '<C-Left>', '<cmd>vertical resize -2<cr>', { desc = 'Decreas
 vim.keymap.set('n', '<C-Right>', '<cmd>vertical resize +2<cr>', { desc = 'Increase Window Width' })
 
 -- Move lines
-vim.keymap.set('n', '<A-j>', "<cmd>execute 'move .+' . v:count1<cr>==", { desc = 'Move Down' })
-vim.keymap.set('n', '<A-k>', "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = 'Move Up' })
-vim.keymap.set('i', '<A-j>', '<esc><cmd>m .+1<cr>==gi', { desc = 'Move Down' })
-vim.keymap.set('i', '<A-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'Move Up' })
-vim.keymap.set('v', '<A-j>', ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = 'Move Down' })
-vim.keymap.set('v', '<A-k>', ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = 'Move Up' })
+vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { desc = 'Move Lines Down' })
+vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { desc = 'Move Lines Up' })
 
 -- Buffers
 vim.keymap.set('n', '<leader>p', '<cmd>bprevious<cr>', { desc = 'Previous Buffer' })
@@ -56,7 +60,4 @@ vim.keymap.set('n', '<leader>n', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
 vim.keymap.set('n', 'L', ':Lazy<CR>', { desc = 'Open Lazy' })
 
 -- Source current file
-vim.keymap.set('n', '<space><space>x', '<cmd>source %<CR>')
-
--- LSP
-vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true, desc = 'Hover' })
+vim.keymap.set('n', '<space><space>x', '<cmd>source %<CR>', { desc = 'Source Current File' })

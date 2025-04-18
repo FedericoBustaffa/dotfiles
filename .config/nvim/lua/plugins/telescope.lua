@@ -30,7 +30,6 @@ return {
         function()
           local builtin = require 'telescope.builtin'
           local git_root = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
-          print(git_root)
           if vim.v.shell_error == 0 then
             builtin.git_files { show_untracked = true }
           else
@@ -76,8 +75,6 @@ return {
         end,
         desc = 'Find Help',
       },
-
-      -- -- LSP telescope
       {
         '<leader>D',
         function()
@@ -91,6 +88,13 @@ return {
           require('telescope.builtin').lsp_document_symbols()
         end,
         desc = 'Find Document Symbols',
+      },
+      {
+        '<leader>fws',
+        function()
+          require('telescope.builtin').lsp_workspace_symbols()
+        end,
+        desc = 'Find Workspace Symbols',
       },
     },
   },

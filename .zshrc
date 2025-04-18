@@ -108,7 +108,7 @@ eval "$(starship init zsh)"
 
 alias cls='clear'
 alias py='python3'
-alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions --total-size"
+alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions"
 alias la="ls -a"
 alias tree="ls --tree"
 alias bat="batcat"
@@ -119,6 +119,7 @@ alias upd="bash ~/scripts/upd.sh"
 export PATH=$PATH:$HOME/scripts/
 export PATH=$PATH:$HOME/.local/bin/
 export PATH=$PATH:$HOME/.cargo/bin/
+export PATH=$PATH:$HOME/go/bin/
 export PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin
 export PATH=/usr/local/cuda-11.4/bin:$PATH
 
@@ -140,24 +141,21 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 export TERM=xterm-256color
 
-fh(){
+# FZF
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
+
+fzf_open() {
+    nvim $(find ~/ -type f | fzf)
+}
+
+fzf_cd() {
     cd $(find ~/ -type d | fzf)
 }
 
-fcd(){
-    cd $(find ./ -type d | fzf)
-}
 
-
-ftmux(){
-    fh
-    tmux
-}
-
-fdev(){
-    fh
-    tmuxifier load-session dev
-}
+bindkey -s "^O" "fzf_open\n"
+bindkey -s "^F" "fzf_cd\n"
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/*"'
 export FZF_DEFAULT_OPTS="--reverse --info=hidden -m --preview='batcat {} --color=always'"
