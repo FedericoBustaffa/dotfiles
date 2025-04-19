@@ -7,7 +7,7 @@ return {
     bigfile = { enabled = true },
     notifier = {
       enabled = true,
-      timeout = 2000,
+      timeout = 3000,
     },
     bufdelete = { enabled = true },
     dashboard = { enabled = true },
