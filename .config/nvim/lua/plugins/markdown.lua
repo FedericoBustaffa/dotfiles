@@ -18,5 +18,10 @@ return {
     lazy = true,
     ft = 'markdown',
     dependencies = { 'nvim-telescope/telescope.nvim' },
+    opts = {},
+    keys = {
+      { '<localleader>mm', ':LivePreview start<CR>', desc = 'Start Markdown Preview' },
+      { '<localleader>mc', ':LivePreview close<CR>', desc = 'Close Markdown Preview' },
+    },
   },
 }
