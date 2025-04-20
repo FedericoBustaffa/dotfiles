@@ -7,3 +7,10 @@
 .config/lazygit/
 .config/vscode-sqltools/
 .config/inkscape/
+
+.config/onedrive/refresh_token
+.config/onedrive/.config.hash
+.config/onedrive/.config.backup
+.config/onedrive/items.sqlite3
+.config/onedrive/items.sqlite3-shm
+.config/onedrive/items.sqlite3-wal
