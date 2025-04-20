@@ -1,8 +1,8 @@
 -- Exit normal/visual mode
-vim.keymap.set({ 'i', 'v' }, '<localleader><leader>', '<ESC>', { desc = 'Exit Insert Mode' })
+vim.keymap.set({ 'i', 'v' }, '<localleader><leader>', '<ESC>', { desc = 'Exit Insert Mode', silent = true })
 
 -- Save and turn off search highlight
-vim.keymap.set('n', '<leader>w', ':w<CR>', { desc = 'Write Buffer' })
+vim.keymap.set('n', '<leader>w', ':w<CR>', { desc = 'Write Buffer', silent = true })
 vim.keymap.set('n', '<leader>q', function()
   local bufs = vim.fn.getbufinfo { buflisted = 1 }
   if #bufs > 1 then
@@ -10,20 +10,20 @@ vim.keymap.set('n', '<leader>q', function()
   else
     vim.cmd 'qa' -- Quit Neovim
   end
-end, { desc = 'Close Buffer/Neovim' })
+end, { desc = 'Close Buffer/Neovim', silent = true })
 vim.keymap.set('n', '<ESC>', ':nohl<CR>', { silent = true })
 
 -- Better movements
-vim.keymap.set('n', 'G', 'Gzz')
-vim.keymap.set('n', 'gg', 'ggzz')
-vim.keymap.set('n', '<C-d>', '<C-d>zz')
-vim.keymap.set('n', '<C-u>', '<C-u>zz')
-vim.keymap.set('n', 'J', 'mzJ`z')
-vim.keymap.set('n', 'n', 'nzzzv')
-vim.keymap.set('n', 'N', 'Nzzzv')
+vim.keymap.set('n', 'G', 'Gzz', { silent = true })
+vim.keymap.set('n', 'gg', 'ggzz', { silent = true })
+vim.keymap.set('n', '<C-d>', '<C-d>zz', { silent = true })
+vim.keymap.set('n', '<C-u>', '<C-u>zz', { silent = true })
+vim.keymap.set('n', 'J', 'mzJ`z', { silent = true })
+vim.keymap.set('n', 'n', 'nzzzv', { silent = true })
+vim.keymap.set('n', 'N', 'Nzzzv', { silent = true })
 
 -- Don't override on yank - paste
-vim.keymap.set('x', 'p', '"_dP', { desc = 'Smart Paste' })
+vim.keymap.set('x', 'p', '"_dP', { desc = 'Smart Paste', silent = true })
 
 -- Terminal mode
 vim.keymap.set('t', '<ESC>', '<C-\\><C-n>')
@@ -53,11 +53,11 @@ vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { desc = 'Move Lines Down' })
 vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { desc = 'Move Lines Up' })
 
 -- Buffers
-vim.keymap.set('n', '<leader>p', '<cmd>bprevious<cr>', { desc = 'Previous Buffer' })
-vim.keymap.set('n', '<leader>n', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
+vim.keymap.set('n', '<leader>p', '<cmd>bprevious<cr>', { desc = 'Previous Buffer', silent = true })
+vim.keymap.set('n', '<leader>n', '<cmd>bnext<cr>', { desc = 'Next Buffer', silent = true })
 
 -- Lazy
-vim.keymap.set('n', 'L', ':Lazy<CR>', { desc = 'Open Lazy' })
+vim.keymap.set('n', 'L', ':Lazy<CR>', { desc = 'Open Lazy', silent = true })
 
 -- Source current file
-vim.keymap.set('n', '<space><space>x', '<cmd>source %<CR>', { desc = 'Source Current File' })
+vim.keymap.set('n', '<space><space>x', '<cmd>source %<CR>', { desc = 'Source Current File', silent = true })

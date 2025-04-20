@@ -3,7 +3,7 @@ return {
     'williamboman/mason.nvim',
     lazy = false,
     keys = {
-      { 'M', ':Mason<CR>', desc = 'Mason' },
+      { 'M', ':Mason<CR>', desc = 'Mason', silent = true },
     },
     ui = {
       icons = {
@@ -106,6 +106,7 @@ return {
           vim.lsp.buf.definition()
         end,
         desc = 'Go To Definition',
+        silent = true,
       },
       {
         'gi',
@@ -113,6 +114,7 @@ return {
           vim.lsp.buf.implementation()
         end,
         desc = 'Go To Implementation',
+        silent = true,
       },
       {
         '<leader>ca',
@@ -120,6 +122,7 @@ return {
           vim.lsp.buf.code_action()
         end,
         desc = 'Code Actions',
+        silent = true,
       },
       {
         'K',
@@ -127,6 +130,7 @@ return {
           vim.lsp.buf.hover()
         end,
         desc = 'Hover',
+        silent = true,
       },
       {
         '<leader>rn',
@@ -134,6 +138,7 @@ return {
           vim.lsp.buf.rename()
         end,
         desc = 'Rename',
+        silent = true,
       },
     },
   },
