@@ -114,7 +114,7 @@ alias tree="ls --tree"
 alias bat="batcat"
 alias jupyter="jupyter-lab . --no-browser"
 alias nvcc="nvcc -arch=sm_35 -ccbin /usr/bin/gcc-10 -Wno-deprecated-gpu-targets"
-alias upd="bash ~/scripts/upd.sh"
+alias upd="bash ~/scripts/upd.bash"
 
 export PATH=$PATH:$HOME/scripts/
 export PATH=$PATH:$HOME/.local/bin/
