@@ -164,3 +164,5 @@ bindkey -s "^F" "fzf_cd\n"
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/*"'
 export FZF_DEFAULT_OPTS="--reverse --info=hidden -m --preview='batcat {} --color=always'"
+
+bindkey -s "^U" "bash uni.bash\n"
