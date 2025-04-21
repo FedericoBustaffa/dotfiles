@@ -31,7 +31,8 @@ return {
           local builtin = require 'telescope.builtin'
           local git_root = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
           if vim.v.shell_error == 0 then
-            builtin.git_files { show_untracked = true }
+            -- builtin.git_files { show_untracked = true }
+            builtin.find_files { hidden = true }
           else
             builtin.find_files { hidden = true }
           end

@@ -18,14 +18,4 @@ return {
       }
     end,
   },
-  {
-    'akinsho/bufferline.nvim',
-    lazy = true,
-    event = 'BufReadPre',
-    version = '*',
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    config = function()
-      require('bufferline').setup {}
-    end,
-  },
 }
