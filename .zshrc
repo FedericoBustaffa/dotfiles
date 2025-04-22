@@ -47,26 +47,5 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export TERM=xterm-256color
 
 # FZF
-source <(fzf --zsh > /dev/null 2>&1)
+source ~/scripts/fzf_utils.bash
 
-fzf_open() {
-    file=$(find ~/ -type f | fzf --preview='batcat {} --color=always')
-    if [ $? -eq 0 ]; then
-        nvim ${file}
-    fi
-}
-
-fzf_cd() {
-    directory=$(find ~/ -type d | fzf)
-    if [ $? -eq 0 ]; then
-        cd ${directory}
-    fi
-}
-
-bindkey -s "^O" "fzf_open\n"
-bindkey -s "^F" "fzf_cd\n"
-
-export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/*"'
-export FZF_DEFAULT_OPTS="--reverse --info=hidden -m"
-
-bindkey -s "^U" "bash uni.bash\n"
