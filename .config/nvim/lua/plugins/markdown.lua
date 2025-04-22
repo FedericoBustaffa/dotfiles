@@ -14,14 +14,17 @@ return {
     },
   },
   {
-    'brianhuster/live-preview.nvim',
+    'iamcco/markdown-preview.nvim',
     lazy = true,
     ft = 'markdown',
-    dependencies = { 'nvim-telescope/telescope.nvim' },
-    opts = {},
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    build = 'cd app && yarn install',
+    init = function()
+      vim.g.mkdp_filetypes = { 'markdown' }
+      vim.g.mkdp_theme = 'light'
+    end,
     keys = {
-      { '<localleader>mm', ':LivePreview start<CR>', desc = 'Start Markdown Preview' },
-      { '<localleader>mc', ':LivePreview close<CR>', desc = 'Close Markdown Preview' },
+      { '<localleader>mm', ':MarkdownPreviewToggle<CR>', desc = 'Markdown Preview' },
     },
   },
 }

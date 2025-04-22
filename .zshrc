@@ -47,7 +47,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export TERM=xterm-256color
 
 # FZF
-source <(fzf --zsh)
+source <(fzf --zsh > /dev/null 2>&1)
 
 fzf_open() {
     file=$(find ~/ -type f | fzf --preview='batcat {} --color=always')
