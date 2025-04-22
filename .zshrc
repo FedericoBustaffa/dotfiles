@@ -50,7 +50,7 @@ export TERM=xterm-256color
 source <(fzf --zsh)
 
 fzf_open() {
-    file=$(find ~/ -type f | fzf)
+    file=$(find ~/ -type f | fzf --preview='batcat {} --color=always')
     if [ $? -eq 0 ]; then
         nvim ${file}
     fi
@@ -67,6 +67,6 @@ bindkey -s "^O" "fzf_open\n"
 bindkey -s "^F" "fzf_cd\n"
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/*"'
-export FZF_DEFAULT_OPTS="--reverse --info=hidden -m --preview='batcat {} --color=always'"
+export FZF_DEFAULT_OPTS="--reverse --info=hidden -m"
 
 bindkey -s "^U" "bash uni.bash\n"
