@@ -16,6 +16,7 @@ source $ZSH/oh-my-zsh.sh
 eval "$(starship init zsh)"
 
 alias cls='clear'
+alias vi="nvim"
 alias py='python3'
 alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions"
 alias la="ls -a"
