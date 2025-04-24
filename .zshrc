@@ -22,6 +22,7 @@ alias ls="eza --color=always --long --icons=always --no-time --no-user --no-perm
 alias la="ls -a"
 alias tree="ls --tree"
 alias jupyter="jupyter-lab . --no-browser"
+alias z="zoxide"
 alias upd="bash ~/scripts/upd.bash"
 
 export PATH=$PATH:$HOME/scripts/
