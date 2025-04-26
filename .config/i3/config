@@ -46,12 +46,12 @@ floating_modifier $mod
 
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
-tiling_drag modifier titlebar
+# tiling_drag modifier titlebar
 
 # start a terminal
 bindsym $mod+Return exec kitty
 
-bindsym $mod+b exec firefox
+bindsym $mod+b exec flatpak run app.zen_browser.zen
 
 # kill focused window
 bindsym $mod+q kill
@@ -176,10 +176,11 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # }
 
 exec --no-startup-id xrandr --output DP-1 --mode 2560x1440
+exec --no-startup-id xrandr --output DP-2 --mode 1920x1080 --left-of DP-1
 exec --no-startup-id feh --bg-scale ~/Immagini/the_wallpaper.jpg
 exec --no-startup-id redshift -m randr -P -O 4500
 
-gaps inner 5
-gaps outer 2
+# gaps inner 5
+# gaps outer 2
 
-default_border pixel 0
+default_border pixel 1

@@ -11,6 +11,9 @@ return {
       completions = { blink = { enabled = true } },
       latex = { enabled = false },
       render_modes = { 'n', 'c', 't' },
+      code = {
+        border = 'thin',
+      },
     },
   },
   {
