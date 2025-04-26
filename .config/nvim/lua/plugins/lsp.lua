@@ -97,6 +97,9 @@ return {
         ['texlab'] = function()
           lspconfig.texlab.setup { capabilities = capabilities }
         end,
+        ['tinymist'] = function()
+          lspconfig.tinymist.setup { capabilities = capabilities }
+        end,
       }
     end,
     keys = {

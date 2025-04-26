@@ -1,5 +1,5 @@
 return {
-  {
+  { -- In editor markdown live rendering
     'MeanderingProgrammer/render-markdown.nvim',
     lazy = true,
     ft = 'markdown',
@@ -16,7 +16,7 @@ return {
       },
     },
   },
-  {
+  { -- Live preview of markdown
     'iamcco/markdown-preview.nvim',
     lazy = true,
     ft = 'markdown',
@@ -29,5 +29,20 @@ return {
     keys = {
       { '<localleader>mm', ':MarkdownPreviewToggle<CR>', desc = 'Markdown Preview' },
     },
+  },
+  { -- LaTeX
+    'lervag/vimtex',
+    lazy = true,
+    ft = { 'latex', 'tex' },
+    init = function()
+      vim.g.vimtex_view_method = 'zathura'
+    end,
+  },
+  { -- Typst
+    'chomosuke/typst-preview.nvim',
+    ft = 'typst',
+    lazy = true,
+    version = '1.*',
+    opts = {},
   },
 }
