@@ -31,6 +31,7 @@ return {
         'marksman',
         'biome',
         'texlab',
+        'tinymist',
       },
       automatic_installation = true,
     },

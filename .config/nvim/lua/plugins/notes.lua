@@ -40,8 +40,8 @@ return {
   },
   { -- Typst
     'chomosuke/typst-preview.nvim',
-    ft = 'typst',
     lazy = true,
+    ft = 'typst',
     version = '1.*',
     opts = {},
   },
