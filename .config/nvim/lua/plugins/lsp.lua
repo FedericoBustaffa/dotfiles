@@ -25,7 +25,7 @@ return {
         'lua_ls',
         'clangd',
         'cmake',
-        'pylsp',
+        'pyright',
         'ruff',
         'bashls',
         'marksman',
@@ -86,8 +86,8 @@ return {
         ['cmake'] = function()
           lspconfig.cmake.setup { capabilities = capabilities }
         end,
-        ['pylsp'] = function()
-          lspconfig.pylsp.setup { capabilities = capabilities }
+        ['pyright'] = function()
+          lspconfig.pyright.setup { capabilities = capabilities }
         end,
         ['biome'] = function()
           lspconfig.biome.setup { capabilities = capabilities }
