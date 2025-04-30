@@ -44,5 +44,8 @@ return {
     ft = 'typst',
     version = '1.*',
     opts = {},
+    keys = {
+      { '<localleader>ty', ':TypstPreview<CR>', desc = 'Typst Preview' },
+    },
   },
 }
