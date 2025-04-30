@@ -180,7 +180,7 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id xrandr --output DP-1 --mode 2560x1440
 exec --no-startup-id xrandr --output DP-2 --mode 1920x1080 --left-of DP-1
 exec --no-startup-id feh --bg-scale ~/Immagini/the_wallpaper.jpg
-exec --no-startup-id sleep && redshift -m randr -P -O 3750
+exec --no-startup-id redshift -m randr -P -O 4000
 
 for_window [class="Matplotlib"] floating enable
 
