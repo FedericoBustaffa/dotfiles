@@ -2,7 +2,7 @@ return {
   {
     'nvim-lualine/lualine.nvim',
     lazy = true,
-    event = 'BufReadPre',
+    event = { 'BufAdd', 'BufReadPre', 'BufEnter' },
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('lualine').setup {
