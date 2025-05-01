@@ -1,11 +1,9 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
-    [
+    "actions": [
         {
-            "command": 
-            {
+            "command": {
                 "action": "copy",
                 "singleLine": false
             },
@@ -20,8 +18,7 @@
             "keys": "ctrl+shift+f"
         },
         {
-            "command": 
-            {
+            "command": {
                 "action": "splitPane",
                 "split": "auto",
                 "splitMode": "duplicate"
@@ -32,24 +29,20 @@
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{51855cb2-8cce-5362-8f54-464b92b32386}",
-    "newTabMenu": 
-    [
+    "newTabMenu": [
         {
             "type": "remainingProfiles"
         }
     ],
-    "profiles": 
-    {
+    "profiles": {
         "defaults": {},
-        "list": 
-        [
+        "list": [
             {
                 "colorScheme": "Catppuccin Mocha",
                 "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
                 "cursorShape": "filledBox",
                 "elevate": false,
-                "font": 
-                {
+                "font": {
                     "face": "JetBrainsMono Nerd Font",
                     "size": 12.0
                 },
@@ -62,8 +55,7 @@
             {
                 "colorScheme": "One Half Dark",
                 "commandline": "%SystemRoot%\\System32\\cmd.exe",
-                "font": 
-                {
+                "font": {
                     "face": "JetBrainsMono Nerd Font"
                 },
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
@@ -87,8 +79,7 @@
             {
                 "bellStyle": "none",
                 "colorScheme": "Catppuccin Mocha",
-                "font": 
-                {
+                "font": {
                     "face": "JetBrainsMono Nerd Font",
                     "size": 12.0
                 },
@@ -114,8 +105,7 @@
             }
         ]
     },
-    "schemes": 
-    [
+    "schemes": [
         {
             "background": "#0A0E14",
             "black": "#01060E",
@@ -485,6 +475,29 @@
             "yellow": "#A2734C"
         },
         {
+            "name": "Vague",
+            "background": "#141415",
+            "foreground": "#cdcdcd",
+            "selectionBackground": "#333738",
+            "cursorColor": "#cdcdcd",
+            "black": "#141415",
+            "red": "#df6882",
+            "green": "#8cb66d",
+            "yellow": "#f3be7c",
+            "blue": "#7e98e8",
+            "purple": "#bb9dbd",
+            "cyan": "#b4d4cf",
+            "white": "#cdcdcd",
+            "brightBlack": "#606079",
+            "brightRed": "#df6882",
+            "brightGreen": "#8cb66d",
+            "brightYellow": "#f3be7c",
+            "brightBlue": "#7e98e8",
+            "brightPurple": "#bb9dbd",
+            "brightCyan": "#b4d4cf",
+            "brightWhite": "#ffffff"
+        },
+        {
             "background": "#000000",
             "black": "#000000",
             "blue": "#000080",
@@ -509,81 +522,84 @@
         }
     ],
     "showTerminalTitleInTitlebar": false,
-    "theme": "Catppuccin Mocha",
-    "themes": 
-    [
+    "theme": "Vague",
+    "themes": [
         {
             "name": "Ayu",
-            "tab": 
-            {
+            "tab": {
                 "background": "#0A0E14FF",
                 "showCloseButton": "always",
                 "unfocusedBackground": null
             },
-            "tabRow": 
-            {
+            "tabRow": {
                 "background": "#303446FF",
                 "unfocusedBackground": "#232634FF"
             },
-            "window": 
-            {
+            "window": {
                 "applicationTheme": "dark",
                 "useMica": false
             }
         },
         {
             "name": "Catppuccin Frappe",
-            "tab": 
-            {
+            "tab": {
                 "background": "#303446FF",
                 "showCloseButton": "always",
                 "unfocusedBackground": null
             },
-            "tabRow": 
-            {
+            "tabRow": {
                 "background": "#292C3CFF",
                 "unfocusedBackground": "#232634FF"
             },
-            "window": 
-            {
+            "window": {
                 "applicationTheme": "dark",
                 "useMica": false
             }
         },
         {
             "name": "Catppuccin Macchiato",
-            "tab": 
-            {
+            "tab": {
                 "background": "#24273AFF",
                 "showCloseButton": "always",
                 "unfocusedBackground": null
             },
-            "tabRow": 
-            {
+            "tabRow": {
                 "background": "#1E2030FF",
                 "unfocusedBackground": "#181926FF"
             },
-            "window": 
-            {
+            "window": {
                 "applicationTheme": "dark",
                 "useMica": false
             }
         },
         {
             "name": "Catppuccin Mocha",
-            "tab": 
-            {
+            "tab": {
                 "background": "#1E1D2FFF",
                 "showCloseButton": "always",
                 "unfocusedBackground": null
             },
-            "tabRow": 
-            {
+            "tabRow": {
                 "background": "#181825FF",
                 "unfocusedBackground": "#11111BFF"
             },
-            "window": 
-            {
+            "window": {
+                "applicationTheme": "dark",
+                "useMica": false
+            }
+        },
+        {
+            "name": "Vague",
+            "tab": {
+                "background": "#141415",
+                "showCloseButton": "always",
+                "unfocusedBackground": null
+            },
+            "tabRow": {
+                "background": "#141415",
+                "unfocusedBackground": "#11111BFF"
+            },
+            "window": {
                 "applicationTheme": "dark",
                 "useMica": false
             }
