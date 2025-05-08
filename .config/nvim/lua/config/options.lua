@@ -3,6 +3,7 @@ vim.opt.relativenumber = true
 vim.opt.cursorline = true
 vim.opt.scrolloff = 12
 vim.opt.signcolumn = 'yes'
+vim.opt.conceallevel = 2
 
 vim.opt.mouse = 'a'
 vim.opt.clipboard = 'unnamedplus'
