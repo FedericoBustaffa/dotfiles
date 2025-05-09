@@ -17,7 +17,7 @@
     ],
     "modules-right": [
         // "mpd",
-        // "idle_inhibitor",
+        "idle_inhibitor",
         "pulseaudio",
         "bluetooth",
         "network",
@@ -31,7 +31,7 @@
         "battery",
         // "battery#bat2",
         "clock",
-        // "tray",
+        "tray",
         "custom/power"
     ],
     // Modules configuration
@@ -147,9 +147,9 @@
         // "format-full": "",
         "format-icons": ["", "", "", "", ""]
     },
-    "battery#bat2": {
-        "bat": "BAT2"
-    },
+    // "battery#bat2": {
+    //     "bat": "BAT2"
+    // },
     "power-profiles-daemon": {
       "format": "{icon}",
       "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
@@ -188,6 +188,9 @@
             "default": ["", "", ""]
         },
         "on-click": "pavucontrol"
+    },
+    "bluetooth": {
+        "format": " {status}",
     },
     "custom/media": {
         "format": "{icon} {text}",
