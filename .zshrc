@@ -25,7 +25,7 @@ alias la="ls -a"
 alias tree="ls --tree"
 alias jupyter="jupyter-lab . --no-browser"
 alias z="zoxide"
-alias upd="bash ~/scripts/upd.bash"
+alias upd="bash ~/scripts/upd.sh"
 alias tmux-sessionizer="bash ~/scripts/tmux-sessionizer.sh"
 
 export PATH=$PATH:$HOME/scripts/
@@ -45,7 +45,7 @@ compdef _gnu_generic zed
 export TERM=xterm-256color
 
 # FZF
-source ~/scripts/fzf_utils.bash
+source ~/scripts/fzf_utils.sh
 
 # Lazygit keybinding
 bindkey -s "^G" "lazygit\n"
