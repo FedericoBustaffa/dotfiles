@@ -132,7 +132,8 @@ button {
 
 #battery {
     background-color: transparent;
-    color: #000000;
+    border-bottom: 3px solid rgba(200, 120, 100, 1.0);
+    padding: 0 10px;
 }
 
 #battery.charging, #battery.plugged {
@@ -159,7 +160,6 @@ button {
 }
 
 #power-profiles-daemon {
-    /* padding-right: 15px; */
     padding: 0 10px;
 }
 

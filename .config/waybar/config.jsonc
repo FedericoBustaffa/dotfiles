@@ -14,12 +14,10 @@
     "modules-right": [
         "clock",
         "pulseaudio",
-        "power-profiles-daemon",
-        "battery",
         "bluetooth",
         "network",
-        // "battery#bat2",
-        // "tray",
+        "battery",
+        "power-profiles-daemon",
         "custom/power"
     ],
     // "hyprland/workspaces": {
@@ -82,10 +80,10 @@
     "battery": {
         "states": {
             "good": 80,
-            "warning": 30,
+            "warning": 35,
             "critical": 15
         },
-        "format": "{capacity}% {icon}",
+        "format": "{capacity}% {icon} ",
         "format-full": "{capacity}% {icon}",
         "format-charging": "{capacity}% ",
         "format-plugged": "{capacity}% ",
@@ -94,9 +92,6 @@
         // "format-full": "",
         "format-icons": ["", "", "", "", ""]
     },
-    // "battery#bat2": {
-    //     "bat": "BAT2"
-    // },
     "power-profiles-daemon": {
       "format": "{icon}",
       "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
@@ -110,7 +105,7 @@
     },
     "network": {
         "format": " ",
-        "format-wifi": "({signalStrength}%)  ",
+        "format-wifi": " ",
         "format-ethernet": " ",
         "format-disconnected": "Disconnected ⚠ ",
         "on-click": "nm-connection-editor"
