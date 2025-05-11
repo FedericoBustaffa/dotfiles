@@ -109,24 +109,20 @@
       }
     },
     "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
-        // "format-wifi": "{essid} ({signalStrength}%) ",
+        "format": " ",
         "format-wifi": "({signalStrength}%)  ",
-        "format-ethernet": "{ipaddr}/{cidr}  ",
-        "tooltip-format": "{ifname} via {gwaddr}  ",
-        "format-linked": "{ifname} (No IP)  ",
+        "format-ethernet": " ",
         "format-disconnected": "Disconnected ⚠ ",
-        // "format-alt": "{ifname}: {ipaddr}/{cidr}",
         "on-click": "nm-connection-editor"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
         "format": "{icon} {volume}% {format_source}",
-        "format-bluetooth": "{icon}  {volume}% | {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-bluetooth": "󰂰 {volume}% | {format_source}",
+        "format-bluetooth-muted": "󰂰 0% | {format_source}",
         "format-muted": " {format_source}",
         "format-source": " {volume}%",
-        "format-source-muted": "",
+        "format-source-muted": " ",
         "format-icons": {
             "headphone": "",
             "hands-free": "",
@@ -136,11 +132,15 @@
             "car": "",
             "default": ["", "", ""]
         },
-        "on-click": "pavucontrol"
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
     },
     "bluetooth": {
-        "format": "  {status} ",
-        "on-click": "blueman-manager"
+        "format": "󰂯",
+        "format-off": "󰂲",
+        "format-connected": "󰂱",
+        "tooltip": false,
+        "hover": "ciao",
+        "on-click": "blueman-manager",
     },
     "custom/media": {
         "format": "{icon} {output}",
@@ -152,10 +152,10 @@
         },
         "escape": true,
         // "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-        "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+        "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify-launcher 2> /dev/null" // Filter player based on name
     },
     "custom/power": {
-        "format" : " ⏻ ",
+        "format" : "",
 		"tooltip": false,
         "on-click": "wlogout"
     }

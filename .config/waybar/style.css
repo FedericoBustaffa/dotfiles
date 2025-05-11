@@ -1,12 +1,12 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    font-family: JetBrainsMono Nerd Font, FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 15px;
 }
 
 window#waybar {
-    background-color: rgba(25, 25, 25, 0.85);
-    border-bottom: 3px solid rgba(100, 114, 125, 0.95);
+    background-color: rgba(25, 25, 25, 1.0);
+    border-bottom: 3px solid rgba(25, 25, 25, 1.0);
     color: #ffffff;
     transition-property: background-color;
     transition-duration: .5s;
@@ -43,33 +43,37 @@ button {
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
-button:hover {
-    background: inherit;
-    box-shadow: inset 0 -3px #ffffff;
-}
+/* button:hover { */
+/*     background: inherit; */
+/*     box-shadow: inset 0 -3px #ffffff; */
+/* } */
 
 /* you can set a style on hover for any module like this */
 #pulseaudio:hover {
-    background-color: #a37800;
+    /* background-color: transparent; */
 }
 
 #workspaces button {
-    padding: 0 5px;
+    padding: 0 10px;
     background-color: transparent;
+    background: transparent;
     color: #ffffff;
+    border-bottom: 3px solid transparent;
+}
+
+#workspaces button.focused {
+    background-color: transparent;
+    background: transparent;
+    color: #ffffff;
+    border-bottom: 3px solid rgba(250, 250, 250, 1.0);
 }
 
 #workspaces button:hover {
     background: rgba(0, 0, 0, 0.2);
 }
 
-#workspaces button.focused {
-    background-color: #3c235c;
-    box-shadow: inset 0 -3px #ffffff;
-}
-
 #workspaces button.urgent {
-    background-color: #eb4d4b;
+    background-color: transparent;
 }
 
 #mode {
@@ -98,10 +102,17 @@ button:hover {
     color: #ffffff;
 }
 
-#window,
+#window {
+    border-bottom: 3px solid rgba(250, 250, 250, 1.0);
+    padding: 0 10px;
+}
+
 #workspaces {
     margin: 0 4px;
+    border-bottom: 3px solid rgba(250, 250, 250, 1.0);
 }
+
+#workspaces.
 
 /* If workspaces is the leftmost module, omit left margin */
 .modules-left > widget:first-child > #workspaces {
@@ -114,11 +125,13 @@ button:hover {
 }
 
 #clock {
-    background-color: #64727D;
+    background-color: transparent;
+    border-bottom: 3px solid rgba(90, 250, 250, 1.0);
+    padding: 0 10px;
 }
 
 #battery {
-    background-color: #ffffff;
+    background-color: transparent;
     color: #000000;
 }
 
@@ -146,22 +159,26 @@ button:hover {
 }
 
 #power-profiles-daemon {
-    padding-right: 15px;
+    /* padding-right: 15px; */
+    padding: 0 10px;
 }
 
 #power-profiles-daemon.performance {
-    background-color: #f53c3c;
-    color: #ffffff;
+    background-color: transparent;
+    color: #f53c3c;
+    border-bottom: 3px solid #f53c3c;
 }
 
 #power-profiles-daemon.balanced {
-    background-color: #2980b9;
-    color: #ffffff;
+    background-color: transparent;
+    color: #2980b9;
+    border-bottom: 3px solid #2980b9;
 }
 
 #power-profiles-daemon.power-saver {
-    background-color: #2ecc71;
-    color: #000000;
+    background-color: transparent;
+    color: #2ecc71;
+    border-bottom: 3px solid #2ecc71;
 }
 
 label:focus {
@@ -186,21 +203,25 @@ label:focus {
 }
 
 #network {
-    background-color: #2980b9;
+    background-color: transparent;
+    border-bottom: 3px solid rgba(220, 180, 80, 1.0);
+    padding: 0 10px;
 }
 
 #network.disconnected {
-    background-color: #f53c3c;
+    background-color: transparent;
 }
 
 #pulseaudio {
-    background-color: #f1c40f;
-    color: #000000;
+    background-color: transparent;
+    color: #FFFFFF;
+    border-bottom: 3px solid rgba(150, 150, 230, 1.0);
+    padding: 0 10px;
 }
 
 #pulseaudio.muted {
-    background-color: #90b1b1;
-    color: #2a5c45;
+    background-color: transparent;
+    color: #FFFFFF;
 }
 
 #wireplumber {
@@ -281,6 +302,23 @@ label:focus {
     min-width: 16px;
 }
 
+#bluetooth {
+    background: transparent;
+    color: #FFFFFF;
+    border-bottom: 3px solid rgba(90, 160, 230, 1.0);
+    padding: 0 10px;
+}
+
+#bluetooth.off {
+    background: transparent;
+    color: #F74336;
+}
+
+#bluetooth.connected {
+    background: transparent;
+    color: #3E99FA;
+}
+
 #keyboard-state {
     background: #97e1ad;
     color: #000000;
@@ -324,4 +362,9 @@ label:focus {
 
 #privacy-item.audio-out {
     background-color: #0069d4;
+}
+
+#custom-power {
+    padding: 0 10px;
+    border-bottom: 3px solid white;
 }
