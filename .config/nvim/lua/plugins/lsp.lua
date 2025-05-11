@@ -101,9 +101,9 @@ return {
         ['tinymist'] = function()
           lspconfig.tinymist.setup { capabilities = capabilities }
         end,
-        ['hyprls'] = function()
-          lspconfig.hyprls.setup { capabilities = capabilities }
-        end,
+        -- ['hyprls'] = function()
+        --   lspconfig.hyprls.setup { capabilities = capabilities }
+        -- end,
       }
     end,
     keys = {
