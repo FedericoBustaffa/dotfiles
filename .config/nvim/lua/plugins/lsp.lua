@@ -62,48 +62,64 @@ return {
       local blink = require 'blink.cmp'
       local capabilities = blink.get_lsp_capabilities()
 
-      mason_lspconfig.setup_handlers {
-        function(server_name)
-          lspconfig[server_name].setup {
-            capabilities = capabilities,
-          }
-        end,
-        ['lua_ls'] = function()
-          lspconfig.lua_ls.setup { capabilities = capabilities }
-        end,
-        ['clangd'] = function()
-          lspconfig.clangd.setup {
-            capabilities = capabilities,
-            cmd = {
-              'clangd',
-              '--clang-tidy',
-              '--background-index',
-              '--completion-style=detailed',
-              '--header-insertion=never',
-            },
-          }
-        end,
-        ['cmake'] = function()
-          lspconfig.cmake.setup { capabilities = capabilities }
-        end,
-        ['pyright'] = function()
-          lspconfig.pyright.setup { capabilities = capabilities }
-        end,
-        ['biome'] = function()
-          lspconfig.biome.setup { capabilities = capabilities }
-        end,
-        ['marksman'] = function()
-          lspconfig.marksman.setup { capabilities = capabilities }
-        end,
-        ['texlab'] = function()
-          lspconfig.texlab.setup { capabilities = capabilities }
-        end,
-        ['tinymist'] = function()
-          lspconfig.tinymist.setup { capabilities = capabilities }
-        end,
-        ['hyprls'] = function()
-          lspconfig.hyprls.setup { capabilities = capabilities }
-        end,
+      mason_lspconfig.setup {
+        ensure_installed = {
+          'lua_ls',
+          'clangd',
+          'cmake',
+          'pyright',
+          'ruff',
+          'bashls',
+          'marksman',
+          'biome',
+          'texlab',
+          'tinymist',
+        },
+        automatic_installation = true,
+        automatic_enable = true,
+        handlers = {
+          function(server_name)
+            lspconfig[server_name].setup {
+              capabilities = capabilities,
+            }
+          end,
+          lua_ls = function()
+            lspconfig.lua_ls.setup { capabilities = capabilities }
+          end,
+          clangd = function()
+            lspconfig.clangd.setup {
+              capabilities = capabilities,
+              cmd = {
+                'clangd',
+                '--clang-tidy',
+                '--background-index',
+                '--completion-style=detailed',
+                '--header-insertion=never',
+              },
+            }
+          end,
+          cmake = function()
+            lspconfig.cmake.setup { capabilities = capabilities }
+          end,
+          pyright = function()
+            lspconfig.pyright.setup { capabilities = capabilities }
+          end,
+          biome = function()
+            lspconfig.biome.setup { capabilities = capabilities }
+          end,
+          marksman = function()
+            lspconfig.marksman.setup { capabilities = capabilities }
+          end,
+          texlab = function()
+            lspconfig.texlab.setup { capabilities = capabilities }
+          end,
+          tinymist = function()
+            lspconfig.tinymist.setup { capabilities = capabilities }
+          end,
+          hyprls = function()
+            lspconfig.hyprls.setup { capabilities = capabilities }
+          end,
+        },
       }
     end,
     keys = {
