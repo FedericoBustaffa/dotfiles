@@ -1,7 +1,7 @@
 return {
   { -- In editor markdown live rendering
     'MeanderingProgrammer/render-markdown.nvim',
-    enabled = false,
+    enabled = true,
     lazy = true,
     ft = 'markdown',
     dependencies = {
