@@ -31,7 +31,7 @@ return {
         'marksman',
         'biome',
         'texlab',
-        'tinymist',
+        'hyprls',
       },
       automatic_installation = true,
       automatic_enable = true,
@@ -73,7 +73,7 @@ return {
           'marksman',
           'biome',
           'texlab',
-          'tinymist',
+          'hyprls',
         },
         automatic_installation = true,
         automatic_enable = true,
@@ -112,9 +112,6 @@ return {
           end,
           texlab = function()
             lspconfig.texlab.setup { capabilities = capabilities }
-          end,
-          tinymist = function()
-            lspconfig.tinymist.setup { capabilities = capabilities }
           end,
           hyprls = function()
             lspconfig.hyprls.setup { capabilities = capabilities }
