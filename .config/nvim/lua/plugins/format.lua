@@ -44,7 +44,7 @@ return {
           lua = { 'stylua' },
           c = { 'clang-format' },
           cpp = { 'clang-format' },
-          py = { 'ruff' },
+          python = { 'ruff_format' },
           json = { 'biome' },
           sh = { 'beautysh' },
           bash = { 'beautysh' },
