@@ -31,3 +31,15 @@ vim.opt.completeopt = { 'menuone', 'noselect', 'popup' }
 
 vim.opt.showmode = false
 vim.opt.lazyredraw = false
+
+vim.diagnostic.config {
+  virtual_text = false,
+  signs = true,
+  underline = true,
+  float = {
+    border = 'rounded',
+    source = true,
+    header = '',
+    prefix = '',
+  },
+}

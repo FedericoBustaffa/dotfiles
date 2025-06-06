@@ -25,6 +25,7 @@ return {
           'markdownlint',
           'prettierd',
           'latexindent',
+          'typstyle',
         },
         automatic_installation = true,
       }
@@ -51,6 +52,7 @@ return {
           zsh = { 'beautysh' },
           markdown = { 'prettierd' },
           latex = { 'latexindent' },
+          typst = { 'typstyle' },
         },
         format_on_save = {
           lsp_fallback = true,
