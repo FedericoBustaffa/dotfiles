@@ -64,6 +64,7 @@ return {
   },
   { -- Typst
     'chomosuke/typst-preview.nvim',
+    enabled = false,
     lazy = true,
     ft = 'typst',
     version = '1.*',
