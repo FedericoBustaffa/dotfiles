@@ -4,8 +4,9 @@ return {
   cmd = {
     'marksman',
   },
-  filetypes = { 'md', 'markdown' },
+  filetypes = { 'markdown' },
   root_markers = {
+    'master',
     '.obsidian',
     '.git',
   },
