@@ -14,8 +14,13 @@ vim.lsp.config('*', {
 vim.lsp.enable {
   'lua_ls',
   'clangd',
+  'cmake',
   'pyright',
+  'bashls',
   'marksman',
+  'biome',
+  'texlab',
+  'hyprls',
 }
 
 vim.diagnostic.config {
