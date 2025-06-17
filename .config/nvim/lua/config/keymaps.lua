@@ -36,11 +36,11 @@ vim.keymap.set({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { desc = 'Do
 vim.keymap.set({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, silent = true })
 vim.keymap.set({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, silent = true })
 
--- Move to windows with Ctrl + hjkl
-vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Move Left' })
-vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Move Below' })
-vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Move Above' })
-vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move Right' })
+-- Move to windows with Ctrl + hjkl (done by nvim-tmux-navigator)
+-- vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Move Left' })
+-- vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Move Below' })
+-- vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Move Above' })
+-- vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move Right' })
 
 -- Resize panes
 vim.keymap.set('n', '<C-Up>', '<cmd>resize +2<cr>', { desc = 'Increase Window Height' })
