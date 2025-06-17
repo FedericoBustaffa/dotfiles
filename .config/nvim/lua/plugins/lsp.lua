@@ -20,7 +20,6 @@ vim.lsp.enable {
   'marksman',
   'biome',
   'texlab',
-  'hyprls',
 }
 
 vim.diagnostic.config {
@@ -67,7 +66,6 @@ return {
         'marksman',
         'biome',
         'texlab',
-        'hyprls',
       },
       automatic_installation = true,
     },
