@@ -25,11 +25,6 @@ vim.keymap.set('n', 'N', 'Nzzzv', { silent = true })
 -- Don't override on yank - paste
 vim.keymap.set('x', 'p', '"_dP', { desc = 'Smart Paste', silent = true })
 
--- Terminal mode
-vim.keymap.set('t', '<ESC>', '<C-\\><C-n>')
-vim.keymap.set('n', '<localleader>tt', ':FloatTerminal<CR>i', { silent = true, desc = 'Open Float Terminal' })
-vim.keymap.set('t', '<localleader>tt', '<C-\\><C-n>:FloatTerminal<CR>', { silent = true, desc = 'Close Float Terminal' })
-
 -- Better Up and Down
 vim.keymap.set({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
 vim.keymap.set({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
