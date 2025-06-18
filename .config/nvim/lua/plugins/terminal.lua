@@ -23,9 +23,9 @@ return {
       silent = true,
     },
     {
-      't',
       '<localleader>tt',
       '<C-\\><C-n>:FloatermToggle<CR>',
+      mode = 't',
       desc = 'Toggle floating terminal',
       silent = true,
     },
