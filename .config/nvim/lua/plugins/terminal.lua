@@ -3,7 +3,7 @@ return {
   dependencies = 'nvzone/volt',
   lazy = false,
   opts = {
-    border = true,
+    border = false,
     size = { h = 70, w = 80 },
 
     -- to use, make this func(buf)
@@ -20,6 +20,14 @@ return {
       '<localleader>tt',
       ':FloatermToggle<CR>',
       desc = 'Toggle floating terminal',
+      silent = true,
+    },
+    {
+      't',
+      '<localleader>tt',
+      '<C-\\><C-n>:FloatermToggle<CR>',
+      desc = 'Toggle floating terminal',
+      silent = true,
     },
   },
 }
