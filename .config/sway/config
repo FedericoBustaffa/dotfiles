@@ -14,16 +14,12 @@ set $down j
 set $up k
 set $right l
 
-# Your preferred terminal emulator
 set $term kitty
-# Your preferred application launcher
-set $menu wofi --show drun 
-# Your preferred browser
-set $browser zen-browser
+set $menu wofi --show drun
+set $browser ~/.local/bin/zen-bin
 
 ### Output configuration
 output * bg ~/OneDrive/Sfondi/the_wallpaper.jpg fill
-
 include monitors.conf
 
 # You can get the names of your outputs by running: swaymsg -t get_outputs
@@ -33,12 +29,12 @@ include monitors.conf
 # Example configuration:
 
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         timeout 1200 'swaylock -f -c 000000' \
+         timeout 3600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
          before-sleep 'swaylock -f -c 000000'
 
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
+# This will lock your screen after 1200 seconds of inactivity, then turn off
+# your displays after another 3600 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 
 # Input configuration
@@ -71,6 +67,9 @@ input type:keyboard {
 
     # Start browser
     bindsym $mod+b exec $browser
+
+    # Start power menu
+    bindsym $mod+BackSpace exec wlogout
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -135,7 +134,7 @@ input type:keyboard {
 
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
+    # bindsym $mod+w layout tabbed
     bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen
@@ -200,22 +199,29 @@ bindsym $mod+r mode "resize"
     bindsym Print exec grim
 
 # Status Bar:
-bar {
-    position top
 
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+for_window [app_id="zen"] move to workspace 1
+for_window [class="org.pwmt.zathura"] move to workspace 2
+for_window [app_id="spotify"] move to workspace 3
+for_window [app_id="kitty"] move to workspace 7
+for_window [class="obsidian"] move to workspace 8
 
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
-}
+# windowrulev2 = workspace 1,class:^(firefox)$
+# windowrulev2 = workspace 1,class:^(zen)$
+# windowrulev2 = workspace 2,class:^(org.pwmt.zathura)$
+# windowrulev2 = workspace 3,class:^(spotify)$
+#
+# windowrulev2 = workspace 7,class:^(kitty)$
+# windowrulev2 = workspace 8,class:^(obsidian)$
 
-gaps inner 2
-gaps outer 4
-default_border pixel 2
+exec waybar --config ~/.config/waybar/sway.jsonc
+exec $term
+exec $browser
+exec obsidian --enable-features=UseOzonePlatform --ozone-platform=wayland
+exec_always wlsunset -l 0 -L 0 -t 5500 -T 5501
+
+gaps inner 4
+gaps outer 2
+default_border pixel 0
 
 include /etc/sway/config.d/*
