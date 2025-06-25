@@ -1,0 +1,10 @@
+{
+    "modules-left": [
+        "sway/workspaces"
+    ],
+    "modules-center": [
+        "sway/window"
+    ],
+    "include": "~/.config/waybar/config.jsonc"
+}
+

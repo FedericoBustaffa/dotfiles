@@ -1,0 +1,10 @@
+{
+    "modules-left": [
+        "hyprland/workspaces"
+    ],
+    "modules-center": [
+        "hyprland/window"
+    ],
+    "include": "~/.config/waybar/config.jsonc"
+}
+
