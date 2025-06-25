@@ -13,28 +13,12 @@
         "power-profiles-daemon",
         "custom/power"
     ],
-    "margin-top": 4,
-    "margin-left": 4,
-    "margin-right": 4,
+    // "margin-top": 4,
+    // "margin-left": 4,
+    // "margin-right": 4,
     "spacing": 4, // Gaps between modules (4px)
     "mode": "dock",
     "start_hidden": false,
-    "hyprland/workspaces": {
-        "disable-scroll": true,
-        "all-outputs": true,
-        "warp-on-scroll": false,
-        "format": "{name}",
-        // "format-icons": {
-        //     "urgent": "",
-        //     "focused": "",
-        //     "default": ""
-        // }
-    },
-    "hyprland/window": {
-        "format": "{class}",
-        "icon": true,
-        "icon-size": 20
-    },
     // "idle_inhibitor": {
     //     "format": "{icon}",
     //     "format-icons": {
