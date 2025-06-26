@@ -210,7 +210,7 @@ exec waybar --config ~/.config/waybar/sway.jsonc
 exec $term
 exec $browser
 exec obsidian --enable-features=UseOzonePlatform --ozone-platform=wayland
-exec_always wlsunset -l 0 -L 0 -t 5000 -T 5001
+exec_always wlsunset -l 0 -L 0 -t 4500 -T 5000
 
 gaps inner 4
 gaps outer 2
