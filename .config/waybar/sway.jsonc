@@ -14,7 +14,7 @@
         "show-empty": false,
     },
     "sway/window": {
-        "format": "{title}",
+        "format": "{app_id}",
         "icon": true,
         "icon-size": 20
     },
