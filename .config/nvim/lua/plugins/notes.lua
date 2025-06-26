@@ -60,6 +60,19 @@ return {
     ft = { 'latex', 'tex' },
     init = function()
       vim.g.vimtex_view_method = 'zathura'
+      vim.g.vimtex_compiler_latexmk = {
+        backend = 'nvim',
+        build_dir = '',
+        callback = 1,
+        continuous = 1,
+        executable = 'latexmk',
+        options = {
+          '-pdf',
+          '-shell-escape',
+          '-interaction=nonstopmode',
+          '-synctex=1',
+        },
+      }
     end,
   },
   { -- Typst

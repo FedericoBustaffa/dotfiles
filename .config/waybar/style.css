@@ -42,12 +42,9 @@ button:hover {
     background-color: transparent;
 }
 
-/* #workspaces { */
-/*     background: transparent; */
-/*     border: none; */
-/*     border-bottom: none; */
-/*     margin: 0 4px; */
-/* } */
+#workspaces {
+    margin: 0 4px;
+}
 
 #workspaces button {
     padding: 0 10px;
@@ -92,12 +89,13 @@ button:hover {
 }
 
 #window {
+    background-color: transparent;
     border-bottom: 3px solid rgba(250, 250, 250, 1.0);
     padding: 0 10px;
 }
 
-#workspaces {
-    margin: 0 4px;
+#waybar.empty #window {
+    border-bottom: none;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
