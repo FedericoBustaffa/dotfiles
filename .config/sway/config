@@ -16,7 +16,7 @@ set $right l
 
 set $term kitty
 set $menu wofi --show drun
-set $browser ~/.local/bin/zen-bin
+set $browser firefox
 
 ### Output configuration
 output * bg ~/OneDrive/Sfondi/the_wallpaper.jpg fill
@@ -201,6 +201,7 @@ bindsym $mod+r mode "resize"
 # Status Bar:
 
 for_window [app_id="zen"] move to workspace 1
+for_window [app_id="firefox"] move to workspace 1
 for_window [class="org.pwmt.zathura"] move to workspace 2
 for_window [app_id="spotify"] move to workspace 3
 for_window [app_id="kitty"] move to workspace 7
