@@ -2,12 +2,12 @@ local blink = require 'blink.cmp'
 
 return {
   cmd = {
-    'clangd',
+    '/usr/bin/clangd',
+    '--clang-tidy',
     '--background-index=false',
     '--completion-style=detailed',
     '--header-insertion=never',
     '--cross-file-rename',
-    -- '--clang-tidy',
   },
   filetypes = { 'c', 'h', 'cpp', 'hpp' },
   root_markers = {
