@@ -123,6 +123,18 @@ input type:keyboard {
     bindsym $mod+Shift+0 move container to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
+
+    # workspaces on monitors
+    workspace 1 output DP-2
+    workspace 2 output DP-2
+    workspace 3 output DP-2
+    workspace 4 output DP-2
+    workspace 5 output DP-2
+    workspace 6 output DP-1
+    workspace 7 output DP-1
+    workspace 8 output DP-1
+    workspace 9 output DP-1
+    workspace 10 output DP-1
 #
 # Layout stuff:
 #
@@ -204,8 +216,13 @@ for_window [app_id="zen"] move to workspace 1
 for_window [app_id="firefox"] move to workspace 1
 for_window [class="org.pwmt.zathura"] move to workspace 2
 for_window [app_id="spotify"] move to workspace 3
-for_window [app_id="kitty"] move to workspace 7
-for_window [class="obsidian"] move to workspace 8
+
+for_window [class="Code"] move to workspace 7
+for_window [app_id="dev.zed.Zed"] move to workspace 7
+for_window [app_id="kitty"] move to workspace 8
+for_window [class="obsidian"] move to workspace 9
+
+for_window [app_id="blueman-manager"] floating enable
 
 exec waybar --config ~/.config/waybar/sway.jsonc
 exec $term
