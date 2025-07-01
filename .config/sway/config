@@ -214,13 +214,13 @@ bindsym $mod+r mode "resize"
 
 for_window [app_id="zen"] move to workspace 1
 for_window [app_id="firefox"] move to workspace 1
-for_window [class="org.pwmt.zathura"] move to workspace 2
+for_window [app_id="org.pwmt.zathura"] move to workspace 2
 for_window [app_id="spotify"] move to workspace 3
 
 for_window [class="Code"] move to workspace 7
 for_window [app_id="dev.zed.Zed"] move to workspace 7
 for_window [app_id="kitty"] move to workspace 8
-for_window [class="obsidian"] move to workspace 9
+for_window [app_id="obsidian"] move to workspace 9
 
 for_window [app_id="blueman-manager"] floating enable
 
@@ -228,10 +228,14 @@ exec waybar --config ~/.config/waybar/sway.jsonc
 exec $term
 exec $browser
 exec obsidian --enable-features=UseOzonePlatform --ozone-platform=wayland
-exec_always wlsunset -l 0 -L 0 -t 4500 -T 5000
+exec_always wlsunset -l 0 -L 0 -t 4000 -T 4500
 
 gaps inner 4
 gaps outer 2
 default_border pixel 3
+
+client.focused #80aaff #80aaff #ffffff #80aaff #80aaff
+client.unfocused #444444 #222222 #888888 #444444 #222222
+client.focused_inactive #666666 #333333 #cccccc #666666 #333333
 
 include /etc/sway/config.d/*
