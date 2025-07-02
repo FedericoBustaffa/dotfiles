@@ -210,13 +210,13 @@ bindsym $mod+r mode "resize"
     # Special key to take a screenshot with grim
     bindsym Print exec grim
 
-# Status Bar:
-
+# Window rules and workspaces
 for_window [app_id="zen"] move to workspace 1
 for_window [app_id="firefox"] move to workspace 1
 for_window [app_id="org.pwmt.zathura"] move to workspace 2
 for_window [app_id="spotify"] move to workspace 3
 
+for_window [class="com-sonicwall-nixconnect-ConnectApplication"] move to workspace 6
 for_window [class="Code"] move to workspace 7
 for_window [app_id="dev.zed.Zed"] move to workspace 7
 for_window [app_id="kitty"] move to workspace 8
