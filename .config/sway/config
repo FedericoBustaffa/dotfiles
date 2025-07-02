@@ -211,17 +211,22 @@ bindsym $mod+r mode "resize"
     bindsym Print exec grim
 
 # Window rules and workspaces
+
+# left monitor workspaces
 for_window [app_id="zen"] move to workspace 1
 for_window [app_id="firefox"] move to workspace 1
 for_window [app_id="org.pwmt.zathura"] move to workspace 2
 for_window [class="Spotify"] move to workspace 3
 
+# right monitor workspaces
 for_window [class="com-sonicwall-nixconnect-ConnectApplication"] move to workspace 6
 for_window [class="Code"] move to workspace 7
 for_window [app_id="dev.zed.Zed"] move to workspace 7
 for_window [app_id="kitty"] move to workspace 8
 for_window [app_id="obsidian"] move to workspace 9
 
+
+# floating windows
 for_window [app_id="blueman-manager"] floating enable
 
 exec waybar --config ~/.config/waybar/sway.jsonc
@@ -229,6 +234,9 @@ exec $term
 exec $browser
 exec obsidian --enable-features=UseOzonePlatform --ozone-platform=wayland
 exec_always wlsunset -l 0 -L 0 -t 4000 -T 4500
+
+workspace 1
+workspace 8
 
 gaps inner 4
 gaps outer 2
