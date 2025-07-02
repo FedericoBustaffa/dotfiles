@@ -58,7 +58,7 @@ return {
     opts = {
       ensure_installed = {
         'lua_ls',
-        -- 'clangd',
+        'clangd',
         'cmake',
         'pyright',
         'ruff',

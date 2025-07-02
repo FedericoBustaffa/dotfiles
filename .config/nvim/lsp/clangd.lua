@@ -2,7 +2,7 @@ local blink = require 'blink.cmp'
 
 return {
   cmd = {
-    '/usr/bin/clangd',
+    'clangd',
     '--clang-tidy',
     '--background-index=false',
     '--completion-style=detailed',

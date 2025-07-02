@@ -214,7 +214,7 @@ bindsym $mod+r mode "resize"
 for_window [app_id="zen"] move to workspace 1
 for_window [app_id="firefox"] move to workspace 1
 for_window [app_id="org.pwmt.zathura"] move to workspace 2
-for_window [app_id="spotify"] move to workspace 3
+for_window [class="Spotify"] move to workspace 3
 
 for_window [class="com-sonicwall-nixconnect-ConnectApplication"] move to workspace 6
 for_window [class="Code"] move to workspace 7
