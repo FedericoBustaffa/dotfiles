@@ -1,7 +1,6 @@
 \.git
+.gitignore
+
 settings.json
 
-install.sh
-uninstall.sh
-
-.gitignore
+.config/sway/monitors.conf
