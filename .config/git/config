@@ -1,0 +1,9 @@
+[user]
+    name = FedericoBustaffa
+    email = kiko.bustaffa@gmail.com
+
+[core]
+    compression = 9
+    whitespace = error
+    preloadindex = true
+
