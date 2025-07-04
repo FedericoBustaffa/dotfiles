@@ -9,6 +9,8 @@
         "pulseaudio",
         "bluetooth",
         "network",
+        "cpu",
+        "memory",
         "battery",
         "power-profiles-daemon",
         "custom/power"
@@ -40,8 +42,9 @@
         "tooltip": false
     },
     "memory": {
-        "format": "{}% "
-    },
+        "interval": 30,
+        "format": "{percentage}% "
+    },    
     "temperature": {
         // "thermal-zone": 2,
         // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
@@ -83,14 +86,15 @@
     },
     "network": {
         "format": " ",
-        "format-wifi": "󰖩 ",
-        "format-ethernet": " ",
+        "format-wifi": "󰖩  {bandwidthDownBits}",
+        "format-ethernet": "  {bandwidthDownBits}",
         "format-disconnected": "󱚵 ",
+        "interval": 30,
         "on-click": "nm-connection-editor"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
-        "format": "{icon} {volume}% {format_source}",
+        "format": "{icon} {volume}%",
         "format-bluetooth": "󰂰 {volume}% | {format_source}",
         "format-bluetooth-muted": "󰂰 0% | {format_source}",
         "format-muted": " {format_source}",

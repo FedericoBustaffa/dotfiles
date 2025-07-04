@@ -1,4 +1,4 @@
 #!/bin/bash
 
 pkill waybar
-waybar --config ~/.config/waybar/hyprland.jsonc &
+waybar --config ~/.config/waybar/sway.jsonc &
