@@ -64,6 +64,8 @@ apt_cli_packages=(
     cmake-format
     make
     cmake
+    libomp-dev
+    libopenmpi-dev
     # Python
     python3-pip
     python3-venv
