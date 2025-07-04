@@ -83,9 +83,9 @@
     },
     "network": {
         "format": " ",
-        "format-wifi": " ",
+        "format-wifi": "󰖩 ",
         "format-ethernet": " ",
-        "format-disconnected": "Disconnected ⚠ ",
+        "format-disconnected": "󱚵 ",
         "on-click": "nm-connection-editor"
     },
     "pulseaudio": {
