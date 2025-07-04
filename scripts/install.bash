@@ -25,6 +25,7 @@ apt_cli_packages=(
     zoxide
     neofetch
     xclip
+    wl-clipboard
     fzf
     luarocks
     lua5.1
