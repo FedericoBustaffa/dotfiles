@@ -15,4 +15,4 @@
 .config/onedrive/items.sqlite3-shm
 .config/onedrive/items.sqlite3-wal
 
-.config/sway/monitors.conf
+sway/.config/sway/monitors.conf

@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
+STOW_TARGET="$HOME"
+PACKAGES=(
+    bash
+    dunst
+    fastfetch
+    git
+    gtk
+    kitty
+    nvim
+    onedrive
+    obsidian
+    spotify
+    starship
+    sway
+    tmux
+    vscode
+    waybar
+    zed
+    zsh
+)
+
+echo "📦 Stowing dotfiles from: $DOTFILES_DIR"
+cd "$DOTFILES_DIR" || { echo "cannot find $DOTFILES_DIR"; exit 1; }
+
+for pkg in "${PACKAGES[@]}"; do
+    echo "stowing $pkg..."
+    stow --target="$STOW_TARGET" --restow "$pkg"
+done
+
+echo "dotfiles stowed successfully."
+
