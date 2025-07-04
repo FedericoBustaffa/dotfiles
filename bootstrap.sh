@@ -24,7 +24,7 @@ PACKAGES=(
     zsh
 )
 
-echo "📦 Stowing dotfiles from: $DOTFILES_DIR"
+echo "stowing dotfiles from: $DOTFILES_DIR"
 cd "$DOTFILES_DIR" || { echo "cannot find $DOTFILES_DIR"; exit 1; }
 
 for pkg in "${PACKAGES[@]}"; do
