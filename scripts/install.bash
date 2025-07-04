@@ -113,9 +113,11 @@ sudo apt install ${apt_gui_packages[@]}
 sudo apt install ${sway_packages[@]}
 
 # Snap packages
+sudo snap refresh
 snap_packages=(
     code
     obsidian
+    spotify
 )
 
 for pkg in ${snap_packages[@]}; do
