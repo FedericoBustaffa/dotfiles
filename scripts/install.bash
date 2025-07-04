@@ -78,6 +78,7 @@ apt_cli_packages=(
 apt_gui_packages=(
     gnome-tweaks
     kitty
+    vlc
 )
 
 sway_packages=(
