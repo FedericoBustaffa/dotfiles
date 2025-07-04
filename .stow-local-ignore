@@ -4,3 +4,10 @@
 settings.json
 
 sway/.config/sway/monitors.conf
+
+onedrive/.config/onedrive/.config.backup
+onedrive/.config/onedrive/.config.hash
+onedrive/.config/onedrive/items.sqlite3
+onedrive/.config/onedrive/refresh_token
+
+nvim/.config/nvim/

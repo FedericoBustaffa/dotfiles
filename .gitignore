@@ -1,18 +1,16 @@
-.config/nvim/lazy-lock.json
-.config/nvim/package.json
-.config/nvim/package-lock.json
-.config/nvim/node_modules/
-.config/htop/
-.config/neofetch/
-.config/lazygit/
-.config/vscode-sqltools/
-.config/inkscape/
+# .config/nvim/lazy-lock.json
+# .config/nvim/package.json
+# .config/nvim/package-lock.json
+# .config/nvim/node_modules/
+# .config/htop/
+# .config/neofetch/
+# .config/lazygit/
+# .config/vscode-sqltools/
+# .config/inkscape/
 
-.config/onedrive/refresh_token
-.config/onedrive/.config.hash
-.config/onedrive/.config.backup
-.config/onedrive/items.sqlite3
-.config/onedrive/items.sqlite3-shm
-.config/onedrive/items.sqlite3-wal
+onedrive/.config/onedrive/refresh_token
+onedrive/.config/onedrive/.config.hash
+onedrive/.config/onedrive/.config.backup
+onedrive/.config/onedrive/items.sqlite3
 
 sway/.config/sway/monitors.conf
