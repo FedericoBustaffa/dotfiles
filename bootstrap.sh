@@ -7,6 +7,7 @@ STOW_TARGET="$HOME"
 PACKAGES=(
     bash
     dunst
+    clang
     fastfetch
     git
     gtk

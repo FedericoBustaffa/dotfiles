@@ -56,7 +56,7 @@
   "theme": {
     "mode": "system",
     "light": "Rosé Pine",
-    "dark": "Rosé Pine"
+    "dark": "VSCode Dark Modern"
   },
   "languages": {
     "C++": {
