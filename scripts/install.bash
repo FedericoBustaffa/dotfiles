@@ -4,7 +4,14 @@
 # on Debian based distros
 
 # ---------- APT/NALA packages ----------
-sudo add-apt-repository ppa:zhangsongcui3371/fastfetch
+
+# fastfetch PPA
+PPA_NAME="ppa:zhangsongcui3371/fastfetch"
+PPA_FILE="/etc/apt/sources.list.d/zhangsongcui3371-ubuntu-fastfetch-noble.sources"
+if ! ls $PPA_FILE 1>/dev/null 2>&1; then
+    sudo add-apt-repository -y "$PPA_NAME"
+fi
+
 
 sudo apt update -y
 sudo apt upgrade -y
@@ -77,6 +84,8 @@ apt_cli_packages=(
     python3-matplotlib
     python3-pandas
     python3-scipy
+    # LaTeX
+    texlive-full
 )
 
 apt_gui_packages=(
@@ -99,21 +108,24 @@ sway_packages=(
 # APT
 sudo apt install ${apt_cli_packages[@]}
 
-# LaTeX
-read -p "do you want to install the LaTeX suite? [y/N]: " choice
+
+# GUI
+read -p "do you want to install GUI packages? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
 if [ $choice == "y" ]; then
-    sudo apt install texlive-full
+    sudo apt install ${apt_gui_packages[@]}
 fi
 
-# GUI
-sudo apt install ${apt_gui_packages[@]}
-
 # Sway
-sudo apt install ${sway_packages[@]}
+read -p "do you want to install Sway packages? [y/N]: " choice
+choice=${choice:-n}
+choice=${choice,,}
+if [ $choice == "y" ]; then
+    sudo apt install ${sway_packages[@]}
+fi
 
-# Snap packages
+# snap packages
 sudo snap refresh
 snap_packages=(
     code
@@ -121,9 +133,14 @@ snap_packages=(
     spotify
 )
 
-for pkg in ${snap_packages[@]}; do
-    sudo snap install $pkg --classic
-done
+read -p "do you want to install snap packages? [y/N]: " choice
+choice=${choice:-n}
+choice=${choice,,}
+if [ $choice == "y" ]; then
+    for pkg in ${snap_packages[@]}; do
+        sudo snap install $pkg --classic
+    done
+fi
 
 # NPM packages
 sudo npm install --global neovim yarn
