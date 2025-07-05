@@ -23,6 +23,7 @@ PACKAGES=(
     waybar
     zed
     zsh
+    wlogout
 )
 
 echo "stowing dotfiles from: $DOTFILES_DIR"

@@ -93,7 +93,6 @@
         "on-click": "nm-connection-editor"
     },
     "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
         "format": "{icon} {volume}%",
         "format-bluetooth": "󰂰 {volume}% | {format_source}",
         "format-bluetooth-muted": "󰂰 0% | {format_source}",
@@ -116,7 +115,6 @@
         "format-off": "󰂲",
         "format-connected": "󰂱",
         "tooltip": false,
-        "hover": "ciao",
         "on-click": "blueman-manager",
     },
     "custom/media": {
