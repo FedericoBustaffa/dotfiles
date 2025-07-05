@@ -26,9 +26,8 @@ alias tree="ls --tree"
 alias jupyter="jupyter-lab . --no-browser"
 alias z="zoxide"
 alias upd="bash ~/scripts/upd.sh"
-alias tmux-sessionizer="bash ~/scripts/tmux-sessionizer.sh"
 
-export PATH=$PATH:$HOME/scripts/
+export PATH=$PATH:$HOME/dotfiles/scripts/
 export PATH=$PATH:$HOME/.local/bin/
 export PATH=$PATH:$HOME/.cargo/bin/
 export PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin
@@ -44,8 +43,8 @@ compdef _gnu_generic zed
 
 export TERM=xterm-256color
 
-# FZF
-source ~/scripts/fzf_utils.sh
+# FZF search in university directory (Master)
+source ~/dotfiles/scripts/fzf_utils.sh
 
 # Lazygit keybinding
 bindkey -s "^G" "lazygit\n"
@@ -54,6 +53,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-bindkey -s ^f "tmux-sessionizer\n"
+bindkey -s ^f "tmux-sessionizer.sh\n"
 
 fastfetch

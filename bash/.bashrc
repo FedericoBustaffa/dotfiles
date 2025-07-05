@@ -125,7 +125,7 @@ alias ls="eza --color=always --long --icons=always --no-time --no-user --no-perm
 alias bat="batcat"
 alias jupyter="jupyter-lab . --no-browser"
 
-export PATH=$PATH:$HOME/scripts/
+export PATH=$PATH:$HOME/dotfiles/scripts/
 export PATH=$PATH:$HOME/.local/bin/
 export PATH=$PATH:$HOME/.cargo/bin/
 export PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin

@@ -38,6 +38,7 @@ apt_cli_packages=(
     tmux
     tree
     zathura
+    poppler-utils
     hwloc
     libfmt-dev
     pandoc
