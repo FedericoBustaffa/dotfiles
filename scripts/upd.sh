@@ -6,5 +6,4 @@ sudo apt autoremove
 
 sudo snap refresh
 
-git -C ~/scripts/ pull
 git -C ~/dotfiles/ pull
