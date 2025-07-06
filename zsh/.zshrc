@@ -23,9 +23,6 @@ alias py='python3'
 alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions"
 alias la="ls -a"
 alias tree="ls --tree"
-alias jupyter="jupyter-lab . --no-browser"
-alias z="zoxide"
-alias upd="bash ~/scripts/upd.sh"
 
 export PATH=$PATH:$HOME/dotfiles/scripts/
 export PATH=$PATH:$HOME/.local/bin/
