@@ -142,41 +142,53 @@ if [ $choice == "y" ]; then
     done
 fi
 
+# Zen Browser
+if [ ! -d "${HOME}/.local/zen/" ]; then
+    curl -L https://github.com/zen-browser/desktop/releases/latest/download/zen.linux-x86_64.tar.xz -o /home/federico/zen.linux-x86_64.tar.xz
+    tar xvf ${HOME}/zen.linux-x86_64.tar.xz
+    rm ${HOME}/zen.linux-x86_64.tar.xz
+    mv zen ${HOME}/.local/
+fi
+
 # NPM packages
 sudo npm install --global neovim yarn
 npm fund
 
 # Install tmux TPM
-if [ ! -d "~/.tmux/plugins/tpm" ]; then
+if [ ! -d "${HOME}/.tmux/plugins/tpm" ]; then
     read -p "do you want to install tmux tpm? [y/N]: " choice
     choice=${choice:-n}
     choice=${choice,,}
     if [ $choice == "y" ]; then
-        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+        git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
     fi
 fi
 
 # Install Neovim from source
-read -p "do you want to install neovim from source? [y/N]: " choice
-choice=${choice:-n}
-choice=${choice,,}
-if [ $choice == "y" ]; then
-    git clone -b v0.11.2 https://github.com/neovim/neovim.git ~/neovim/
-    cd ~/neovim
-    make -j CMAKE_BUILD_TYPE=RelWithDebInfo
-    sudo make install
-    cd
+if [ ! -d "${HOME}/neovim/" ]; then
+    read -p "do you want to install neovim from source? [y/N]: " choice
+    choice=${choice:-n}
+    choice=${choice,,}
+    if [ $choice == "y" ]; then
+        git clone -b v0.11.2 https://github.com/neovim/neovim.git ${HOME}/neovim/
+        cd ${HOME}/neovim
+        make -j CMAKE_BUILD_TYPE=RelWithDebInfo
+        sudo make install
+        cd
+    fi
 fi
 
 # Oh-My-Zsh
-read -p "do you want to install Oh My Zsh for zsh? [y/N]: " choice
-choice=${choice:-n}
-choice=${choice,,}
-if [ $choice == "y" ]; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
+if [ ! -d "${HOME}/.oh-my-zsh/" ]; then
+    read -p "do you want to install Oh My Zsh for zsh? [y/N]: " choice
+    choice=${choice:-n}
+    choice=${choice,,}
+    if [ $choice == "y" ]; then
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+        git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
+    fi
 fi
 
 # Starship
@@ -193,9 +205,9 @@ choice=${choice:-n}
 choice=${choice,,}
 if [ $choice == "y" ]; then
     curl -OL https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/JetBrainsMono.zip
-    mkdir ~/.local/share/fonts/
-    unzip JetBrainsMono.zip -d ~/.local/share/fonts/
-    rm -rf ~/.local/share/fonts/OFL.txt ~/.local/share/fonts/README.md
+    mkdir ${HOME}/.local/share/fonts/
+    unzip JetBrainsMono.zip -d ${HOME}/.local/share/fonts/
+    rm -rf ${HOME}/.local/share/fonts/OFL.txt ${HOME}/.local/share/fonts/README.md
     fc-cache -v
     rm -rf JetBrainsMono.zip
 fi
@@ -211,3 +223,7 @@ if [ $choice == "y" ]; then
     sudo install lazygit -D -t /usr/local/bin/
     rm ./lazygit ./lazygit.tar.gz
 fi
+
+# Install dotfiles
+cd ${HOME}/dotfiles/
+./scripts/bootstrap.sh
