@@ -16,7 +16,7 @@ set $right l
 
 set $term kitty
 set $menu wofi --show drun
-set $browser firefox
+set $browser ~/.local/zen/zen-bin
 
 ### Output configuration
 output * bg ~/OneDrive/Sfondi/the_wallpaper.jpg fill

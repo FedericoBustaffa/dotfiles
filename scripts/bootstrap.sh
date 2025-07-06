@@ -24,6 +24,7 @@ PACKAGES=(
     zed
     zsh
     wlogout
+    zen
 )
 
 echo "stowing dotfiles from: $DOTFILES_DIR"
