@@ -23,6 +23,7 @@ alias py='python3'
 alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions"
 alias la="ls -a"
 alias tree="ls --tree"
+alias upd="upd.sh"
 
 export PATH=$PATH:$HOME/dotfiles/scripts/
 export PATH=$PATH:$HOME/.local/bin/
