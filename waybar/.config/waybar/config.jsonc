@@ -93,13 +93,13 @@
         "on-click": "nm-connection-editor"
     },
     "pulseaudio": {
-        "format": "{icon} {volume}%",
+        "format": "{icon}{volume}%",
         "format-bluetooth": " {volume}%",
         "format-bluetooth-muted": " 0%",
-        "format-muted": " {format_source}",
+        "format-muted": "",
         "format-icons": {
-            "headphone": "",
-            "default": ["", "", ""]
+            "headphone": " ",
+            "default": [" ", " ", " "]
         },
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
     },
