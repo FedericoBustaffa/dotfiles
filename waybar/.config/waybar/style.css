@@ -122,13 +122,14 @@ button:hover {
 
 #battery {
     background-color: transparent;
+    color: #ffffff;
     border-bottom: 3px solid rgba(200, 120, 100, 1.0);
     padding: 0 10px;
 }
 
 #battery.charging, #battery.plugged {
+    background-color: transparent;
     color: #ffffff;
-    background-color: #26A65B;
 }
 
 @keyframes blink {
