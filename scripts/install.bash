@@ -62,6 +62,7 @@ apt_cli_packages=(
     unzip
     bluez
     bluez-tools
+    blueman
     pulseaudio
     # C/C++
     build-essential

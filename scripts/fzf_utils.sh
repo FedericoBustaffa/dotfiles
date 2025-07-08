@@ -1,8 +1,6 @@
 #!/bin/bash
 
-
-source /usr/share/doc/fzf/examples/completion.zsh
-source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/key-bindings.bash
 
 fzf_uni() {
     DIR="$HOME/OneDrive/Master/"
@@ -13,8 +11,7 @@ fzf_uni() {
     fi
 }
 
-
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/*"'
 export FZF_DEFAULT_OPTS="--reverse --info=hidden"
 
-bindkey -s "^U" "fzf_uni\n"
+bind -x '"\C-f": fzf_uni'

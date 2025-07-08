@@ -1,4 +1,4 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
+# ${HOME}/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
@@ -119,11 +119,12 @@ fi
 eval "$(starship init bash)"
 
 alias cls='clear'
-alias vi='nvim'
+alias vi="nvim"
 alias py='python3'
-alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions"
-alias bat="batcat"
-alias jupyter="jupyter-lab . --no-browser"
+alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions -s type -r"
+alias la="ls -a"
+alias tree="ls --tree"
+alias upd="upd.sh"
 
 export PATH=$PATH:$HOME/dotfiles/scripts/
 export PATH=$PATH:$HOME/.local/bin/
@@ -133,10 +134,19 @@ export PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin
 eval "$(tmuxifier init -)"
 export EDITOR=nvim
 
+export TERM=xterm-256color
+
+# FZF search in university directory (Master)
+source ~/dotfiles/scripts/fzf_utils.sh
+
+# Lazygit keybinding
+bind '"\C-g": "lazygit\n"'
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-. "$HOME/.cargo/env"
+bind '"\C-t": "tmux-sessionizer.sh\n"'
+
+fastfetch
+
