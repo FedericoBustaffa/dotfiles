@@ -22,7 +22,6 @@ PACKAGES=(
     vscode
     waybar
     zed
-    zsh
     wlogout
     zen
 )
