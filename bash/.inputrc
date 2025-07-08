@@ -1,0 +1,6 @@
+
+set completion-ignore-case on
+
+"\C-u": "fzf_uni\n"
+"\C-g": "lazygit\n"
+"\C-f": "tmux-sessionizer.sh\n"

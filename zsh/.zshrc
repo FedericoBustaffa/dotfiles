@@ -17,40 +17,10 @@ source "$ZSH/oh-my-zsh.sh"
 
 eval "$(starship init zsh)"
 
-alias cls='clear'
-alias vi="nvim"
-alias py='python3'
-alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions -s type -r"
-alias la="ls -a"
-alias tree="ls --tree"
-alias upd="upd.sh"
+source ${HOME}/dotfiles/scripts/shell.sh
 
-export PATH=$PATH:$HOME/dotfiles/scripts/
-export PATH=$PATH:$HOME/.local/bin/
-export PATH=$PATH:$HOME/.cargo/bin/
-export PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin
-
-# CUDA
-# alias nvcc="nvcc -arch=sm_35 -ccbin /usr/bin/gcc-10 -Wno-deprecated-gpu-targets"
-# export PATH=/usr/local/cuda-11.4/bin:$PATH
-# export LD_LIBRARY_PATH=/usr/local/cuda-11.4/lib64:$LD_LIBRARY_PATH
-
-eval "$(tmuxifier init -)"
-export EDITOR=nvim
-compdef _gnu_generic zed
-
-export TERM=xterm-256color
-
-# FZF search in university directory (Master)
-source ~/dotfiles/scripts/fzf_utils.sh
-
-# Lazygit keybinding
-bindkey -s "^G" "lazygit\n"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-bindkey -s ^f "tmux-sessionizer.sh\n"
+bindkey -s "^u" "fzf_uni\n"
+bindkey -s "^g" "lazygit\n"
+bindkey -s "^f" "tmux-sessionizer.sh\n"
 
 fastfetch
