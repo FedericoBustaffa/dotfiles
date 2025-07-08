@@ -27,7 +27,6 @@ apt_cli_packages=(
     npm
     nodejs
     snapd
-    zsh
     bat
     zoxide
     neofetch
@@ -176,19 +175,6 @@ if [ ! -d "${HOME}/neovim/" ]; then
         make -j CMAKE_BUILD_TYPE=RelWithDebInfo
         sudo make install
         cd
-    fi
-fi
-
-# Oh-My-Zsh
-if [ ! -d "${HOME}/.oh-my-zsh/" ]; then
-    read -p "do you want to install Oh My Zsh for zsh? [y/N]: " choice
-    choice=${choice:-n}
-    choice=${choice,,}
-    if [ $choice == "y" ]; then
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-        git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
     fi
 fi
 
