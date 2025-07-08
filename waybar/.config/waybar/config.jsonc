@@ -38,12 +38,12 @@
         "format-alt": "{:%Y-%m-%d}"
     },
     "cpu": {
-        "format": "{usage}% ",
+        "format": " {usage}%",
         "tooltip": false
     },
     "memory": {
         "interval": 30,
-        "format": "{percentage}% "
+        "format": " {percentage}%"
     },    
     "temperature": {
         // "thermal-zone": 2,
@@ -64,10 +64,10 @@
             "warning": 35,
             "critical": 15
         },
-        "format": "{capacity}% {icon} ",
-        "format-full": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
+        "format": "{icon} {capacity}%",
+        "format-full": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
         "format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
@@ -86,26 +86,19 @@
     },
     "network": {
         "format": " ",
-        "format-wifi": "󰖩  {bandwidthDownBits}",
-        "format-ethernet": "  {bandwidthDownBits}",
+        "format-wifi": "󰖩 {bandwidthDownBits}",
+        "format-ethernet": " {bandwidthDownBits}",
         "format-disconnected": "󱚵 ",
-        "interval": 30,
+        "interval": 10,
         "on-click": "nm-connection-editor"
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
-        "format-bluetooth": "󰂰 {volume}% | {format_source}",
-        "format-bluetooth-muted": "󰂰 0% | {format_source}",
+        "format-bluetooth": " {volume}%",
+        "format-bluetooth-muted": " 0%",
         "format-muted": " {format_source}",
-        "format-source": " {volume}%",
-        "format-source-muted": " ",
         "format-icons": {
             "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
             "default": ["", "", ""]
         },
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"

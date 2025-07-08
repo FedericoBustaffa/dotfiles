@@ -1,5 +1,5 @@
 * {
-    font-family: JetBrainsMono Nerd Font;
+    font-family: JetBrainsMono Nerd Font Propo;
     font-size: 18px;
 }
 
@@ -150,6 +150,7 @@ button:hover {
 }
 
 #power-profiles-daemon {
+    color: #ffffff;
     padding: 0 10px;
 }
 
