@@ -23,13 +23,6 @@ export TERM=xterm-256color
 # tmuxifier completions
 eval "$(tmuxifier init -)"
 
-# FZF keybindings
-source /usr/share/doc/fzf/examples/key-bindings.bash
-
-# FZF SETUP
-export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/*"'
-export FZF_DEFAULT_OPTS="--reverse --info=hidden"
-
 # open pdf files inside university folder
 fzf_uni() {
     DIR="$HOME/OneDrive/Master/"
@@ -39,6 +32,13 @@ fzf_uni() {
         zathura "$FILE" &
     fi
 }
+
+# FZF keybindings
+source /usr/share/doc/fzf/examples/key-bindings.bash
+
+# FZF SETUP
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/*"'
+export FZF_DEFAULT_OPTS="--reverse --info=hidden"
 
 # don't remember
 export NVM_DIR="$HOME/.nvm"
