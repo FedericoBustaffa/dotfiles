@@ -95,6 +95,7 @@
     },
     "pulseaudio": {
         "format": "{icon}{volume}%",
+        "format-headphone": "{icon}{volume}%",
         "format-bluetooth": " {volume}%",
         "format-bluetooth-muted": " 0%",
         "format-muted": "",
