@@ -99,6 +99,7 @@ sway_packages=(
     swaylock
     swayidle
     swaybg
+    sway-notification-center
     waybar
     wofi
     wlsunset
