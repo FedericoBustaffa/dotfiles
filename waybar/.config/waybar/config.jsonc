@@ -43,7 +43,7 @@
     },
     "memory": {
         "interval": 30,
-        "format": " {percentage}%"
+        "format": " {percentage}%"
     },    
     "temperature": {
         // "thermal-zone": 2,
