@@ -47,6 +47,9 @@ vim.keymap.set('n', '<C-Right>', '<cmd>vertical resize +2<cr>', { desc = 'Increa
 vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { desc = 'Move Lines Down' })
 vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { desc = 'Move Lines Up' })
 
+vim.keymap.set('v', '<', '<gv', { desc = 'Indent left and reselect' })
+vim.keymap.set('v', '>', '>gv', { desc = 'Indent right and reselect' })
+
 -- Buffers
 vim.keymap.set('n', '<leader>p', '<cmd>bprevious<cr>', { desc = 'Previous Buffer', silent = true })
 vim.keymap.set('n', '<leader>n', '<cmd>bnext<cr>', { desc = 'Next Buffer', silent = true })

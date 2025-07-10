@@ -241,7 +241,8 @@ gaps inner 4
 gaps outer 2
 default_border pixel 3
 
-client.focused #80aaff #80aaff #ffffff #80aaff #80aaff
+# client.focused #80aaff #80aaff #ffffff #80aaff #80aaff
+client.focused #ffffff #ffffff #ffffff #ffffff #ffffff
 client.unfocused #444444 #222222 #888888 #444444 #222222
 client.focused_inactive #666666 #333333 #cccccc #666666 #333333
 
