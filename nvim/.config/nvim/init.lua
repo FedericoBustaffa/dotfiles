@@ -38,7 +38,7 @@ require('lazy').setup {
   },
 }
 
-vim.cmd.colorscheme 'vague'
+vim.cmd.colorscheme 'rose-pine-main'
 
 -- Config options and keymaps
 require 'config.keymaps'
