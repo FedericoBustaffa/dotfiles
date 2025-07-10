@@ -1,3 +1,26 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$os \
+$username \
+$directory\
+$git_branch\
+$git_status\
+$c\
+$rust\
+$golang\
+$nodejs\
+$php\
+$java\
+$kotlin\
+$haskell\
+$python\
+$conda\
+$time\
+$cmd_duration\
+$line_break\
+$character"""
+
 [aws]
 symbol = "  "
 
@@ -91,6 +114,9 @@ symbol = " "
 [ocaml]
 symbol = " "
 
+[os]
+disabled = false
+
 [os.symbols]
 Alpaquita = " "
 Alpine = " "
@@ -137,6 +163,10 @@ Ubuntu = " "
 Unknown = " "
 Void = " "
 Windows = "󰍲 "
+
+[username]
+show_always = true
+format = '[$user]($style)'
 
 [package]
 symbol = "󰏗 "
