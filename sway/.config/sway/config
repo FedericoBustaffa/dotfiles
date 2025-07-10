@@ -232,7 +232,6 @@ for_window [app_id="blueman-manager"] floating enable
 exec waybar --config ~/.config/waybar/sway.jsonc
 exec $term
 exec $browser
-exec obsidian --enable-features=UseOzonePlatform --ozone-platform=wayland
 exec_always wlsunset -l 0 -L 0 -t 4000 -T 4500
 
 workspace 1
