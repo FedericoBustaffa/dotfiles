@@ -19,7 +19,7 @@ sudo apt autoremove -y
 sudo apt autoclean
 
 
-apt_cli_packages=(
+cli_pkgs=(
     # General CLI
     openssh-server
     fastfetch
@@ -28,7 +28,6 @@ apt_cli_packages=(
     nodejs
     snapd
     bat
-    zoxide
     neofetch
     xclip
     wl-clipboard
@@ -40,13 +39,10 @@ apt_cli_packages=(
     composer
     git
     htop
-    cargo
     tmux
     tree
-    zathura
     poppler-utils
     hwloc
-    libfmt-dev
     pandoc
     stow
     ripgrep
@@ -59,10 +55,6 @@ apt_cli_packages=(
     eza
     tree-sitter-cli
     unzip
-    bluez
-    bluez-tools
-    blueman
-    pulseaudio
     # C/C++
     build-essential
     clangd
@@ -72,6 +64,7 @@ apt_cli_packages=(
     cmake-format
     make
     cmake
+    libfmt-dev
     libomp-dev
     libopenmpi-dev
     # Python
@@ -88,13 +81,25 @@ apt_cli_packages=(
     texlive-full
 )
 
-apt_gui_packages=(
+media_pkgs=(
+    bluez
+    bluez-tools
+    pipewire
+    pipewire-alsa
+    pipewire-pulse
+    pipewire-jack
+    wireplumber
+)
+
+gui_pkgs=(
+    blueman
     gnome-tweaks
     kitty
     vlc
+    zathura
 )
 
-sway_packages=(
+sway_pkgs=(
     sway
     swaylock
     swayidle
@@ -107,15 +112,22 @@ sway_packages=(
 )
 
 # APT
-sudo apt install ${apt_cli_packages[@]}
+sudo apt install ${cli_pkgs[@]}
 
+# Media
+read -p "do you want to install media packages? [y/N]: " choice
+choice=${choice:-n}
+choice=${choice,,}
+if [ $choice == "y" ]; then
+    sudo apt install ${media_pkgs[@]}
+fi
 
 # GUI
 read -p "do you want to install GUI packages? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
 if [ $choice == "y" ]; then
-    sudo apt install ${apt_gui_packages[@]}
+    sudo apt install ${gui_pkgs[@]}
 fi
 
 # Sway
@@ -123,7 +135,7 @@ read -p "do you want to install Sway packages? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
 if [ $choice == "y" ]; then
-    sudo apt install ${sway_packages[@]}
+    sudo apt install ${sway_pkgs[@]}
 fi
 
 # snap packages
@@ -145,15 +157,25 @@ fi
 
 # Zen Browser
 if [ ! -d "${HOME}/.local/zen/" ]; then
-    curl -L https://github.com/zen-browser/desktop/releases/latest/download/zen.linux-x86_64.tar.xz -o /home/federico/zen.linux-x86_64.tar.xz
-    tar xvf ${HOME}/zen.linux-x86_64.tar.xz
-    rm ${HOME}/zen.linux-x86_64.tar.xz
-    mv zen ${HOME}/.local/
+    read -p "do you want to install snap packages? [y/N]: " choice
+    choice=${choice:-n}
+    choice=${choice,,}
+    if [ $choice == "y" ]; then
+        curl -L https://github.com/zen-browser/desktop/releases/latest/download/zen.linux-x86_64.tar.xz -o /home/federico/zen.linux-x86_64.tar.xz
+        tar xvf ${HOME}/zen.linux-x86_64.tar.xz
+        rm ${HOME}/zen.linux-x86_64.tar.xz
+        mv zen ${HOME}/.local/
+    fi
 fi
 
 # NPM packages
-sudo npm install --global neovim yarn
-npm fund
+read -p "do you want to install npm packages? [y/N]: " choice
+choice=${choice:-n}
+choice=${choice,,}
+if [ $choice == "y" ]; then
+    sudo npm install --global neovim yarn
+    npm fund
+fi
 
 # Install tmux TPM
 if [ ! -d "${HOME}/.tmux/plugins/tpm" ]; then
