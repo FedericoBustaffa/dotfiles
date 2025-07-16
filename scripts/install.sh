@@ -33,12 +33,17 @@ cli_pkgs=(
     tree-sitter-cli
     unzip
     # C/C++
+    gcc
     clangd
     clang-format
     bear
     valgrind
     make
     cmake
+    libomp
+    libomp-devel
+    openmpi
+    openmpi-devel
     # Python
     python3-pip
     python3-pygments
