@@ -1,23 +1,9 @@
 #!/bin/bash
 
-# Install script for most used packages
-# on Debian based distros
 
-# ---------- APT/NALA packages ----------
-
-# fastfetch PPA
-PPA_NAME="ppa:zhangsongcui3371/fastfetch"
-PPA_FILE="/etc/apt/sources.list.d/zhangsongcui3371-ubuntu-fastfetch-noble.sources"
-if ! ls $PPA_FILE 1>/dev/null 2>&1; then
-    sudo add-apt-repository -y "$PPA_NAME"
-fi
-
-
-sudo apt update -y
-sudo apt upgrade -y
-sudo apt autoremove -y
-sudo apt autoclean
-
+# ---------- DNF packages ----------
+sudo dnf upgrade -y
+sudo dnf autoremove -y
 
 cli_pkgs=(
     # General CLI
@@ -26,22 +12,14 @@ cli_pkgs=(
     btop
     npm
     nodejs
-    snapd
     bat
-    neofetch
-    xclip
     wl-clipboard
     fzf
-    luarocks
-    lua5.1
-    liblua5.1-0-dev
     gettext
-    composer
     git
     htop
     tmux
     tree
-    poppler-utils
     hwloc
     pandoc
     stow
@@ -49,36 +27,28 @@ cli_pkgs=(
     fd-find
     fswatch
     curl
-    libsystemd-dev
     inkscape
     onedrive
     eza
     tree-sitter-cli
     unzip
     # C/C++
-    build-essential
     clangd
     clang-format
     bear
     valgrind
-    cmake-format
     make
     cmake
-    libfmt-dev
-    libomp-dev
-    libopenmpi-dev
     # Python
     python3-pip
-    python3-venv
     python3-pygments
-    python3-tk
     python3-nbconvert
     python3-numpy
     python3-matplotlib
     python3-pandas
     python3-scipy
     # LaTeX
-    texlive-full
+    texlive
 )
 
 media_pkgs=(
@@ -87,7 +57,6 @@ media_pkgs=(
     pipewire
     pipewire-alsa
     pipewire-pulse
-    pipewire-jack
     wireplumber
 )
 
@@ -111,15 +80,15 @@ sway_pkgs=(
     wlogout
 )
 
-# APT
-sudo apt install ${cli_pkgs[@]}
+# DNF
+sudo dnf install ${cli_pkgs[@]}
 
 # Media
 read -p "do you want to install media packages? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
 if [ $choice == "y" ]; then
-    sudo apt install ${media_pkgs[@]}
+    sudo dnf install ${media_pkgs[@]}
 fi
 
 # GUI
@@ -127,7 +96,7 @@ read -p "do you want to install GUI packages? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
 if [ $choice == "y" ]; then
-    sudo apt install ${gui_pkgs[@]}
+    sudo dnf install ${gui_pkgs[@]}
 fi
 
 # Sway
@@ -135,38 +104,21 @@ read -p "do you want to install Sway packages? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
 if [ $choice == "y" ]; then
-    sudo apt install ${sway_pkgs[@]}
+    sudo dnf install ${sway_pkgs[@]}
 fi
 
-# snap packages
-sudo snap refresh
-snap_packages=(
-    code
-    obsidian
-    spotify
-)
-
-read -p "do you want to install snap packages? [y/N]: " choice
-choice=${choice:-n}
-choice=${choice,,}
-if [ $choice == "y" ]; then
-    for pkg in ${snap_packages[@]}; do
-        sudo snap install $pkg --classic
-    done
-fi
-
-# Zen Browser
-if [ ! -d "${HOME}/.local/zen/" ]; then
-    read -p "do you want to install snap packages? [y/N]: " choice
-    choice=${choice:-n}
-    choice=${choice,,}
-    if [ $choice == "y" ]; then
-        curl -L https://github.com/zen-browser/desktop/releases/latest/download/zen.linux-x86_64.tar.xz -o /home/federico/zen.linux-x86_64.tar.xz
-        tar xvf ${HOME}/zen.linux-x86_64.tar.xz
-        rm ${HOME}/zen.linux-x86_64.tar.xz
-        mv zen ${HOME}/.local/
-    fi
-fi
+# # Zen Browser
+# if [ ! -d "${HOME}/.local/zen/" ]; then
+#     read -p "do you want to install zen browser? [y/N]: " choice
+#     choice=${choice:-n}
+#     choice=${choice,,}
+#     if [ $choice == "y" ]; then
+#         curl -L https://github.com/zen-browser/desktop/releases/latest/download/zen.linux-x86_64.tar.xz -o /home/federico/zen.linux-x86_64.tar.xz
+#         tar xvf ${HOME}/zen.linux-x86_64.tar.xz
+#         rm ${HOME}/zen.linux-x86_64.tar.xz
+#         mv zen ${HOME}/.local/
+#     fi
+# fi
 
 # NPM packages
 read -p "do you want to install npm packages? [y/N]: " choice
@@ -184,20 +136,6 @@ if [ ! -d "${HOME}/.tmux/plugins/tpm" ]; then
     choice=${choice,,}
     if [ $choice == "y" ]; then
         git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
-    fi
-fi
-
-# Install Neovim from source
-if [ ! -d "${HOME}/neovim/" ]; then
-    read -p "do you want to install neovim from source? [y/N]: " choice
-    choice=${choice:-n}
-    choice=${choice,,}
-    if [ $choice == "y" ]; then
-        git clone -b v0.11.2 https://github.com/neovim/neovim.git ${HOME}/neovim/
-        cd ${HOME}/neovim
-        make -j CMAKE_BUILD_TYPE=RelWithDebInfo
-        sudo make install
-        cd
     fi
 fi
 
@@ -235,5 +173,10 @@ if [ $choice == "y" ]; then
 fi
 
 # Install dotfiles
-cd ${HOME}/dotfiles/
-./scripts/bootstrap.sh
+read -p "do you want to bootstrap dotfiles? [y/N]: " choice
+choice=${choice:-n}
+choice=${choice,,}
+if [ $choice == "y" ]; then
+    cd ${HOME}/dotfiles/
+    ./scripts/bootstrap.sh
+fi

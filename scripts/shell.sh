@@ -16,7 +16,6 @@ export PATH=$PATH:$HOME/.local/bin/
 export PATH=$PATH:$HOME/.cargo/bin/
 export PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin
 
-
 export EDITOR=nvim
 export TERM=xterm-256color
 
@@ -34,7 +33,7 @@ fzf_uni() {
 }
 
 # FZF keybindings
-source /usr/share/doc/fzf/examples/key-bindings.bash
+source $HOME/dotfiles/scripts/fzf_keybindings.bash
 
 # FZF SETUP
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/*"'
