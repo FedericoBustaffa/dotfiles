@@ -22,6 +22,12 @@ vim.lsp.enable {
   'texlab',
 }
 
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+  border = 'rounded',
+  max_height = 6,
+  max_width = 60,
+})
+
 vim.diagnostic.config {
   virtual_text = false,
   virtual_lines = false,

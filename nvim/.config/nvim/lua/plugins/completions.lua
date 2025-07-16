@@ -3,7 +3,6 @@ return {
     'saghen/blink.cmp',
     lazy = true,
     event = 'InsertEnter',
-    -- build = 'cargo build --release',
     dependencies = { 'rafamadriz/friendly-snippets' },
 
     -- use a release tag to download pre-built binaries
