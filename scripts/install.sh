@@ -113,19 +113,6 @@ if [ $choice == "y" ]; then
     sudo dnf install ${sway_pkgs[@]}
 fi
 
-# Zen Browser
-if [ ! -d "${HOME}/.local/zen/" ]; then
-    read -p "do you want to install zen browser? [y/N]: " choice
-    choice=${choice:-n}
-    choice=${choice,,}
-    if [ $choice == "y" ]; then
-        curl -L https://github.com/zen-browser/desktop/releases/latest/download/zen.linux-x86_64.tar.xz -o /home/federico/zen.linux-x86_64.tar.xz
-        tar xvf ${HOME}/zen.linux-x86_64.tar.xz
-        rm ${HOME}/zen.linux-x86_64.tar.xz
-        mv zen ${HOME}/.local/
-    fi
-fi
-
 # NPM packages
 read -p "do you want to install npm packages? [y/N]: " choice
 choice=${choice:-n}

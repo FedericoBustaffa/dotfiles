@@ -16,7 +16,7 @@ set $right l
 
 set $term kitty
 set $menu wofi --show drun
-set $browser ~/.local/zen/zen-bin
+set $browser "flatpak run app.zen_browser.zen"
 
 ### Output configuration
 output * bg ~/OneDrive/Sfondi/the_wallpaper.jpg fill
