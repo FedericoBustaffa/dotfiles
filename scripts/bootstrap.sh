@@ -23,7 +23,6 @@ PACKAGES=(
     waybar
     zed
     wlogout
-    zen
 )
 
 echo "stowing dotfiles from: $DOTFILES_DIR"
