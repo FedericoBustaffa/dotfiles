@@ -229,6 +229,7 @@ for_window [app_id="obsidian"] move to workspace 9
 
 # floating windows
 for_window [app_id="blueman-manager"] floating enable
+for_window [class="Matplotlib"] floating enable
 
 exec waybar --config ~/.config/waybar/sway.jsonc
 exec $term
