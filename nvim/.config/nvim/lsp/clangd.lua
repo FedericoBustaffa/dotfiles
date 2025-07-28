@@ -4,7 +4,7 @@ return {
   cmd = {
     'clangd',
     '--clang-tidy',
-    '--background-index=false',
+    '--background-index=true',
     '--completion-style=detailed',
     '--header-insertion=never',
     '--cross-file-rename',
