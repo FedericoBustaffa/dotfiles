@@ -5,6 +5,7 @@
 alias cls='clear'
 alias vi="nvim"
 alias py='python3'
+alias py='python'
 alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions -s type"
 alias la="ls -a"
 alias tree="ls --tree"
