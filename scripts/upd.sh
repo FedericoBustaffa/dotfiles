@@ -1,7 +1,7 @@
 # !/bin/bash
 
-sudo dnf upgrade -y
-sudo dnf autoremove -y
+sudo pacman -Syu
+yay -Syu
 
 flatpak update
 

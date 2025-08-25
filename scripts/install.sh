@@ -6,11 +6,13 @@ sudo pacman -Syuuu
 
 cli_pkgs=(
     # General CLI
+    bash-completion
     openssh
     fastfetch
     btop
     npm
     nodejs
+    yarn
     bat
     wl-clipboard
     fzf
@@ -24,36 +26,38 @@ cli_pkgs=(
     pandoc
     stow
     ripgrep
-    fd-find
-    fswatch
+    fd
+    starship
     curl
     inkscape
-    onedrive
     eza
     tree-sitter-cli
     unzip
     # C/C++
     gcc
-    clangd
-    clang-format
+    clang
     bear
     valgrind
     make
     cmake
-    libomp
-    libomp-devel
+    openmp
     openmpi
-    openmpi-devel
     # Python
-    python3-pip
-    python3-pygments
-    python3-nbconvert
-    python3-numpy
-    python3-matplotlib
-    python3-pandas
-    python3-scipy
+    python-pip
+    python-pygments
+    python-nbconvert
+    python-numpy
+    python-matplotlib
+    python-pandas
+    python-scipy
     # LaTeX
     texlive
+)
+
+yay_pkgs=(
+    onedrive-abraunegg
+    fswatch
+    zen-browser-bin
 )
 
 media_pkgs=(
@@ -85,8 +89,16 @@ sway_pkgs=(
     wlogout
 )
 
+hypr_pkgs=(
+    hyprpaper
+    hyprsunset
+    hyprlock
+    hypridle
+)
+
 # PACMAN
 sudo pacman -S ${cli_pkgs[@]}
+yay -S ${yay_pkgs[@]}
 
 # Media
 read -p "do you want to install media packages? [y/N]: " choice
@@ -112,6 +124,14 @@ if [ $choice == "y" ]; then
     sudo pacman -S ${sway_pkgs[@]}
 fi
 
+# Hyprland
+read -p "do you want to install Hyprland packages? [y/N]: " choice
+choice=${choice:-n}
+choice=${choice,,}
+if [ $choice == "y" ]; then
+    sudo pacman -S ${hypr_pkgs[@]}
+fi
+
 # NPM packages
 read -p "do you want to install npm packages? [y/N]: " choice
 choice=${choice:-n}
@@ -129,14 +149,6 @@ if [ ! -d "${HOME}/.tmux/plugins/tpm" ]; then
     if [ $choice == "y" ]; then
         git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
     fi
-fi
-
-# Starship
-read -p "do you want to install starship? [y/N]: " choice
-choice=${choice:-n}
-choice=${choice,,}
-if [ $choice == "y" ]; then
-    curl -sS https://starship.rs/install.sh | sh
 fi
 
 # Nerd Font
