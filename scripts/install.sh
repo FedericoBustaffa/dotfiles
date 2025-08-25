@@ -45,7 +45,6 @@ cli_pkgs=(
     # Python
     python-pip
     python-pygments
-    python-nbconvert
     python-numpy
     python-matplotlib
     python-pandas
@@ -60,6 +59,12 @@ yay_pkgs=(
     zen-browser-bin
 )
 
+# PACMAN and YAY
+sudo pacman -S --noconfirm --needed "$pkg"
+yay -S --noconfirm --needed "$pkg"
+
+
+# Media
 media_pkgs=(
     bluez
     bluez-tools
@@ -69,6 +74,14 @@ media_pkgs=(
     wireplumber
 )
 
+read -p "do you want to install media packages? [y/N]: " choice
+choice=${choice:-n}
+choice=${choice,,}
+if [ $choice == "y" ]; then
+    sudo pacman -S --noconfirm --needed ${media_pkgs[@]}
+fi
+
+# GUI
 gui_pkgs=(
     blueman
     gnome-tweaks
@@ -77,6 +90,14 @@ gui_pkgs=(
     zathura
 )
 
+read -p "do you want to install GUI packages? [y/N]: " choice
+choice=${choice:-n}
+choice=${choice,,}
+if [ $choice == "y" ]; then
+    sudo pacman -S --noconfirm --needed ${gui_pkgs[@]}
+fi
+
+# Sway
 sway_pkgs=(
     sway
     swaylock
@@ -89,6 +110,14 @@ sway_pkgs=(
     wlogout
 )
 
+read -p "do you want to install Sway packages? [y/N]: " choice
+choice=${choice:-n}
+choice=${choice,,}
+if [ $choice == "y" ]; then
+    sudo pacman -S --noconfirm --needed ${sway_pkgs[@]}
+fi
+
+# Hyprland
 hypr_pkgs=(
     hyprpaper
     hyprsunset
@@ -96,40 +125,11 @@ hypr_pkgs=(
     hypridle
 )
 
-# PACMAN
-sudo pacman -S ${cli_pkgs[@]}
-yay -S ${yay_pkgs[@]}
-
-# Media
-read -p "do you want to install media packages? [y/N]: " choice
-choice=${choice:-n}
-choice=${choice,,}
-if [ $choice == "y" ]; then
-    sudo pacman -S ${media_pkgs[@]}
-fi
-
-# GUI
-read -p "do you want to install GUI packages? [y/N]: " choice
-choice=${choice:-n}
-choice=${choice,,}
-if [ $choice == "y" ]; then
-    sudo pacman -S ${gui_pkgs[@]}
-fi
-
-# Sway
-read -p "do you want to install Sway packages? [y/N]: " choice
-choice=${choice:-n}
-choice=${choice,,}
-if [ $choice == "y" ]; then
-    sudo pacman -S ${sway_pkgs[@]}
-fi
-
-# Hyprland
 read -p "do you want to install Hyprland packages? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
 if [ $choice == "y" ]; then
-    sudo pacman -S ${hypr_pkgs[@]}
+    sudo pacman -S --noconfirm --needed ${hypr_pkgs[@]}
 fi
 
 # NPM packages
@@ -137,7 +137,7 @@ read -p "do you want to install npm packages? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
 if [ $choice == "y" ]; then
-    sudo npm install --global neovim yarn
+    sudo npm install --global neovim
     npm fund
 fi
 
