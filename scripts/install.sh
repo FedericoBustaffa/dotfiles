@@ -1,13 +1,12 @@
 #!/bin/bash
 
 
-# ---------- DNF packages ----------
-sudo dnf upgrade -y
-sudo dnf autoremove -y
+# ---------- PACMAN packages ----------
+sudo pacman -Syuuu
 
 cli_pkgs=(
     # General CLI
-    openssh-server
+    openssh
     fastfetch
     btop
     npm
@@ -86,15 +85,15 @@ sway_pkgs=(
     wlogout
 )
 
-# DNF
-sudo dnf install ${cli_pkgs[@]}
+# PACMAN
+sudo pacman -S ${cli_pkgs[@]}
 
 # Media
 read -p "do you want to install media packages? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
 if [ $choice == "y" ]; then
-    sudo dnf install ${media_pkgs[@]}
+    sudo pacman -S ${media_pkgs[@]}
 fi
 
 # GUI
@@ -102,7 +101,7 @@ read -p "do you want to install GUI packages? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
 if [ $choice == "y" ]; then
-    sudo dnf install ${gui_pkgs[@]}
+    sudo pacman -S ${gui_pkgs[@]}
 fi
 
 # Sway
@@ -110,7 +109,7 @@ read -p "do you want to install Sway packages? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
 if [ $choice == "y" ]; then
-    sudo dnf install ${sway_pkgs[@]}
+    sudo pacman -S ${sway_pkgs[@]}
 fi
 
 # NPM packages
@@ -151,18 +150,6 @@ if [ $choice == "y" ]; then
     rm -rf ${HOME}/.local/share/fonts/OFL.txt ${HOME}/.local/share/fonts/README.md
     fc-cache -v
     rm -rf JetBrainsMono.zip
-fi
-
-# LazyGit
-read -p "do you want to install lazygit? [y/N]: " choice
-choice=${choice:-n}
-choice=${choice,,}
-if [ $choice == "y" ]; then
-    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
-    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-    tar xf lazygit.tar.gz lazygit
-    sudo install lazygit -D -t /usr/local/bin/
-    rm ./lazygit ./lazygit.tar.gz
 fi
 
 # Install dotfiles

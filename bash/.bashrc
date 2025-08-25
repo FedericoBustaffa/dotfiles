@@ -121,8 +121,8 @@ eval "$(starship init bash)"
 source ${HOME}/dotfiles/scripts/shell.sh
 
 # OpenMPI enabling
-source /etc/profile.d/modules.sh
-module load mpi/openmpi-x86_64
+# source /etc/profile.d/modules.sh
+# module load mpi/openmpi-x86_64
 
 # bindings and other bash funcs
 bind -f ~/.inputrc
