@@ -60,8 +60,8 @@ yay_pkgs=(
 )
 
 # PACMAN and YAY
-sudo pacman -S --noconfirm --needed "$pkg"
-yay -S --noconfirm --needed "$pkg"
+sudo pacman -S --noconfirm --needed "${cli_pkgs[@]}"
+yay -S --noconfirm --needed "${yay_pkgs[@]}"
 
 
 # Media
