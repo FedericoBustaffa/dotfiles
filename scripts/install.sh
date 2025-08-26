@@ -10,6 +10,7 @@ cli_pkgs=(
     openssh
     fastfetch
     btop
+    power-profiles-daemon
     npm
     nodejs
     yarn
