@@ -17,6 +17,7 @@ PACKAGES=(
     obsidian
     spotify
     starship
+    hyprland
     sway
     tmux
     vscode

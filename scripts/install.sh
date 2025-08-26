@@ -31,6 +31,7 @@ cli_pkgs=(
     starship
     curl
     inkscape
+    jdk-openjdk
     eza
     tree-sitter-cli
     unzip
@@ -106,10 +107,12 @@ sway_pkgs=(
     swaylock
     swayidle
     swaybg
-    sway-notification-center
     waybar
     wofi
     wlsunset
+)
+
+sway_yay_pkgs=(
     wlogout
 )
 
@@ -118,6 +121,7 @@ choice=${choice:-n}
 choice=${choice,,}
 if [ $choice == "y" ]; then
     sudo pacman -S --noconfirm --needed ${sway_pkgs[@]}
+    yay -S --noconfirm --needed ${sway_yay_pkgs[@]}
 fi
 
 # Hyprland
