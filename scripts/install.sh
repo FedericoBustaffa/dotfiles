@@ -89,6 +89,7 @@ gui_pkgs=(
     kitty
     vlc
     zathura
+    zathura-pdf-mupdf
 )
 
 read -p "do you want to install GUI packages? [y/N]: " choice
