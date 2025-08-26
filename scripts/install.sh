@@ -87,6 +87,7 @@ gui_pkgs=(
     blueman
     gnome-tweaks
     kitty
+    obsidian
     vlc
     zathura
     zathura-pdf-mupdf
