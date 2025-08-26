@@ -20,6 +20,7 @@ cli_pkgs=(
     neovim
     git
     htop
+    lazygit
     tmux
     tree
     hwloc
