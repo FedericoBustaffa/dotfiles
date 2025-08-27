@@ -1,9 +1,9 @@
 {
     "modules-left": [
-        "sway/workspaces"
+        "sway/window"
     ],
     "modules-center": [
-        "sway/window"
+        "sway/workspaces"
     ],
     "sway/workspaces": {
         "disable-scroll": true,
