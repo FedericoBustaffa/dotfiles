@@ -90,7 +90,7 @@ gui_pkgs=(
     gnome-tweaks
     kitty
     obsidian
-    vlc
+    mpv
     zathura
     zathura-pdf-mupdf
 )
@@ -102,35 +102,18 @@ if [ $choice == "y" ]; then
     sudo pacman -S --noconfirm --needed ${gui_pkgs[@]}
 fi
 
-# Sway
-sway_pkgs=(
-    sway
-    swaylock
-    swayidle
-    swaybg
-    waybar
-    wofi
-    wlsunset
-)
-
-sway_yay_pkgs=(
-    wlogout
-)
-
-read -p "do you want to install Sway packages? [y/N]: " choice
-choice=${choice:-n}
-choice=${choice,,}
-if [ $choice == "y" ]; then
-    sudo pacman -S --noconfirm --needed ${sway_pkgs[@]}
-    yay -S --noconfirm --needed ${sway_yay_pkgs[@]}
-fi
-
 # Hyprland
 hypr_pkgs=(
     hyprpaper
     hyprsunset
     hyprlock
     hypridle
+    waybar
+    wofi
+)
+
+hypr_yay_pkgs=(
+    wlogout
 )
 
 read -p "do you want to install Hyprland packages? [y/N]: " choice
@@ -138,6 +121,7 @@ choice=${choice:-n}
 choice=${choice,,}
 if [ $choice == "y" ]; then
     sudo pacman -S --noconfirm --needed ${hypr_pkgs[@]}
+    yay -S --noconfirm --needed ${hypr_yay_pkgs[@]}
 fi
 
 # NPM packages
