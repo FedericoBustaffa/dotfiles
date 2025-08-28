@@ -33,6 +33,17 @@ fzf_uni() {
     fi
 }
 
+fzf_recordings() {
+    DIR="$HOME/recordings/"
+    FILE=$(find "$DIR" -type f | fzf)
+
+    if [[ -n "$FILE" ]]; then
+        mpv "$FILE" &
+    fi
+}
+
+alias rec="fzf_recordings"
+
 # FZF keybindings
 source $HOME/dotfiles/scripts/fzf_keybindings.bash
 
