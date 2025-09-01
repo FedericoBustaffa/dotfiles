@@ -59,7 +59,6 @@ cli_pkgs=(
 yay_pkgs=(
     onedrive-abraunegg
     fswatch
-    zen-browser-bin
 )
 
 # PACMAN and YAY
@@ -95,11 +94,16 @@ gui_pkgs=(
     zathura-pdf-mupdf
 )
 
+gui_yay_pkgs=(
+    zen-browser-bin
+)
+
 read -p "do you want to install GUI packages? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
 if [ $choice == "y" ]; then
     sudo pacman -S --noconfirm --needed ${gui_pkgs[@]}
+    yay -S --noconfirm --needed ${gui_yay_pkgs[@]}
 fi
 
 # Hyprland
