@@ -7,7 +7,6 @@
 
 window#waybar {
     background-color: rgba(25, 25, 25, 1.0);
-    border-bottom: 3px solid rgba(25, 25, 25, 1.0);
     color: #ffffff;
     transition-property: background-color;
     transition-duration: .5s;
@@ -55,16 +54,15 @@ button:hover {
 }
 
 #workspaces button.active {
-    background-color: transparent;
-    color: #ffffff;
-    border-bottom: 3px solid white;
+    background-color: #d3d3d3;
+    color: #000000;
+    border-radius: 4px;
 }
 
 
 #workspaces button.focused {
     background-color: transparent;
     color: #ffffff;
-    border-bottom: 3px solid white;
 }
 
 #mode {
@@ -95,12 +93,10 @@ button:hover {
 
 #window {
     background-color: transparent;
-    border-bottom: 3px solid rgba(250, 250, 250, 1.0);
     padding: 0 10px;
 }
 
 #waybar.empty #window {
-    border-bottom: none;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
