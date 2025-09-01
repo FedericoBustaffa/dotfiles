@@ -85,7 +85,7 @@ fi
 
 # GUI
 gui_pkgs=(
-    blueman
+    blueberry
     gnome-tweaks
     kitty
     obsidian
