@@ -14,7 +14,7 @@
         "show-empty": false,
     },
     "hyprland/window": {
-        "format": "{class}",
+        "format": "",
         "icon": true,
         "icon-size": 20
     },
