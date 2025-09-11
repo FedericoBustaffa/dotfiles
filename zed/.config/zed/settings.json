@@ -57,7 +57,7 @@
   "theme": {
     "mode": "dark",
     "light": "One Dark",
-    "dark": "Rosé Pine"
+    "dark": "Catppuccin Mocha"
   },
   "languages": {
     "C++": {
