@@ -29,7 +29,7 @@ fzf_uni() {
     FILE=$(find "$DIR" -type f | fzf --preview="pdftotext {} - | head -n 30")
 
     if [[ -n "$FILE" ]]; then
-        zathura "$FILE" &
+        nohup zathura "$FILE" &>/dev/null &
     fi
 }
 
@@ -38,10 +38,11 @@ fzf_recordings() {
     FILE=$(find "$DIR" -type f | fzf)
 
     if [[ -n "$FILE" ]]; then
-        mpv "$FILE" &
+        nohup mpv "$FILE" &>/dev/null &
     fi
 }
 
+alias uni="fzf_uni"
 alias rec="fzf_recordings"
 
 # FZF keybindings
