@@ -9,8 +9,8 @@
         "pulseaudio",
         "bluetooth",
         "network",
-        "cpu",
-        "memory",
+        // "cpu",
+        // "memory",
         "battery",
         "power-profiles-daemon",
         "custom/power"
