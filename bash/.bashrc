@@ -127,5 +127,3 @@ source ${HOME}/dotfiles/scripts/shell.sh
 # bindings and other bash funcs
 bind -f ~/.inputrc
 
-fastfetch
-
