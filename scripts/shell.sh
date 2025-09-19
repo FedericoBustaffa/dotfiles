@@ -26,7 +26,7 @@ eval "$(tmuxifier init -)"
 # open pdf files inside university folder
 fzf_uni() {
     DIR="$HOME/OneDrive/Master/"
-    FILE=$(find "$DIR" -type f | fzf --preview="pdftotext {} - | head -n 30")
+    FILE=$(find "$DIR" -type f -name "*.pdf" | fzf --preview="pdftotext {} - | head -n 30")
 
     if [[ -n "$FILE" ]]; then
         nohup zathura "$FILE" &>/dev/null &
@@ -35,7 +35,7 @@ fzf_uni() {
 
 fzf_recordings() {
     DIR="$HOME/recordings/"
-    FILE=$(find "$DIR" -type f | fzf)
+    FILE=$(find "$DIR" -type f -name "*.mp4" | fzf)
 
     if [[ -n "$FILE" ]]; then
         nohup mpv "$FILE" &>/dev/null &
