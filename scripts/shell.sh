@@ -26,7 +26,7 @@ eval "$(tmuxifier init -)"
 # open pdf files inside university folder
 fzf_uni() {
     DIR="$HOME/OneDrive/Master/"
-    FILE=$(find "$DIR" -type f -name "*.pdf" | fzf --preview="pdftotext {} - | head -n 30")
+    FILE=$(find "$DIR" -type f -name "*.pdf" | fzf)
 
     if [[ -n "$FILE" ]]; then
         nohup zathura "$FILE" &>/dev/null &
