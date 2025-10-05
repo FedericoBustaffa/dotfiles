@@ -48,8 +48,8 @@ return {
     opts = {
       workspaces = {
         {
-          name = 'master',
-          path = '~/obsidian/master/',
+          name = 'computer_science',
+          path = '~/notes/markdown/computer_science/',
         },
       },
     },

@@ -54,11 +54,14 @@ cli_pkgs=(
     python-scipy
     # LaTeX
     texlive
+    # Typst
+    typst
 )
 
 yay_pkgs=(
     onedrive-abraunegg
     fswatch
+    visual-studio-code-bin
 )
 
 # PACMAN and YAY
