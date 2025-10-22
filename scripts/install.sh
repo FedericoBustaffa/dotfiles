@@ -62,6 +62,7 @@ yay_pkgs=(
     onedrive-abraunegg
     fswatch
     visual-studio-code-bin
+    notion-app-electron
 )
 
 # PACMAN and YAY
