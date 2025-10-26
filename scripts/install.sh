@@ -92,10 +92,12 @@ gui_pkgs=(
     blueberry
     gnome-tweaks
     kitty
+    telegram-desktop
     obsidian
     mpv
     zathura
     zathura-pdf-mupdf
+    zed
 )
 
 gui_yay_pkgs=(
