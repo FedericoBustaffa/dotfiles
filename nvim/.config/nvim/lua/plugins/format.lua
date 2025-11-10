@@ -51,6 +51,7 @@ return {
           zsh = { 'beautysh' },
           markdown = { 'prettierd' },
           latex = { 'latexindent' },
+          typst = { 'typstyle' },
         },
         format_on_save = {
           lsp_fallback = true,
