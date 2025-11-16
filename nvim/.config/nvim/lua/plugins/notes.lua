@@ -17,20 +17,24 @@ return {
       },
     },
   },
-  { -- Live preview of markdown
-    'iamcco/markdown-preview.nvim',
-    lazy = true,
-    ft = 'markdown',
-    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
-    build = 'cd app && yarn install',
-    init = function()
-      vim.g.mkdp_filetypes = { 'markdown' }
-      vim.g.mkdp_theme = 'light'
-    end,
-    keys = {
-      { '<localleader>mm', ':MarkdownPreviewToggle<CR>', desc = 'Markdown Preview' },
-    },
+  {
+    'brianhuster/live-preview.nvim',
+    dependencies = { 'nvim-telescope/telescope.nvim' },
   },
+  -- { -- Live preview of markdown
+  --   'iamcco/markdown-preview.nvim',
+  --   lazy = true,
+  --   ft = 'markdown',
+  --   cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+  --   build = 'cd app && yarn install',
+  --   init = function()
+  --     vim.g.mkdp_filetypes = { 'markdown' }
+  --     vim.g.mkdp_theme = 'light'
+  --   end,
+  --   keys = {
+  --     { '<localleader>mm', ':MarkdownPreviewToggle<CR>', desc = 'Markdown Preview' },
+  --   },
+  -- },
   {
     'epwalsh/obsidian.nvim',
     version = '*',

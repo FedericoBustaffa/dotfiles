@@ -20,7 +20,6 @@ export PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin
 
 export EDITOR=nvim
 export TERM=xterm-256color
-export NODE_OPTIONS="--no-experimental-webstorage"
 
 # tmuxifier completions
 eval "$(tmuxifier init -)"
