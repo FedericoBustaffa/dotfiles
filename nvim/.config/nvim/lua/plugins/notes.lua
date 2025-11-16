@@ -18,23 +18,28 @@ return {
     },
   },
   {
-    'brianhuster/live-preview.nvim',
-    dependencies = { 'nvim-telescope/telescope.nvim' },
+    'toppair/peek.nvim',
+    event = { 'VeryLazy' },
+    build = 'deno task --quiet build:fast',
+    config = function()
+      require('peek').setup {
+        theme = 'light',
+        app = 'webview',
+      }
+      vim.api.nvim_create_user_command('PeekOpen', require('peek').open, {})
+      vim.api.nvim_create_user_command('PeekClose', require('peek').close, {})
+
+      -- toggle keymap
+      vim.keymap.set('n', '<localleader>mm', function()
+        local peek = require 'peek'
+        if peek.is_open() then
+          peek.close()
+        else
+          peek.open()
+        end
+      end, { desc = 'Toggle Markdown Preview' })
+    end,
   },
-  -- { -- Live preview of markdown
-  --   'iamcco/markdown-preview.nvim',
-  --   lazy = true,
-  --   ft = 'markdown',
-  --   cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
-  --   build = 'cd app && yarn install',
-  --   init = function()
-  --     vim.g.mkdp_filetypes = { 'markdown' }
-  --     vim.g.mkdp_theme = 'light'
-  --   end,
-  --   keys = {
-  --     { '<localleader>mm', ':MarkdownPreviewToggle<CR>', desc = 'Markdown Preview' },
-  --   },
-  -- },
   {
     'epwalsh/obsidian.nvim',
     version = '*',
