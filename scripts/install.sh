@@ -13,6 +13,7 @@ cli_pkgs=(
     power-profiles-daemon
     npm
     nodejs
+    less
     yarn
     bat
     wl-clipboard
