@@ -38,7 +38,7 @@ require('lazy').setup {
   },
 }
 
-vim.cmd.colorscheme 'vague'
+vim.cmd.colorscheme 'catppuccin-mocha'
 
 -- Config options and keymaps
 require 'config.keymaps'

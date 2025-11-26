@@ -25,6 +25,18 @@ return {
     },
   },
   {
+    'embark-theme/vim',
+    lazy = false,
+    priority = 1000,
+    name = 'embark',
+  },
+  {
+    'thesimonho/kanagawa-paper.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
+  {
     'vague2k/vague.nvim',
     lazy = false,
     priority = 1000,
