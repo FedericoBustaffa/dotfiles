@@ -64,8 +64,6 @@ cli_pkgs=(
 yay_pkgs=(
     onedrive-abraunegg
     fswatch
-    visual-studio-code-bin
-    notion-app-electron
 )
 
 # PACMAN and YAY
@@ -105,6 +103,8 @@ gui_pkgs=(
 
 gui_yay_pkgs=(
     zen-browser-bin
+    visual-studio-code-bin
+    notion-app-electron
 )
 
 read -p "do you want to install GUI packages? [y/N]: " choice
