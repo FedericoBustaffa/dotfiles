@@ -18,7 +18,9 @@ return {
         },
         extensions = {
           ['fzf'] = {},
-          ['ui-select'] = {},
+          ['ui-select'] = {
+            require('telescope.themes').get_dropdown {},
+          },
         },
       }
       require('telescope').load_extension 'fzf'
