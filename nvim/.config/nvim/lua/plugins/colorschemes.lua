@@ -25,13 +25,7 @@ return {
     },
   },
   {
-    'embark-theme/vim',
-    lazy = false,
-    priority = 1000,
-    name = 'embark',
-  },
-  {
-    'thesimonho/kanagawa-paper.nvim',
+    'nendix/zen.nvim',
     lazy = false,
     priority = 1000,
     opts = {},
