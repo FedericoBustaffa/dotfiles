@@ -25,6 +25,19 @@ return {
     },
   },
   {
+    'dgox16/oldworld.nvim',
+    lazy = false,
+    priority = 1000,
+  },
+  {
+    'AlexvZyl/nordic.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require('nordic').load()
+    end,
+  },
+  {
     'nendix/zen.nvim',
     lazy = false,
     priority = 1000,
