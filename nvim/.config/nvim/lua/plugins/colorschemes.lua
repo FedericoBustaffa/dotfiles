@@ -12,6 +12,17 @@ return {
     opts = {},
   },
   {
+    'navarasu/onedark.nvim',
+    lazy = false,
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      require('onedark').setup {
+        style = 'dark',
+      }
+      require('onedark').load()
+    end,
+  },
+  {
     'rose-pine/neovim',
     name = 'rose-pine',
     lazy = false,
