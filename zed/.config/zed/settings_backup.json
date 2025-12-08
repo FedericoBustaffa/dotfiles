@@ -49,12 +49,12 @@
   },
   "vim_mode": true,
   "base_keymap": "VSCode",
-  "relative_line_numbers": "enabled",
+  "relative_line_numbers": true,
   "ui_font_family": "JetBrainsMono Nerd Font",
   "ui_font_size": 16,
   "buffer_font_family": "JetBrainsMono Nerd Font",
   "buffer_font_size": 17,
-  "theme": "One Dark",
+  "theme": "Catppuccin Mocha",
   "languages": {
     "C++": {
       "language_servers": ["clangd"],
@@ -83,7 +83,10 @@
       "format_on_save": "on",
       "formatter": [
         {
-          "code_action": "source.organizeImports.ruff"
+          "code_actions": {
+            "source.organizeImports.ruff": true,
+            "source.fixAll.ruff": false
+          }
         },
         {
           "language_server": {
