@@ -14,6 +14,10 @@ return {
         pickers = {
           find_files = {
             hidden = true,
+            layout_strategy = 'vertical',
+            layout_config = {
+              preview_height = 0.5,
+            },
           },
         },
         extensions = {
