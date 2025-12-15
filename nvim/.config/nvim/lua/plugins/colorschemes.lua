@@ -12,17 +12,6 @@ return {
     opts = {},
   },
   {
-    'navarasu/onedark.nvim',
-    lazy = false,
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-      require('onedark').setup {
-        style = 'dark',
-      }
-      require('onedark').load()
-    end,
-  },
-  {
     'rose-pine/neovim',
     name = 'rose-pine',
     lazy = false,
@@ -34,6 +23,23 @@ return {
         transparency = false,
       },
     },
+  },
+  {
+    'navarasu/onedark.nvim',
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      require('onedark').setup {
+        style = 'dark',
+      }
+      require('onedark').load()
+    end,
+  },
+  {
+    'projekt0n/github-nvim-theme',
+    name = 'github-theme',
+    lazy = false,
+    priority = 1000,
+    opts = {},
   },
   {
     'dgox16/oldworld.nvim',
@@ -56,6 +62,12 @@ return {
   },
   {
     'Mofiqul/vscode.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
+  {
+    'armannikoyan/rusty',
     lazy = false,
     priority = 1000,
     opts = {},
