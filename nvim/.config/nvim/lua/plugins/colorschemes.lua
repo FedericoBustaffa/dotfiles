@@ -17,6 +17,8 @@ return {
     lazy = false,
     priority = 1000,
     opts = {
+      variant = 'main',
+      dark_variant = 'main',
       styles = {
         bold = false,
         italic = true,
