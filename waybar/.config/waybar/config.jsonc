@@ -1,5 +1,23 @@
-// -*- mode: jsonc -*-
 {
+    "modules-left": [
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "hyprland/workspaces"
+    ],
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": false,
+        "warp-on-scroll": false,
+        "on-click": "activate",
+        "format": "{name}",
+        "show-empty": false
+    },
+    "hyprland/window": {
+        "format": "",
+        "icon": true,
+        "icon-size": 20
+    },
     "layer": "top", // Waybar at top layer
     "position": "top", // Waybar position (top|bottom|left|right)
     "height": 30, // Waybar height (to be removed for auto height)
@@ -22,17 +40,6 @@
     "spacing": 4, // Gaps between modules (4px)
     "mode": "dock",
     "start_hidden": false,
-    // "idle_inhibitor": {
-    //     "format": "{icon}",
-    //     "format-icons": {
-    //         "activated": "",
-    //         "deactivated": ""
-    //     }
-    // },
-    // "tray": {
-    //     "icon-size": 21,
-    //     "spacing": 10
-    // },
     "clock": {
         "timezone": "Europe/Rome",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
@@ -111,7 +118,7 @@
         "format-off": "󰂲",
         "format-connected": "󰂱",
         "tooltip": false,
-        "on-click": "blueberry",
+        "on-click": "blueberry"
     },
     "custom/media": {
         "format": "{icon} {output}",
@@ -130,3 +137,4 @@
         "on-click": "wlogout"
     }
 }
+
