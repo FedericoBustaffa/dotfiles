@@ -18,10 +18,6 @@ return {
     '.git',
   },
 
-  on_attach = function(client, bufnr)
-    client.server_capabilities.semanticTokensProvider = nil
-  end,
-
   settings = {
     clangd = {
       completion = { detailedLabel = true },
