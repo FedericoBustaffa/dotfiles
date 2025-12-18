@@ -73,6 +73,7 @@ yay -S --noconfirm --needed "${yay_pkgs[@]}"
 
 # Media
 media_pkgs=(
+    swaync
     bluez
     bluez-tools
     pipewire
