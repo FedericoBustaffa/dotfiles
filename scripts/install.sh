@@ -123,7 +123,7 @@ hypr_pkgs=(
     hyprlock
     hypridle
     waybar
-    wofi
+    rofi
 )
 
 hypr_yay_pkgs=(

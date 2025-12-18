@@ -15,10 +15,10 @@ PACKAGES=(
     nvim
     onedrive
     obsidian
+    rofi
     spotify
     starship
     hyprland
-    sway
     tmux
     vscode
     waybar
