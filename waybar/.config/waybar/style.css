@@ -103,7 +103,7 @@ tooltip label {
 }
 
 #network {
-    color: @green;
+    color: @purple;
 }
 
 #power-profiles-daemon {
