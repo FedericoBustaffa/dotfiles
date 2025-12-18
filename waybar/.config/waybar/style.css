@@ -110,6 +110,6 @@ tooltip label {
     color: @red;
 }
 
-battery {
+#battery {
     color: @green;
 }
