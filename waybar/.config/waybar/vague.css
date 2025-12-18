@@ -1,0 +1,18 @@
+/* Optional dark palette */
+@define-color bg0 #1f2322;
+@define-color bg1 #272c2a;
+@define-color bg2 #2f3533;
+@define-color bg3 #3a403e;
+
+@define-color fg #d6dad8;
+@define-color fg1 #a6adab;
+@define-color fg2 #7b8280;
+
+/* Standard vague colors */
+@define-color red    #c38a8a;
+@define-color orange #c9a38a;
+@define-color yellow #cbb38a;
+@define-color green  #8fb3a2;
+@define-color aqua   #93bfc1;
+@define-color blue   #8faec9;
+@define-color purple #b7a6c9;
