@@ -1,7 +1,7 @@
 return {
   {
     'nvim-telescope/telescope.nvim',
-    branch = '0.1.x',
+    tag = 'v0.2.0',
     build = 'make',
     lazy = true,
     dependencies = {
@@ -11,18 +11,18 @@ return {
     },
     config = function()
       require('telescope').setup {
-        defaults = {
-          preview = {
-            treesitter = false,
-          },
-        },
+        -- defaults = {
+        --   preview = {
+        --     treesitter = false,
+        --   },
+        -- },
         pickers = {
           find_files = {
             hidden = true,
-            layout_strategy = 'vertical',
-            layout_config = {
-              preview_height = 0.5,
-            },
+            -- layout_strategy = 'vertical',
+            -- layout_config = {
+            --   preview_height = 0.5,
+            -- },
           },
         },
         extensions = {

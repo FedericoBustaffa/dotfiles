@@ -4,6 +4,9 @@ return {
   build = ':TSUpdate',
   opts = {
     ensure_installed = {
+      'python',
+      'c',
+      'cpp',
       'bash',
       'doxygen',
       'markdown',
