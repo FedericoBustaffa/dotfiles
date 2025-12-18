@@ -48,3 +48,10 @@ vim.api.nvim_create_autocmd('BufReadPost', {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'python', 'cpp', 'c' },
+  callback = function(args)
+    pcall(vim.treesitter.start, args.buf)
+  end,
+})
