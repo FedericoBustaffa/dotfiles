@@ -5,7 +5,7 @@
 sudo pacman -Syuuu
 
 if [[ ! -d "${HOME}/yay/" ]]; then
-    git clone https://aur.archlinux.org/yay.git ${HOME}
+    git clone https://aur.archlinux.org/yay.git "${HOME}/yay/"
     cd "${HOME}/yay"
     makepkg -si
 fi
