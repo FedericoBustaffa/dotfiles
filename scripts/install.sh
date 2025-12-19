@@ -4,6 +4,12 @@
 # ---------- PACMAN packages ----------
 sudo pacman -Syuuu
 
+if [[ ! -d "${HOME}/yay/" ]]; then
+    git clone https://aur.archlinux.org/yay.git ${HOME}
+    cd "${HOME}/yay"
+    makepkg -si
+fi
+
 cli_pkgs=(
     # General CLI
     bash-completion
