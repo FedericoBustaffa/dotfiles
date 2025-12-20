@@ -87,7 +87,7 @@ tooltip label {
 }
 
 #cpu {
-    color: @green;
+    color: @blue;
 }
 
 #temperature {
@@ -95,7 +95,7 @@ tooltip label {
 }
 
 #memory {
-    color: @purple;
+    color: @green;
 }
 
 #disk {
