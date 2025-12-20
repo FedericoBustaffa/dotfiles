@@ -1,4 +1,4 @@
-@import "mocha.css";
+@import "vague.css";
 
 * {
     font-family: JetBrainsMono Nerd Font Propo;
@@ -86,8 +86,20 @@ tooltip label {
     border: 1px solid @bg1;
 }
 
-#clock {
-    color: @acqua;
+#cpu {
+    color: @green;
+}
+
+#temperature {
+    color: @red;
+}
+
+#memory {
+    color: @purple;
+}
+
+#disk {
+    color: @yellow;
 }
 
 #custom-notification {
