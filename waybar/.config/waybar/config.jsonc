@@ -27,7 +27,7 @@
         "bluetooth",
         "network",
         "power-profiles-daemon",
-        "battery",
+        "battery"
     ],
     "hyprland/workspaces": {
         "disable-scroll": true,
@@ -74,9 +74,9 @@
         "path": "/"
     },
     "temperature": {
-        // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "hwmon-path": "/sys/class/hwmon/hwmon6/temp1_input",
         "critical-threshold": 80,
+        "interval": 1,
         // "format-critical": "{temperatureC}°C {icon}",
         "format": "{icon} {temperatureC}°C",
         "format-icons": [
