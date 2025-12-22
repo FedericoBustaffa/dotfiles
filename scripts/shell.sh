@@ -15,13 +15,10 @@ alias upd="upd.sh"
 export PATH=$PATH:$HOME/dotfiles/scripts/
 export PATH=$PATH:$HOME/.local/bin/
 export PATH=$PATH:$HOME/.cargo/bin/
-export PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin
 
 export EDITOR=nvim
 export TERM=xterm-256color
 
-# tmuxifier completions
-eval "$(tmuxifier init -)"
 
 # open pdf files inside university folder
 fzf_uni() {
