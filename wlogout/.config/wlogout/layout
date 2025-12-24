@@ -18,7 +18,7 @@
 }
 {
     "label" : "shutdown",
-    "action" : "systemctl poweroff",
+    "action" : "~/dotfiles/scripts/pre_poweroff.sh",
     "text" : "Shutdown",
     "keybind" : "s"
 }
