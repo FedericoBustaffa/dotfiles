@@ -10,6 +10,7 @@ alias ls="eza --color=always --long --icons=always --no-time --no-user --no-perm
 alias la="ls -a"
 alias tree="ls --tree"
 alias upd="upd.sh"
+alias dotsync="dotsync.sh"
 
 # env variables
 export PATH=$PATH:$HOME/dotfiles/scripts/
