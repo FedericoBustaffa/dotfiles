@@ -5,18 +5,18 @@
     "cssPriority": "user",
 
     "control-center-width": 380,
-    "control-center-height": 860,
-    "control-center-margin-top": 2,
-    "control-center-margin-bottom": 2,
-    "control-center-margin-right": 1,
+    "control-center-height": 800,
+    "control-center-margin-top": 0,
+    "control-center-margin-bottom": 0,
+    "control-center-margin-right": 10,
     "control-center-margin-left": 0,
 
-    "notification-window-width": 400,
+    "notification-window-width": 250,
     "notification-icon-size": 48,
     "notification-body-image-height": 160,
     "notification-body-image-width": 200,
 
-    "timeout": 4,
+    "timeout": 2,
     "timeout-low": 2,
     "timeout-critical": 6,
 
