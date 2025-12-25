@@ -13,6 +13,7 @@ PACKAGES=(
     gtk
     kitty
     nvim
+    swaync
     obsidian
     rofi
     spotify
