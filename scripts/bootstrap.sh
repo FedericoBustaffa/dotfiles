@@ -13,7 +13,6 @@ PACKAGES=(
     gtk
     kitty
     nvim
-    # onedrive
     obsidian
     rofi
     spotify
