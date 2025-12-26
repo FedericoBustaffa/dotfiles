@@ -7,7 +7,4 @@ Collection of my dotfiles and scripts for Arch linux.
 - Wifi panel
 - Volume popup
 - Brightness popup
-- Screenshots
-- Tmux status bar
 - Neovim debugger
-- Wallpaper switcher
