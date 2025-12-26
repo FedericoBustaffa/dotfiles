@@ -1,44 +1,63 @@
-* {
-	background-image: none;
-}
+/* ----------- 💫 https://github.com/JaKooLit 💫 -------- */
+/* pywal-wlogout */
+
+/* Importing pywal colors */
+
+/* @import '../../.cache/wal/colors-waybar.css'; */
+
 window {
-	background-color: rgba(12, 12, 12, 0.9);
-}
+    font-family: JetBrainsMono Nerd;
+    font-size: 16pt;
+    background-color: rgba(24, 27, 32, 0.2);
+
+} 
+
 button {
-    color: #FFFFFF;
-	background-color: #1E1E1E;
-	border-style: solid;
-	border-width: 2px;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: 25%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10%;
+    background-color: rgba(20, 20, 20, 0.5);
+    animation: gradient_f 20s ease-in infinite;
+    transition: all 0.1s ease-in;
+    box-shadow: 0 0 10px 2px transparent;
+    border-radius: 36px;
+    margin: 5px;
 }
 
-button:focus, button:active, button:hover {
-	background-color: #3700B3;
-	outline-style: none;
+button:focus {
+    box-shadow: none;
+    background-size : 20%;
+    background-color: rgba(50, 80, 160, 0.6);
 }
 
-#lock {
-    background-image: image(url("/usr/share/wlogout/icons/lock.png"), url("/usr/local/share/wlogout/icons/lock.png"));
-}
-
-#logout {
-    background-image: image(url("/usr/share/wlogout/icons/logout.png"), url("/usr/local/share/wlogout/icons/logout.png"));
-}
-
-#suspend {
-    background-image: image(url("/usr/share/wlogout/icons/suspend.png"), url("/usr/local/share/wlogout/icons/suspend.png"));
-}
-
-#hibernate {
-    background-image: image(url("/usr/share/wlogout/icons/hibernate.png"), url("/usr/local/share/wlogout/icons/hibernate.png"));
+button:hover {
+    background-size: 20%;
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, .4);
+    background-color: rgba(50, 80, 160, 0.7);
 }
 
 #shutdown {
-    background-image: image(url("/usr/share/wlogout/icons/shutdown.png"), url("/usr/local/share/wlogout/icons/shutdown.png"));
+    background-image: image(url("./icons/power.png"));
+}
+
+#logout {
+    background-image: image(url("./icons/logout.png"));
+
 }
 
 #reboot {
-    background-image: image(url("/usr/share/wlogout/icons/reboot.png"), url("/usr/local/share/wlogout/icons/reboot.png"));
+    background-image: image(url("./icons/restart.png"));
+}
+
+#lock {
+    background-image: image(url("./icons/lock.png"));
+}
+
+#suspend {
+    background-image: image(url("./icons/hibernate.png"));
+}
+
+
+#hibernate {
+    background-image: image(url("./icons/hibernate.png"));
 }
