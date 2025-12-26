@@ -9,6 +9,7 @@ alias py='python'
 alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions -s type"
 alias la="ls -a"
 alias tree="ls --tree"
+alias tmux-sessionizer="~/dotfiles/scripts/tmux-sessionizer.sh"
 alias upd="~/dotfiles/scripts/upd.sh"
 alias bootstrap="~/dotfiles/scripts/bootstrap.sh"
 alias dotsync="~/dotfiles/scripts/dotsync.sh"
