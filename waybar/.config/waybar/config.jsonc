@@ -10,6 +10,7 @@
     "start_hidden": false,
     "height": 30, // Waybar height (to be removed for auto height)
     "modules-left": [
+        "custom/os",
         "cpu",
         "custom/temp",
         "memory",
@@ -59,6 +60,9 @@
                 "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
             }
         }
+    },
+    "custom/os" : {
+        "format": "󰣇 "
     },
     "cpu": {
         "format": " {usage}%",
