@@ -10,8 +10,9 @@ while IFS= read -r -d '' dir; do
     pkg="$(basename "$dir")"
 
     # escludi directories non-stow
-    [[ "$pkg" == "scripts" ]] && continue
     [[ "$pkg" == ".git" ]] && continue
+    [[ "$pkg" == "scripts" ]] && continue
+    [[ "$pkg" == "wallpapers" ]] && continue
 
     PACKAGES+=("$pkg")
 done < <(find "$DOTFILES_DIR" -mindepth 1 -maxdepth 1 -type d -print0)
