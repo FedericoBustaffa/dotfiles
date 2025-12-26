@@ -5,7 +5,7 @@ return {
     'hyprls',
   },
   -- filetypes = { '' },
-  root_dir = vim.fn.getcwd(),
+  root_dir = '~/.config/hypr/',
   settings = {
     hyprls = {
       preferIgnoreFile = true, -- set to false to prefer `hyprls.ignore`
