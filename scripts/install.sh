@@ -103,6 +103,8 @@ gui_pkgs=(
     telegram-desktop
     obsidian
     mpv
+    grim
+    slurp
     zathura
     zathura-pdf-mupdf
     zed
@@ -111,7 +113,6 @@ gui_pkgs=(
 gui_yay_pkgs=(
     zen-browser-bin
     visual-studio-code-bin
-    notion-app-electron
 )
 
 read -p "do you want to install GUI packages? [y/N]: " choice
@@ -125,7 +126,6 @@ fi
 # Hyprland
 hypr_pkgs=(
     hyprpaper
-    hyprshot
     hyprsunset
     hyprlock
     hypridle
