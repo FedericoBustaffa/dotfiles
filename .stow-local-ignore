@@ -1,16 +1,6 @@
 \.git
 .gitignore
 
-windows/
-windows/settings.json
-
 nvim/.config/nvim/lazy-lock.json
+hyprland/.config/hypr/monitors.conf
 
-onedrive/.config/onedrive/.config.backup
-onedrive/.config/onedrive/.config.hash
-onedrive/.config/onedrive/items.sqlite3
-onedrive/.config/onedrive/refresh_token
-onedrive/.config/onedrive/items.sqlite3-shm
-onedrive/.config/onedrive/items.sqlite3-wal
-
-sway/.config/sway/monitors.conf
