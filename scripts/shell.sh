@@ -9,11 +9,11 @@ alias py='python'
 alias ls="eza --color=always --long --icons=always --no-time --no-user --no-permissions -s type"
 alias la="ls -a"
 alias tree="ls --tree"
-alias upd="upd.sh"
-alias dotsync="dotsync.sh"
+alias upd="~/dotfiles/scripts/upd.sh"
+alias bootstrap="~/dotfiles/scripts/bootstrap.sh"
+alias dotsync="~/dotfiles/scripts/dotsync.sh"
 
 # env variables
-export PATH=$PATH:$HOME/dotfiles/scripts/
 export PATH=$PATH:$HOME/.local/bin/
 export PATH=$PATH:$HOME/.cargo/bin/
 
