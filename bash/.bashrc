@@ -125,5 +125,6 @@ source ${HOME}/dotfiles/scripts/shell.sh
 # module load mpi/openmpi-x86_64
 
 # bindings and other bash funcs
+set -o vi
 bind -f ~/.inputrc
 
