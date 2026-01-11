@@ -55,6 +55,7 @@ cli_pkgs=(
     openmp
     openmpi
     # Python
+    pyenv
     python-pip
     python-pygments
     python-numpy
