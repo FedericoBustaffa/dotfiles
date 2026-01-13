@@ -99,6 +99,8 @@ fi
 # GUI
 gui_pkgs=(
     blueberry
+    bluetui
+    impala
     gnome-tweaks
     kitty
     telegram-desktop
