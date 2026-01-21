@@ -133,7 +133,8 @@ hypr_pkgs=(
     hyprlock
     hypridle
     waybar
-    rofi
+    hyprlauncher
+    hyprtoolkit
 )
 
 hypr_yay_pkgs=(
