@@ -98,7 +98,6 @@ fi
 
 # GUI
 gui_pkgs=(
-    blueberry
     bluetui
     impala
     gnome-tweaks
@@ -116,6 +115,7 @@ gui_pkgs=(
 gui_yay_pkgs=(
     zen-browser-bin
     visual-studio-code-bin
+    overskride-bin
 )
 
 read -p "do you want to install GUI packages? [y/N]: " choice
