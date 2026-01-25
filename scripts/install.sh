@@ -138,7 +138,6 @@ hypr_pkgs=(
 
 hypr_yay_pkgs=(
     wlogout
-    hyprprop-git
 )
 
 read -p "do you want to install Hyprland packages? [y/N]: " choice
