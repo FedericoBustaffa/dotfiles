@@ -181,7 +181,7 @@
         "format-off": "󰂲",
         "format-connected": "󰂱",
         "tooltip": false,
-        "on-click": "blueberry"
+        "on-click": "overskride"
     },
     "custom/media": {
         "format": "{icon} {output}",
