@@ -29,7 +29,7 @@ fzf_uni() {
     FILE=$(find "$DIR" -type f -name "*.pdf" | fzf)
 
     if [[ -n "$FILE" ]]; then
-        nohup sioyek "$FILE" &>/dev/null &
+        nohup sioyek --new-window "$FILE" &>/dev/null &
     fi
 }
 
