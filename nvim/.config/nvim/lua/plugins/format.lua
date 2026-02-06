@@ -25,6 +25,7 @@ return {
           'markdownlint',
           'prettierd',
           'latexindent',
+          'typstyle',
         },
         automatic_installation = true,
       }

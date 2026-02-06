@@ -20,6 +20,7 @@ vim.lsp.enable {
   'marksman',
   'biome',
   'texlab',
+  'tinymist',
 }
 
 vim.diagnostic.config {
@@ -66,6 +67,7 @@ return {
         'marksman',
         'biome',
         'texlab',
+        'tinymist',
       },
       automatic_installation = true,
     },

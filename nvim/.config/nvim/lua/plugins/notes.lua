@@ -92,7 +92,7 @@ return {
     version = '1.*',
     opts = {},
     keys = {
-      { '<localleader>ty', ':TypstPreview<CR>', desc = 'Typst Preview' },
+      { '<localleader>ty', ':TypstPreviewToggle<CR>', desc = 'Typst Preview' },
     },
   },
 }
