@@ -4,7 +4,7 @@
 // https://yalter.github.io/niri/Configuration:-Introduction7
 
 include "input.kdl"
-include "monitors.kdl"
+// include "monitors.kdl"
 include "decorations.kdl"
 include "rules.kdl"
 include "keybindings.kdl"
