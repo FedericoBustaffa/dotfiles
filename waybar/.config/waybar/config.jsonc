@@ -18,7 +18,7 @@
     ],
     "modules-center": [
         "custom/notification",
-        "hyprland/workspaces",
+        "niri/workspaces",
         "clock"
         // "hyprland/window",
         // "tray"
@@ -30,6 +30,14 @@
         "power-profiles-daemon",
         "battery"
     ],
+    "niri/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": false,
+        "warp-on-scroll": false,
+        "on-click": "activate",
+        "format": "{name}",
+        "show-empty": false
+    },
     "hyprland/workspaces": {
         "disable-scroll": true,
         "all-outputs": false,
