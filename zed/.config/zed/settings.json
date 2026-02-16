@@ -8,33 +8,30 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
   "icon_theme": "Colored Zed Icons Theme Dark",
-  "features": {
-    "edit_prediction_provider": "none"
-  },
   "ssh_connections": [
     {
       "host": "sobigdatas01.isti.cnr.it",
       "username": "fbustaffa",
       "projects": [
         {
-          "paths": ["/home/fbustaffa/dev/thesis/src"]
+          "paths": ["/home/fbustaffa/dev/thesis/src"],
         },
         {
-          "paths": ["~/dev"]
+          "paths": ["~/dev"],
         },
         {
-          "paths": ["~/dev/explain"]
+          "paths": ["~/dev/explain"],
         },
         {
-          "paths": ["~/dev/ppga"]
-        }
-      ]
+          "paths": ["~/dev/ppga"],
+        },
+      ],
     },
     {
       "host": "sobigdatas01.isti.cnr.it",
       "username": "fbustaffa",
-      "projects": []
-    }
+      "projects": [],
+    },
   ],
   "terminal": {
     "font_family": "JetBrainsMono Nerd Font",
@@ -43,9 +40,9 @@
     "detect_venv": {
       "on": {
         "directories": [".env"],
-        "activate_script": "default"
-      }
-    }
+        "activate_script": "default",
+      },
+    },
   },
   "vim_mode": true,
   "base_keymap": "VSCode",
@@ -59,38 +56,38 @@
     "C++": {
       "language_servers": ["clangd"],
       "format_on_save": "on",
-      "extra_clang_arguments": ["-std=c++17"]
+      "extra_clang_arguments": ["-std=c++17"],
     },
     "C": {
       "language_servers": ["clangd"],
-      "format_on_save": "on"
+      "format_on_save": "on",
     },
     "lsp": {
       "pyright": {
         "settings": {
           "python": {
-            "pythonPath": ".env/bin/python"
+            "pythonPath": ".env/bin/python",
           },
           "python.analysis": {
             "diagnosticMode": "workspace",
-            "typeCheckingMode": "strict"
-          }
-        }
-      }
+            "typeCheckingMode": "strict",
+          },
+        },
+      },
     },
     "Python": {
       "language_servers": ["ruff", "pyright"],
       "format_on_save": "on",
       "formatter": [
         {
-          "code_action": "source.organizeImports.ruff"
+          "code_action": "source.organizeImports.ruff",
         },
         {
           "language_server": {
-            "name": "ruff"
-          }
-        }
-      ]
-    }
-  }
+            "name": "ruff",
+          },
+        },
+      ],
+    },
+  },
 }
