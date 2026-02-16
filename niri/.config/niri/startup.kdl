@@ -4,14 +4,11 @@
 // See the binds section below for more spawn examples.
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
-spawn-at-startup "waybar"
 spawn-at-startup "nm-applet --indicator"
 // spawn-at-startup "hypridle"
-// spawn-at-startup "hyprpaper"
 spawn-at-startup "swww-daemon"
 spawn-at-startup "swww img ~/dotfiles/wallpapers/astronaut_jellyfish.jpg"
 spawn-at-startup "mako"
-// spawn-at-startup "swaync"
 // spawn-at-startup "hyprsunset --temperature 4000"
 // spawn-at-startup "$terminal"
 // spawn-at-startup "[workspace 1 silent] $browser"
