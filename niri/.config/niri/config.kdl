@@ -3,6 +3,8 @@
 // Check the wiki for a full description of the configuration:
 // https://yalter.github.io/niri/Configuration:-Introduction7
 
+prefer-no-csd
+
 include "input.kdl"
 include "monitors.kdl"
 include "decorations.kdl"
