@@ -17,7 +17,6 @@
         "disk"
     ],
     "modules-center": [
-        "custom/notification",
         "niri/workspaces",
         "clock"
         // "hyprland/window",
