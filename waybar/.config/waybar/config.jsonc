@@ -33,10 +33,9 @@
     "niri/workspaces": {
         "disable-scroll": true,
         "all-outputs": false,
-        "warp-on-scroll": false,
         "on-click": "activate",
-        "format": "{name}",
-        "show-empty": false
+        "format": "{value}",
+        "show-empty": false,
     },
     "hyprland/workspaces": {
         "disable-scroll": true,
