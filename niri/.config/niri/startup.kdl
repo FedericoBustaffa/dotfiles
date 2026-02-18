@@ -4,12 +4,6 @@
 // See the binds section below for more spawn examples.
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
-spawn-at-startup "nm-applet --indicator"
-// spawn-at-startup "hypridle"
-spawn-at-startup "sunsetr"
-// spawn-at-startup "$terminal"
-// spawn-at-startup "[workspace 1 silent] $browser"
-// spawn-at-startup "[workspace 9 silent] obsidian --enable-features=UseOzonePlatform --ozone-platform=wayland"
 spawn-at-startup "onedrive --sync"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
