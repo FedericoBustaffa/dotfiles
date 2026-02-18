@@ -18,6 +18,7 @@ alias wpswitcher="~/dotfiles/scripts/wallpaper.sh"
 # env variables
 export PATH=$PATH:$HOME/.local/bin/
 export PATH=$PATH:$HOME/.cargo/bin/
+export TYPST_PACKAGE_PATH="$HOME/typst/templates/"
 
 export EDITOR=nvim
 export TERM=xterm-256color
