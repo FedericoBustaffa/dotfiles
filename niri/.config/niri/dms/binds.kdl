@@ -16,6 +16,8 @@ binds {
         spawn "dms" "ipc" "call" "processlist" "focusOrToggle";
     }
 
+    Super+B hotkey-overlay-title="Open Browser" { spawn "zen-browser"; }
+
     Super+Backspace hotkey-overlay-title="Power Menu: Toggle" { spawn "dms" "ipc" "call" "powermenu" "toggle"; }
     Mod+Comma hotkey-overlay-title="Settings" {
         spawn "dms" "ipc" "call" "settings" "focusOrToggle";
