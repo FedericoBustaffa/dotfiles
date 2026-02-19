@@ -59,3 +59,7 @@ vim.keymap.set('n', 'L', ':Lazy<CR>', { desc = 'Open Lazy', silent = true })
 
 -- Source current file
 vim.keymap.set('n', '<space><space>x', '<cmd>source %<CR>', { desc = 'Source Current File', silent = true })
+
+-- Typst
+local typst = require 'custom.typst'
+vim.keymap.set('n', '<localleader>ty', typst.toggle, { desc = 'Typst Preview' })

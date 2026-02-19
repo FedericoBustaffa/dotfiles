@@ -4,10 +4,11 @@
         // ! PLACE YOUR CUSTOM CONFIGURATION ELSEWHERE !
 
         layout {
-        gaps 4
+        gaps 8
 
         border {
-        width 2
+        off
+        width 1
         }
 
         focus-ring {
@@ -15,7 +16,7 @@
         }
         }
         window-rule {
-        geometry-corner-radius 12
+        geometry-corner-radius 0
         clip-to-geometry true
         tiled-state true
         draw-border-with-background false
