@@ -16,11 +16,7 @@
         }
         }
         window-rule {
-<<<<<<< HEAD
-        geometry-corner-radius 10
-=======
         geometry-corner-radius 0
->>>>>>> refs/remotes/origin/master
         clip-to-geometry true
         tiled-state true
         draw-border-with-background false
