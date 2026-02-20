@@ -6,6 +6,9 @@
 // This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "onedrive --sync"
 
+spawn-at-startup "swww-daemon"
+spawn-at-startup "swww img ~/dotfiles/wallpapers/astronaut_jellyfish.jpg"
+
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 spawn-sh-at-startup "~/dotfiles/scripts/dotsync.sh"
 
