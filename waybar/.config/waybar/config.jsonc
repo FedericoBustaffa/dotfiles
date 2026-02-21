@@ -17,7 +17,8 @@
         "disk"
     ],
     "modules-center": [
-        "niri/workspaces",
+        "hyprland/workspaces",
+        // "niri/workspaces",
         "clock"
         // "hyprland/window",
         // "tray"
