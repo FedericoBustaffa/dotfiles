@@ -1,8 +1,0 @@
-backend = "auto"
-transition_mode = "static"
-
-smoothing = false
-
-static_temp = 5500      # temperatura notte fissa
-static_gamma = 100      # gamma notte fissa
-
