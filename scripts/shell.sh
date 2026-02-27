@@ -34,6 +34,15 @@ fzf_uni() {
     fi
 }
 
+fzf_vault() {
+    DIR="$HOME/typst/"
+    FILE=$(find "$DIR" -type f -name "*.pdf" | fzf)
+
+    if [[ -n "$FILE" ]]; then
+        nohup zathura "$FILE" &>/dev/null &
+    fi
+}
+
 fzf_recordings() {
     DIR="$HOME/recordings/"
     FILE=$(find "$DIR" -type f -name "*.mp4" | fzf)
@@ -45,6 +54,7 @@ fzf_recordings() {
 
 alias uni="fzf_uni"
 alias rec="fzf_recordings"
+alias vault="fzf_vault"
 
 # FZF keybindings
 source $HOME/dotfiles/scripts/fzf_keybindings.bash
