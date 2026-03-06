@@ -59,3 +59,8 @@ set scroll-step 50
 unmap f
 map f toggle_fullscreen
 map [fullscreen] f toggle_fullscreen
+
+unmap p
+map p toggle_presentation
+map [presentation] p toggle_presentation
+
