@@ -34,6 +34,15 @@ fzf_uni() {
     fi
 }
 
+fzf_notes() {
+    DIR="$HOME/OneDrive/master/"
+    FILE=$(find "$DIR" -type f -name "*.xopp" | fzf)
+
+    if [[ -n "$FILE" ]]; then
+        nohup xournalpp "$FILE" &>/dev/null &
+    fi
+}
+
 fzf_vault() {
     DIR="$HOME/typst/"
     FILE=$(find "$DIR" -type f -name "*.pdf" | fzf)
@@ -51,10 +60,6 @@ fzf_recordings() {
         nohup mpv "$FILE" &>/dev/null &
     fi
 }
-
-alias uni="fzf_uni"
-alias rec="fzf_recordings"
-alias vault="fzf_vault"
 
 # FZF keybindings
 source $HOME/dotfiles/scripts/fzf_keybindings.bash
