@@ -32,7 +32,7 @@ function M.start()
   end
 
   -- APRI SEMPRE il pdf corretto
-  vim.fn.jobstart({ 'zathura', pdf }, { detach = true })
+  vim.fn.jobstart({ 'sioyek', pdf }, { detach = true })
 end
 
 function M.stop()

@@ -115,6 +115,7 @@ gui_yay_pkgs=(
     zen-browser-bin
     visual-studio-code-bin
     overskride-bin
+    sioyek-git
 )
 
 read -p "do you want to install GUI packages? [y/N]: " choice
