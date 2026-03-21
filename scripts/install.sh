@@ -102,6 +102,7 @@ gui_pkgs=(
     impala
     gnome-tweaks
     kitty
+    ghostty
     telegram-desktop
     obsidian
     mpv
