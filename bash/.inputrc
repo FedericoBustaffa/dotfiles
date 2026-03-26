@@ -5,5 +5,3 @@ set completion-ignore-case on
 "\C-v": "fzf_vault\n"
 "\C-g": "lazygit\n"
 "\C-f": "tmux-sessionizer\n"
-"\C-h": "__fzf_history__\n"
-"\C-r": "fzf_recordings\n"
