@@ -12,6 +12,7 @@ fi
 
 cli_pkgs=(
     # General CLI
+    pacman-contrib
     bash-completion
     openssh
     fastfetch
