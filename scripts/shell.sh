@@ -13,6 +13,7 @@ alias tmux-sessionizer="~/dotfiles/scripts/tmux-sessionizer.sh"
 alias upd="~/dotfiles/scripts/upd.sh"
 alias bootstrap="~/dotfiles/scripts/bootstrap.sh"
 alias dotsync="~/dotfiles/scripts/dotsync.sh"
+alias cleanup="~/dotfiles/scripts/cleanup.sh"
 alias wpswitcher="~/dotfiles/scripts/wallpaper.sh"
 
 # env variables

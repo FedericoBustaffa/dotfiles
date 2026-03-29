@@ -72,6 +72,7 @@ cli_pkgs=(
 yay_pkgs=(
     onedrive-abraunegg
     fswatch
+    waybar-module-pacman-updates-git
 )
 
 # PACMAN and YAY
