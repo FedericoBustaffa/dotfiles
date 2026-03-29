@@ -3,4 +3,4 @@
 hyprctl reload
 
 pkill waybar
-waybar
+waybar &

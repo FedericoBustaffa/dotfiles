@@ -130,3 +130,7 @@ tooltip label {
 #battery {
     color: @green;
 }
+
+#custom-updates {
+    color: @orange
+}
