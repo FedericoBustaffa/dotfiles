@@ -6,7 +6,7 @@ sudo pacman -Syuuu
 
 if [[ ! -d "${HOME}/yay/" ]]; then
     git clone https://aur.archlinux.org/yay.git "${HOME}/yay/"
-    cd "${HOME}/yay"
+    cd "${HOME}/yay" || exit
     makepkg -si
 fi
 
@@ -94,7 +94,7 @@ media_pkgs=(
 read -p "do you want to install media packages? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
-if [ $choice == "y" ]; then
+if [ "$choice" == "y" ]; then
     sudo pacman -S --noconfirm --needed ${media_pkgs[@]}
 fi
 
@@ -124,7 +124,7 @@ gui_yay_pkgs=(
 read -p "do you want to install GUI packages? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
-if [ $choice == "y" ]; then
+if [ "$choice" == "y" ]; then
     sudo pacman -S --noconfirm --needed ${gui_pkgs[@]}
     yay -S --noconfirm --needed ${gui_yay_pkgs[@]}
 fi
@@ -147,7 +147,7 @@ hypr_yay_pkgs=(
 read -p "do you want to install Hyprland packages? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
-if [ $choice == "y" ]; then
+if [ "$choice" == "y" ]; then
     sudo pacman -S --noconfirm --needed ${hypr_pkgs[@]}
     yay -S --noconfirm --needed ${hypr_yay_pkgs[@]}
 fi
@@ -156,7 +156,7 @@ fi
 read -p "do you want to install npm packages? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
-if [ $choice == "y" ]; then
+if [ "$choice" == "y" ]; then
     sudo npm install --global neovim
     npm fund
 fi
@@ -166,8 +166,8 @@ if [ ! -d "${HOME}/.tmux/plugins/tpm" ]; then
     read -p "do you want to install tmux tpm? [y/N]: " choice
     choice=${choice:-n}
     choice=${choice,,}
-    if [ $choice == "y" ]; then
-        git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
+    if [ "$choice" == "y" ]; then
+        git clone https://github.com/tmux-plugins/tpm "${HOME}"/.tmux/plugins/tpm
     fi
 fi
 
@@ -175,11 +175,11 @@ fi
 read -p "do you want to install a nerd font? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
-if [ $choice == "y" ]; then
+if [ "$choice" == "y" ]; then
     curl -OL https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/JetBrainsMono.zip
-    mkdir ${HOME}/.local/share/fonts/
-    unzip JetBrainsMono.zip -d ${HOME}/.local/share/fonts/
-    rm -rf ${HOME}/.local/share/fonts/OFL.txt ${HOME}/.local/share/fonts/README.md
+    mkdir "${HOME}"/.local/share/fonts/
+    unzip JetBrainsMono.zip -d "${HOME}"/.local/share/fonts/
+    rm -rf "${HOME}"/.local/share/fonts/OFL.txt "${HOME}"/.local/share/fonts/README.md
     fc-cache -v
     rm -rf JetBrainsMono.zip
 fi
@@ -188,7 +188,7 @@ fi
 read -p "do you want to bootstrap dotfiles? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
-if [ $choice == "y" ]; then
-    cd ${HOME}/dotfiles/
+if [ "$choice" == "y" ]; then
+    cd "${HOME}"/dotfiles/ || exit
     ./scripts/bootstrap.sh
 fi

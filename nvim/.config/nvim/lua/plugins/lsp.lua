@@ -19,6 +19,8 @@ vim.lsp.enable {
   'bashls',
   'marksman',
   'biome',
+  'bashls',
+  'shellcheck',
   'texlab',
   'tinymist',
 }
@@ -66,6 +68,7 @@ return {
         'bashls',
         'marksman',
         'biome',
+        'bashls',
         'texlab',
         'tinymist',
       },
