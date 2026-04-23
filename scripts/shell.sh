@@ -64,7 +64,7 @@ fzf_recordings() {
 }
 
 # FZF keybindings
-source $HOME/dotfiles/scripts/fzf_keybindings.bash
+source "$HOME"/dotfiles/scripts/fzf_keybindings.bash
 
 # FZF SETUP
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/*"'
@@ -75,7 +75,3 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"

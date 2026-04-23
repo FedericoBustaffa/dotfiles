@@ -8,48 +8,23 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
   "project_panel": {
-    "dock": "left"
+    "dock": "left",
   },
   "outline_panel": {
-    "dock": "left"
+    "dock": "left",
   },
   "collaboration_panel": {
-    "dock": "left"
+    "dock": "left",
   },
   "agent": {
     "dock": "right",
     "favorite_models": [],
-    "model_parameters": []
+    "model_parameters": [],
   },
   "git_panel": {
-    "dock": "left"
+    "dock": "left",
   },
   "icon_theme": "Colored Zed Icons Theme Dark",
-  "ssh_connections": [
-    {
-      "host": "sobigdatas01.isti.cnr.it",
-      "username": "fbustaffa",
-      "projects": [
-        {
-          "paths": ["/home/fbustaffa/dev/thesis/src"],
-        },
-        {
-          "paths": ["~/dev"],
-        },
-        {
-          "paths": ["~/dev/explain"],
-        },
-        {
-          "paths": ["~/dev/ppga"],
-        },
-      ],
-    },
-    {
-      "host": "sobigdatas01.isti.cnr.it",
-      "username": "fbustaffa",
-      "projects": [],
-    },
-  ],
   "terminal": {
     "font_family": "JetBrainsMono Nerd Font",
     "font_size": 15,
@@ -73,27 +48,13 @@
     "C++": {
       "language_servers": ["clangd"],
       "format_on_save": "on",
-      "extra_clang_arguments": ["-std=c++17"],
     },
     "C": {
       "language_servers": ["clangd"],
       "format_on_save": "on",
     },
-    "lsp": {
-      "pyright": {
-        "settings": {
-          "python": {
-            "pythonPath": ".env/bin/python",
-          },
-          "python.analysis": {
-            "diagnosticMode": "workspace",
-            "typeCheckingMode": "strict",
-          },
-        },
-      },
-    },
     "Python": {
-      "language_servers": ["ruff", "pyright"],
+      "language_servers": ["ty", "ruff", "!basedpyright"],
       "format_on_save": "on",
       "formatter": [
         {
@@ -105,6 +66,16 @@
           },
         },
       ],
+    },
+  },
+  "lsp": {
+    "basedpyright": {
+      "settings": {
+        "basedpyright.analysis": {
+          "diagnosticMode": "workspace",
+          "typeCheckingMode": "basic",
+        },
+      },
     },
   },
 }
