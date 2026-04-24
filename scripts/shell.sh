@@ -36,15 +36,6 @@ fzf_uni() {
     fi
 }
 
-fzf_notes() {
-    DIR="$HOME/OneDrive/master/"
-    FILE=$(find "$DIR" -type f -name "*.xopp" | fzf)
-
-    if [[ -n "$FILE" ]]; then
-        nohup xournalpp "$FILE" &>/dev/null &
-    fi
-}
-
 fzf_vault() {
     DIR="$HOME/typst/"
     FILE=$(find "$DIR" -type f -name "*.pdf" | fzf)
