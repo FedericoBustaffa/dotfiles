@@ -174,6 +174,7 @@ read -p "do you want to bootstrap dotfiles? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
 if [ "$choice" == "y" ]; then
+    rm -rf ~/.gitconfig ~/.bash ~/.config/gtk-3.0
     cd "${HOME}"/dotfiles/ || exit
     ./scripts/bootstrap.sh
 fi
