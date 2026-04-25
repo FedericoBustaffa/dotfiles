@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 sudo pacman -Syu
-yay -Syu
+paru -Syu
 
 flatpak update
 
-${HOME}/dotfiles/scripts/dotsync.sh
+"${HOME}"/dotfiles/scripts/dotsync.sh

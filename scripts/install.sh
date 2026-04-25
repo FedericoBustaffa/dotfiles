@@ -45,6 +45,7 @@ cli_pkgs=(
     jdk-openjdk
     eza
     tree-sitter-cli
+    cpio
     unzip
     # C/C++
     gcc
@@ -129,6 +130,7 @@ fi
 
 # Hyprland
 hypr_pkgs=(
+    hyprland
     hyprpaper
     hyprsunset
     hyprlock
