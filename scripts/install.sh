@@ -30,7 +30,6 @@ cli_pkgs=(
     neovim
     git
     htop
-    webkit2gtk
     lazygit
     tmux
     tree
