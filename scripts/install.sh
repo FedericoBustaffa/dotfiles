@@ -13,6 +13,7 @@ fi
 cli_pkgs=(
     # General CLI
     pacman-contrib
+    reflector
     bash-completion
     openssh
     fastfetch
@@ -30,7 +31,6 @@ cli_pkgs=(
     git
     htop
     webkit2gtk
-    deno
     lazygit
     tmux
     tree
@@ -56,7 +56,9 @@ cli_pkgs=(
     openmp
     openmpi
     # Python
-    pyenv
+    uv
+    ty
+    ruff
     python-pip
     python-pygments
     python-numpy
@@ -72,13 +74,11 @@ cli_pkgs=(
 yay_pkgs=(
     onedrive-abraunegg
     fswatch
-    waybar-module-pacman-updates-git
 )
 
 # PACMAN and YAY
 sudo pacman -S --noconfirm --needed "${cli_pkgs[@]}"
 yay -S --noconfirm --needed "${yay_pkgs[@]}"
-
 
 # Media
 media_pkgs=(
@@ -104,8 +104,6 @@ gui_pkgs=(
     impala
     gnome-tweaks
     kitty
-    ghostty
-    telegram-desktop
     obsidian
     mpv
     grim
