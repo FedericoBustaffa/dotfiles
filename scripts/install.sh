@@ -4,9 +4,9 @@
 # ---------- PACMAN packages ----------
 sudo pacman -Syuuu
 
-if [[ ! -d "${HOME}/yay/" ]]; then
-    git clone https://aur.archlinux.org/yay.git "${HOME}/yay/"
-    cd "${HOME}/yay" || exit
+if [[ ! -d "${HOME}/paru/" ]]; then
+    git clone https://aur.archlinux.org/paru.git "${HOME}/paru/"
+    cd "${HOME}/paru" || exit
     makepkg -si
 fi
 
@@ -32,6 +32,7 @@ cli_pkgs=(
     htop
     lazygit
     tmux
+    ttf-jetbrains-mono-nerd
     tree
     hwloc
     pandoc
@@ -70,14 +71,14 @@ cli_pkgs=(
     typst
 )
 
-yay_pkgs=(
+paru_pkgs=(
     onedrive-abraunegg
     fswatch
 )
 
-# PACMAN and YAY
+# PACMAN and paru
 sudo pacman -S --noconfirm --needed "${cli_pkgs[@]}"
-yay -S --noconfirm --needed "${yay_pkgs[@]}"
+paru -S --noconfirm --needed "${paru_pkgs[@]}"
 
 # Media
 media_pkgs=(
@@ -111,7 +112,7 @@ gui_pkgs=(
     zathura
 )
 
-gui_yay_pkgs=(
+gui_paru_pkgs=(
     zen-browser-bin
     visual-studio-code-bin
     overskride-bin
@@ -123,7 +124,7 @@ choice=${choice:-n}
 choice=${choice,,}
 if [ "$choice" == "y" ]; then
     sudo pacman -S --noconfirm --needed ${gui_pkgs[@]}
-    yay -S --noconfirm --needed ${gui_yay_pkgs[@]}
+    paru -S --noconfirm --needed ${gui_paru_pkgs[@]}
 fi
 
 # Hyprland
@@ -137,7 +138,7 @@ hypr_pkgs=(
     hyprtoolkit
 )
 
-hypr_yay_pkgs=(
+hypr_paru_pkgs=(
     wlogout
 )
 
@@ -146,7 +147,7 @@ choice=${choice:-n}
 choice=${choice,,}
 if [ "$choice" == "y" ]; then
     sudo pacman -S --noconfirm --needed ${hypr_pkgs[@]}
-    yay -S --noconfirm --needed ${hypr_yay_pkgs[@]}
+    paru -S --noconfirm --needed ${hypr_paru_pkgs[@]}
 fi
 
 # NPM packages
@@ -166,19 +167,6 @@ if [ ! -d "${HOME}/.tmux/plugins/tpm" ]; then
     if [ "$choice" == "y" ]; then
         git clone https://github.com/tmux-plugins/tpm "${HOME}"/.tmux/plugins/tpm
     fi
-fi
-
-# Nerd Font
-read -p "do you want to install a nerd font? [y/N]: " choice
-choice=${choice:-n}
-choice=${choice,,}
-if [ "$choice" == "y" ]; then
-    curl -OL https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/JetBrainsMono.zip
-    mkdir "${HOME}"/.local/share/fonts/
-    unzip JetBrainsMono.zip -d "${HOME}"/.local/share/fonts/
-    rm -rf "${HOME}"/.local/share/fonts/OFL.txt "${HOME}"/.local/share/fonts/README.md
-    fc-cache -v
-    rm -rf JetBrainsMono.zip
 fi
 
 # Install dotfiles
