@@ -17,29 +17,29 @@ return {
       },
     },
   },
-  {
-    'toppair/peek.nvim',
-    event = { 'VeryLazy' },
-    build = 'deno task --quiet build:fast',
-    config = function()
-      require('peek').setup {
-        theme = 'light',
-        app = 'webview',
-      }
-      vim.api.nvim_create_user_command('PeekOpen', require('peek').open, {})
-      vim.api.nvim_create_user_command('PeekClose', require('peek').close, {})
-
-      -- toggle keymap
-      vim.keymap.set('n', '<localleader>mm', function()
-        local peek = require 'peek'
-        if peek.is_open() then
-          peek.close()
-        else
-          peek.open()
-        end
-      end, { desc = 'Toggle Markdown Preview' })
-    end,
-  },
+  -- {
+  --   'toppair/peek.nvim',
+  --   event = { 'VeryLazy' },
+  --   build = 'deno task --quiet build:fast',
+  --   config = function()
+  --     require('peek').setup {
+  --       theme = 'light',
+  --       app = 'webview',
+  --     }
+  --     vim.api.nvim_create_user_command('PeekOpen', require('peek').open, {})
+  --     vim.api.nvim_create_user_command('PeekClose', require('peek').close, {})
+  --
+  --     -- toggle keymap
+  --     vim.keymap.set('n', '<localleader>mm', function()
+  --       local peek = require 'peek'
+  --       if peek.is_open() then
+  --         peek.close()
+  --       else
+  --         peek.open()
+  --       end
+  --     end, { desc = 'Toggle Markdown Preview' })
+  --   end,
+  -- },
   {
     'epwalsh/obsidian.nvim',
     version = '*',
