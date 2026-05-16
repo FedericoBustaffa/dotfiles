@@ -56,4 +56,24 @@ return {
       }
     end,
   },
+  {
+    'Mofiqul/vscode.nvim',
+    lazy = false,
+    priority = 1000,
+  },
+  {
+    'armannikoyan/rusty',
+    lazy = false,
+    priority = 1000,
+  },
+  {
+    'zenbones-theme/zenbones.nvim',
+    dependencies = 'rktjmp/lush.nvim',
+    lazy = false,
+    priority = 1000,
+    -- you can set set configuration options here
+    -- config = function()
+    --     vim.g.zenbones_darken_comments = 45
+    -- end
+  },
 }
