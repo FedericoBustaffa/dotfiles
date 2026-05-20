@@ -1,3 +1,7 @@
+local vim_capabilities = vim.lsp.protocol.make_client_capabilities()
+local blink_capabilities = require('blink.cmp').get_lsp_capabilities()
+local capabilities = vim.tbl_deep_extend('force', vim_capabilities, blink_capabilities)
+
 vim.lsp.config('*', {
   on_attach = function(client, bufnr)
     local opts = { buffer = bufnr, silent = true }
@@ -9,6 +13,7 @@ vim.lsp.config('*', {
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
   end,
+  capabilities = capabilities,
 })
 
 vim.lsp.enable {
