@@ -28,7 +28,7 @@ vim.opt.splitright = true
 
 vim.opt.updatetime = 50
 vim.opt.timeoutlen = 500
-vim.opt.completeopt = { 'menuone', 'noselect', 'popup' }
+vim.opt.completeopt = { 'menuone', 'noselect', 'fuzzy', 'nosort' }
 
 vim.opt.showmode = false
 vim.opt.lazyredraw = false
