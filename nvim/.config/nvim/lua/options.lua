@@ -28,7 +28,9 @@ vim.opt.laststatus = 3
 vim.opt.incsearch = true
 vim.opt.hlsearch = true
 
-vim.opt.swap = false
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
 
 vim.opt.splitbelow = true
 vim.opt.splitright = true

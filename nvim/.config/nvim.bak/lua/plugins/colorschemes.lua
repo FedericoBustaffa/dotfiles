@@ -37,43 +37,8 @@ return {
     priority = 1000,
   },
   {
-    'smit4k/shale.nvim',
-    lazy = false,
-    priority = 1000,
-  },
-  {
-    'AlexvZyl/nordic.nvim',
-    lazy = false,
-    priority = 1000,
-  },
-  {
-    '54L1M/Oshen.nvim',
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require('oshen').setup {
-        transparent = false, -- set false for opaque background
-      }
-    end,
-  },
-  {
     'Mofiqul/vscode.nvim',
     lazy = false,
     priority = 1000,
-  },
-  {
-    'armannikoyan/rusty',
-    lazy = false,
-    priority = 1000,
-  },
-  {
-    'zenbones-theme/zenbones.nvim',
-    dependencies = 'rktjmp/lush.nvim',
-    lazy = false,
-    priority = 1000,
-    -- you can set set configuration options here
-    -- config = function()
-    --     vim.g.zenbones_darken_comments = 45
-    -- end
   },
 }
