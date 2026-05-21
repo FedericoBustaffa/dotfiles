@@ -41,4 +41,9 @@ return {
     lazy = false,
     priority = 1000,
   },
+  {
+    'oskarnurm/koda.nvim',
+    lazy = false,
+    priority = 1000,
+  },
 }
