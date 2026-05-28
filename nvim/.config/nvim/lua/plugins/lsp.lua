@@ -20,7 +20,9 @@ vim.lsp.enable {
   'lua_ls',
   'clangd',
   'cmake',
-  'ty',
+  'pyright',
+  -- 'basedpyright',
+  -- 'ty',
   'bashls',
   'marksman',
   'biome',
@@ -32,7 +34,7 @@ vim.lsp.enable {
 
 vim.diagnostic.config {
   virtual_text = false,
-  virtual_lines = false,
+  virtual_lines = true,
   signs = true,
   underline = true,
   float = {
@@ -68,7 +70,9 @@ return {
         'lua_ls',
         'clangd',
         'cmake',
-        'ty',
+        'pyright',
+        -- 'basedpyright',
+        -- 'ty',
         'ruff',
         'bashls',
         'marksman',
