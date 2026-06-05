@@ -1,9 +1,18 @@
-local shared = require 'lsp.shared'
+local blink = require 'blink.cmp'
 
-vim.lsp.config('biome', {
-  cmd = { 'biome', 'lsp-proxy' },
-  filetypes = { 'json', 'jsonc', 'javascript', 'typescript' },
-  root_markers = { 'biome.json', 'biome.jsonc', '.git' },
-  on_attach = shared.on_attach,
-  capabilities = shared.capabilities(),
-})
+return {
+  filetypes = { 'json', 'jsonc' },
+  root_markers = { '.git' },
+  settings = {
+    biome = {
+      completion = { detailedLabel = true },
+      diagnostics = true,
+    },
+  },
+  capabilities = vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), blink.get_lsp_capabilities(), {
+    fileOperations = {
+      didRename = true,
+      willRename = true,
+    },
+  }),
+}

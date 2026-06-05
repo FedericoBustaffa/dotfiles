@@ -1,14 +1,18 @@
-local shared = require 'lsp.shared'
+local blink = require 'blink.cmp'
 
-vim.lsp.config('texlab', {
-  cmd = { 'texlab' },
+return {
   filetypes = { 'tex', 'latex' },
   root_markers = { '.git' },
-  on_attach = shared.on_attach,
-  capabilities = shared.capabilities(),
   settings = {
     texlab = {
       build = { onSave = true },
+      diagnostics = true,
     },
   },
-})
+  capabilities = vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), blink.get_lsp_capabilities(), {
+    fileOperations = {
+      didRename = true,
+      willRename = true,
+    },
+  }),
+}

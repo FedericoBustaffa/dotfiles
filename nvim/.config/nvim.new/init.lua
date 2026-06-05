@@ -24,16 +24,15 @@ vim.g.maplocalleader = '\\'
 
 require 'config.options'
 
--- Setup lazy.nvim
 require('lazy').setup {
   spec = {
     { import = 'plugins' },
   },
   checker = {
-    enabled = true, -- automatically check for plugin updates
-    notify = true, -- get a notification when new updates are found
-    frequency = 3600, -- check for updates every hour
-    check_pinned = false, -- check for pinned packages that can't be updated
+    enabled = true,
+    notify = true,
+    frequency = 3600,
+    check_pinned = false,
   },
   change_detection = {
     enabled = false,
@@ -43,6 +42,9 @@ require('lazy').setup {
 
 vim.cmd.colorscheme 'vague'
 
--- Config options and keymaps
 require 'config.keymaps'
 require 'config.autocommands'
+
+-- LSP enable va DOPO lazy.setup, così blink.cmp è già inizializzato
+-- e le capabilities vengono lette correttamente da shared.lua
+require 'config.lsp_enable'

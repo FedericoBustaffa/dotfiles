@@ -1,17 +1,13 @@
 return {
   {
     'saghen/blink.cmp',
-    lazy = true,
-    event = 'InsertEnter',
+    lazy = false,
     dependencies = { 'rafamadriz/friendly-snippets' },
-
-    -- use a release tag to download pre-built binaries
     version = '1.*',
 
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
-      -- snippets = { preset = 'luasnip' },
       keymap = { preset = 'default' },
       appearance = {
         use_nvim_cmp_as_default = false,
@@ -19,6 +15,12 @@ return {
       },
       signature = { enabled = true },
       completion = {
+        list = {
+          selection = {
+            preselect = true,
+            auto_insert = false,
+          },
+        },
         menu = {
           border = 'single',
           scrolloff = 1,
@@ -43,6 +45,14 @@ return {
       },
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
+        providers = {
+          -- lsp.fallbacks: se lsp restituisce 0 item, mostra buffer.
+          -- Questo è già il default, ma esplicitarlo documenta l'intento.
+          -- È qui che va la logica anti-duplicati, NON sul provider buffer.
+          lsp = {
+            fallbacks = { 'buffer' },
+          },
+        },
       },
       fuzzy = { implementation = 'prefer_rust_with_warning' },
     },
