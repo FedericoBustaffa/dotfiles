@@ -1,21 +1,9 @@
-local blink = require 'blink.cmp'
+local shared = require 'lsp.shared'
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend('force', capabilities, blink.get_lsp_capabilities() or {})
-
-capabilities.workspace = capabilities.workspace or {}
-capabilities.workspace.fileOperations = {
-  didRename = true,
-  willRename = true,
-}
-
-return {
+vim.lsp.config('bashls', {
+  cmd = { 'bash-language-server', 'start' },
   filetypes = { 'sh', 'bash' },
-  settings = {
-    bash = { -- attenzione: non 'bashls'
-      completion = { detailedLabel = true },
-      diagnostics = true,
-    },
-  },
-  capabilities = capabilities,
-}
+  root_markers = { '.git' },
+  on_attach = shared.on_attach,
+  capabilities = shared.capabilities(),
+})

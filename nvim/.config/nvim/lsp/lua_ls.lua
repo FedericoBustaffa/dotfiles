@@ -1,24 +1,16 @@
-local blink = require 'blink.cmp'
+local shared = require 'lsp.shared'
 
-return {
+vim.lsp.config('lua_ls', {
   cmd = { 'lua-language-server' },
   filetypes = { 'lua' },
-  root_markers = {
-    '.luarc.json',
-    '.luarc.jsonc',
-    '.luacheckrc',
-    '.stylua.toml',
-    'stylua.toml',
-    '.git',
-  },
+  root_markers = { '.luarc.json', '.luarc.jsonc', '.stylua.toml', 'stylua.toml', '.git' },
+  on_attach = shared.on_attach,
+  capabilities = shared.capabilities(),
   settings = {
     Lua = {
       diagnostics = {
         disable = { 'missing-fields' },
-        globals = {
-          'vim',
-          'Snacks',
-        },
+        globals = { 'vim', 'Snacks' },
       },
       hint = {
         enable = true,
@@ -30,10 +22,4 @@ return {
       },
     },
   },
-  capabilities = vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), blink.get_lsp_capabilities(), {
-    fileOperations = {
-      didRename = true,
-      willRename = true,
-    },
-  }),
-}
+})

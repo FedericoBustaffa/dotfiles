@@ -1,6 +1,6 @@
-local blink = require 'blink.cmp'
+local shared = require 'lsp.shared'
 
-return {
+vim.lsp.config('clangd', {
   cmd = {
     'clangd',
     '--clang-tidy',
@@ -9,19 +9,8 @@ return {
     '--header-insertion=never',
     '--cross-file-rename',
   },
-
-  filetypes = { 'c', 'h', 'cpp', 'hpp' },
-
-  root_markers = {
-    'Makefile',
-    'CMakeLists.txt',
-    '.git',
-  },
-
-  settings = {
-    clangd = {
-      completion = { detailedLabel = true },
-      diagnostics = true,
-    },
-  },
-}
+  filetypes = { 'c', 'cpp', 'h', 'hpp' },
+  root_markers = { 'compile_commands.json', 'CMakeLists.txt', 'Makefile', '.git' },
+  on_attach = shared.on_attach,
+  capabilities = shared.capabilities(),
+})

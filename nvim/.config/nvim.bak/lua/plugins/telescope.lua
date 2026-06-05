@@ -1,8 +1,5 @@
-vim.pack.add({
-  'nvim-telescope/telescope.nvim'
-})
-
-
+return {
+  'nvim-telescope/telescope.nvim',
   build = 'make',
   lazy = true,
   dependencies = {
@@ -116,4 +113,3 @@ vim.pack.add({
     },
   },
 }
-

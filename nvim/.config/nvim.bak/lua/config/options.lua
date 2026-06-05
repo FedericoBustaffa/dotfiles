@@ -2,11 +2,11 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
 vim.opt.scrolloff = 12
-vim.opt.signcolumn = "yes"
-vim.opt.guicursor = ""
+vim.opt.signcolumn = 'yes'
+vim.opt.guicursor = ''
 
-vim.opt.mouse = "a"
-vim.opt.clipboard = "unnamedplus"
+vim.opt.mouse = 'a'
+vim.opt.clipboard = 'unnamedplus'
 vim.opt.showmatch = true
 
 vim.opt.termguicolors = true
@@ -28,11 +28,7 @@ vim.opt.splitright = true
 
 vim.opt.updatetime = 50
 vim.opt.timeoutlen = 500
-vim.opt.completeopt = "menuone,noselect,fuzzy,nosort"
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
-vim.opt.undofile = true
+vim.opt.completeopt = { 'menuone', 'noselect', 'fuzzy', 'nosort' }
 
 vim.opt.showmode = false
 vim.opt.lazyredraw = false
