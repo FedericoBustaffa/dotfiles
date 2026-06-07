@@ -5,10 +5,6 @@ return {
   opts = {
     animate = { enabled = true },
     bigfile = { enabled = true },
-    notifier = {
-      enabled = true,
-      timeout = 3000,
-    },
     bufdelete = { enabled = true },
     dashboard = { enabled = true },
     git = { enabled = true },

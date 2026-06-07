@@ -1,14 +1,15 @@
-local vim_capabilities = vim.lsp.protocol.make_client_capabilities()
-local blink_capabilities = require('blink.cmp').get_lsp_capabilities()
-local capabilities = vim.tbl_deep_extend('force', vim_capabilities, blink_capabilities)
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
 
 vim.lsp.config('*', {
-  on_attach = function(client, bufnr)
+  on_attach = function(_, bufnr)
     local opts = { buffer = bufnr, silent = true }
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.rename, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
@@ -19,11 +20,8 @@ vim.lsp.config('*', {
 vim.lsp.enable {
   'lua_ls',
   'clangd',
-  -- 'cmake',
   'neocmake',
   'pyright',
-  -- 'basedpyright',
-  -- 'ty',
   'bashls',
   'marksman',
   'biome',
@@ -39,15 +37,15 @@ vim.diagnostic.config {
   signs = true,
   underline = true,
   float = {
+    focusable = false,
+    style = 'minimal',
     border = 'rounded',
     source = true,
   },
 }
 
 return {
-  {
-    'neovim/nvim-lspconfig',
-  },
+  { 'neovim/nvim-lspconfig' },
   {
     'williamboman/mason.nvim',
     lazy = false,
@@ -73,11 +71,8 @@ return {
       ensure_installed = {
         'lua_ls',
         'clangd',
-        -- 'cmake',
         'neocmake',
         'pyright',
-        -- 'basedpyright',
-        -- 'ty',
         'ruff',
         'bashls',
         'marksman',

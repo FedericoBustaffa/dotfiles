@@ -7,4 +7,8 @@ return {
       require('mini.icons').setup()
     end,
   },
+  {
+    'echasnovski/mini.notify',
+    opts = {},
+  },
 }

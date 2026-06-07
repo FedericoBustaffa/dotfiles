@@ -90,13 +90,13 @@ return {
       end,
       desc = 'Find Help',
     },
-    {
-      '<leader>D',
-      function()
-        require('telescope.builtin').diagnostics()
-      end,
-      desc = 'Diagnostics',
-    },
+    -- {
+    --   '<leader>D',
+    --   function()
+    --     require('telescope.builtin').diagnostics()
+    --   end,
+    --   desc = 'Diagnostics',
+    -- },
     {
       '<leader>fs',
       function()
