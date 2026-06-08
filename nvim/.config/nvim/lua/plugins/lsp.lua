@@ -45,7 +45,10 @@ vim.diagnostic.config {
 }
 
 return {
-  { 'neovim/nvim-lspconfig' },
+  {
+    'neovim/nvim-lspconfig',
+    lazy = false,
+  },
   {
     'williamboman/mason.nvim',
     lazy = false,

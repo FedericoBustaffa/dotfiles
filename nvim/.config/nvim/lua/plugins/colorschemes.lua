@@ -17,6 +17,7 @@ return {
     lazy = false,
     priority = 1000,
     opts = {
+      disable_background = false,
       variant = 'main',
       dark_variant = 'main',
       styles = {
@@ -43,6 +44,16 @@ return {
   },
   {
     'oskarnurm/koda.nvim',
+    lazy = false,
+    priority = 1000,
+  },
+  {
+    'rebelot/kanagawa.nvim',
+    lazy = false,
+    priority = 1000,
+  },
+  {
+    'EdenEast/nightfox.nvim',
     lazy = false,
     priority = 1000,
   },
