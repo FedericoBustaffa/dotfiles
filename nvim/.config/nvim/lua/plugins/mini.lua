@@ -9,6 +9,11 @@ return {
   },
   {
     'echasnovski/mini.notify',
-    opts = {},
+    opts = {
+      window = {
+        config = {},
+        max_width_share = 0.5,
+      },
+    },
   },
 }
