@@ -6,7 +6,7 @@ local state = {
   current_file = nil,
   sioyek_pid = nil,
   autocmd_ids = {},
-  pending_open = false, -- guard: evita aperture sovrapposte
+  pending_open = false,
 }
 
 -- ── Utilities ───────────────────────────────────────────────────────────────
@@ -23,7 +23,7 @@ end
 
 local function move_to_workspace_8(pid)
   local function try(attempt)
-    if attempt > 3 then
+    if attempt > 4 then
       return
     end
     vim.defer_fn(function()
@@ -46,52 +46,41 @@ end
 
 -- ── Viewer ──────────────────────────────────────────────────────────────────
 
--- Chiude sioyek e aspetta la sua morte prima di chiamare callback
-local function close_viewer(callback)
+-- Controlla se il processo del plugin è ancora vivo
+local function viewer_alive()
   if not state.sioyek_pid then
-    if callback then
-      callback()
-    end
-    return
+    return false
   end
+  local res = vim.fn.system('kill -0 ' .. state.sioyek_pid .. ' 2>/dev/null; echo $?')
+  return vim.trim(res) == '0'
+end
 
-  local pid = state.sioyek_pid
-  state.sioyek_pid = nil
-
-  -- Prova SIGTERM prima, poi SIGKILL se ancora vivo
-  vim.fn.system('kill ' .. pid)
-
-  local attempts = 0
-  local function wait_dead()
-    attempts = attempts + 1
-    -- kill -0 controlla se il processo esiste ancora
-    local alive = vim.fn.system('kill -0 ' .. pid .. ' 2>/dev/null; echo $?')
-    if vim.trim(alive) == '0' then
-      if attempts >= 5 then
-        vim.fn.system('kill -9 ' .. pid)
-      end
-      vim.defer_fn(wait_dead, 100)
-    else
-      if callback then
-        callback()
-      end
-    end
+local function close_viewer()
+  if state.sioyek_pid then
+    -- SIGTERM solo sulla finestra del plugin, non tocca le altre
+    vim.fn.system('kill ' .. state.sioyek_pid)
+    state.sioyek_pid = nil
   end
-  vim.defer_fn(wait_dead, 100)
 end
 
 local function open_viewer(pdf)
-  local job_id = vim.fn.jobstart({ 'sioyek', '--new-window', pdf }, {
-    detach = true,
-    on_exit = function()
-      state.sioyek_pid = nil
-    end,
-  })
+  if viewer_alive() then
+    -- Riusa la finestra già aperta dal plugin: cambia solo il PDF
+    -- --nofocus evita di rubare il focus dall'editor
+    vim.fn.jobstart({ 'sioyek', '--reuse-window', '--nofocus', pdf }, { detach = true })
+  else
+    -- Prima apertura (o finestra chiusa manualmente dall'utente)
+    local job_id = vim.fn.jobstart({ 'sioyek', '--new-window', pdf }, {
+      detach = true,
+      on_exit = function()
+        state.sioyek_pid = nil
+      end,
+    })
+    state.sioyek_pid = vim.fn.jobpid(job_id)
 
-  state.sioyek_pid = vim.fn.jobpid(job_id)
-
-  if is_hyprland() then
-    move_to_workspace_8(state.sioyek_pid)
+    if is_hyprland() then
+      move_to_workspace_8(state.sioyek_pid)
+    end
   end
 end
 
@@ -117,7 +106,6 @@ end
 -- ── Compile + open ───────────────────────────────────────────────────────────
 
 local function activate_for_file(file)
-  -- Se c'è già un'apertura in corso per questo stesso file, ignora
   if state.pending_open and state.current_file == file then
     return
   end
@@ -130,31 +118,20 @@ local function activate_for_file(file)
   local _, pdf = get_paths(file)
   vim.notify('Typst: compiling ' .. vim.fn.fnamemodify(file, ':t') .. '...', vim.log.levels.INFO)
 
-  -- Prima chiudi il viewer esistente, poi compila, poi apri
-  close_viewer(function()
-    -- Controlla che nel frattempo non sia cambiato file di nuovo
-    if state.current_file ~= file then
+  vim.fn.jobstart({ 'typst', 'compile', file }, {
+    on_exit = function(_, code)
       state.pending_open = false
-      return
-    end
+      if state.current_file ~= file then
+        return
+      end
 
-    vim.fn.jobstart({ 'typst', 'compile', file }, {
-      on_exit = function(_, code)
-        state.pending_open = false
-
-        -- Controlla ancora: potrebbe essere cambiato durante la compilazione
-        if state.current_file ~= file then
-          return
-        end
-
-        if code == 0 then
-          open_viewer(pdf)
-        else
-          vim.notify('Typst: compilation failed', vim.log.levels.ERROR)
-        end
-      end,
-    })
-  end)
+      if code == 0 then
+        open_viewer(pdf)
+      else
+        vim.notify('Typst: compilation failed', vim.log.levels.ERROR)
+      end
+    end,
+  })
 end
 
 -- ── Autocmds ─────────────────────────────────────────────────────────────────
@@ -190,7 +167,6 @@ local function setup_autocmds()
       end
 
       local closed_file = vim.fn.expand '<afile>:p'
-
       local remaining = vim
         .iter(vim.fn.getbufinfo { buflisted = 1 })
         :filter(function(b)
