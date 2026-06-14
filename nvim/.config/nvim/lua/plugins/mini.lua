@@ -11,8 +11,8 @@ return {
     'echasnovski/mini.notify',
     opts = {
       window = {
-        -- config = {},
-        -- max_width_share = 0.5,
+        config = {},
+        max_width_share = 0.5,
       },
     },
   },
