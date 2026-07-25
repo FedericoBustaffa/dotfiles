@@ -1,65 +1,58 @@
-# Zathura configuration file
-# See man `man zathurarc'
-
-# Open document in fit-width mode by default
 set adjust-open "width"
-
-# One page per row by default
 set pages-per-row 1
-
-#stop at page boundries
 set scroll-page-aware "true"
 set smooth-scroll "true"
 set scroll-full-overlap 0.01
-
-#zoom settings
+set scroll-step 50
 set zoom-min 10
-# set guioptions ""
-
-# zathurarc-dark
+set render-loading "false"
 
 set font "inconsolata 15"
-# set default-bg "#000000" #00
-# set default-fg "#F7F7F6" #01
 
-set statusbar-fg "#B0B0B0" #04
-set statusbar-bg "#202020" #01
+set zoom-center "true"
 
-set inputbar-bg "#151515" #00 currently not used
-set inputbar-fg "#FFFFFF" #02
+map h scroll left
+map l scroll right
+map j scroll down
+map k scroll up
 
-set notification-error-bg "#AC4142" #08
-set notification-error-fg "#151515" #00
+map <Left> scroll left
+map <Right> scroll right
+map <Up> scroll up
+map <Down> scroll down
 
-set notification-warning-bg "#AC4142" #08
-set notification-warning-fg "#151515" #00
-
-set highlight-color "#F4BF75" #0A
-set highlight-active-color "#6A9FB5" #0D
-
-set completion-highlight-fg "#151515" #02
-set completion-highlight-bg "#90A959" #0C
-
-set completion-bg "#303030" #02
-set completion-fg "#E0E0E0" #0C
-
-set notification-bg "#90A959" #0B
-set notification-fg "#151515" #00
+set statusbar-fg "#B0B0B0"
+set statusbar-bg "#202020"
+set inputbar-bg "#151515"
+set inputbar-fg "#FFFFFF"
+set notification-error-bg "#AC4142"
+set notification-error-fg "#151515"
+set notification-warning-bg "#AC4142"
+set notification-warning-fg "#151515"
+set highlight-color "#F4BF75"
+set highlight-active-color "#6A9FB5"
+set completion-highlight-fg "#151515"
+set completion-highlight-bg "#90A959"
+set completion-bg "#303030"
+set completion-fg "#E0E0E0"
+set notification-bg "#90A959"
+set notification-fg "#151515"
 
 set recolor "false"
-set recolor-lightcolor "#000000" #00
-set recolor-darkcolor "#E0E0E0" #06
+set recolor-lightcolor "#000000"
+set recolor-darkcolor "#E0E0E0"
 set recolor-reverse-video "true"
 set recolor-keephue "true"
 
-
-set render-loading "false"
-set scroll-step 50
+# Fullscreen e presentation
 unmap f
 map f toggle_fullscreen
 map [fullscreen] f toggle_fullscreen
-
 unmap p
 map p toggle_presentation
 map [presentation] p toggle_presentation
 
+# Fit width (adatta alla larghezza, scroll verticale)
+map w zoom set best-fit
+# Fit height (adatta all'altezza, pagina intera visibile)
+map W zoom set page-fit
