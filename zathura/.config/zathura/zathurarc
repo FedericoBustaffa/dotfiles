@@ -7,7 +7,7 @@ set scroll-step 50
 set zoom-min 10
 set render-loading "false"
 
-set font "inconsolata 15"
+set font "inconsolata 12"
 
 set zoom-center "true"
 
