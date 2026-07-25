@@ -31,8 +31,8 @@ fzf_uni() {
     FILE=$(find "$DIR" -type f -name "*.pdf" | fzf)
 
     if [[ -n "$FILE" ]]; then
-        nohup sioyek --new-window "$FILE" &>/dev/null &
-        # nohup zathura "$FILE" &>/dev/null &
+        # nohup sioyek --new-window "$FILE" &>/dev/null &
+        nohup zathura "$FILE" &>/dev/null &
     fi
 }
 
@@ -41,8 +41,8 @@ fzf_vault() {
     FILE=$(find "$DIR" -type f -name "*.pdf" | fzf)
 
     if [[ -n "$FILE" ]]; then
-        nohup sioyek --new-window "$FILE" &>/dev/null &
-        # nohup zathura "$FILE" &>/dev/null &
+        # nohup sioyek --new-window "$FILE" &>/dev/null &
+        nohup zathura "$FILE" &>/dev/null &
     fi
 }
 
