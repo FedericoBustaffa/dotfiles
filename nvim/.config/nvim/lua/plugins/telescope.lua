@@ -20,9 +20,10 @@ return {
           '%.pdf',
           '%.zip',
           'node_modules/',
+          'build/',
+          '.cache/',
           '%.git/',
           '%.obsidian/',
-          '%.xopp',
         },
       },
       pickers = {
