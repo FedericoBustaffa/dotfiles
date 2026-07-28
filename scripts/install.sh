@@ -92,11 +92,11 @@ media_pkgs=(
     wireplumber
 )
 
-read -p "do you want to install media packages? [y/N]: " choice
+read -rp "do you want to install media packages? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
 if [ "$choice" == "y" ]; then
-    sudo pacman -S --noconfirm --needed ${media_pkgs[@]}
+    sudo pacman -S --noconfirm --needed "${media_pkgs[@]}"
 fi
 
 # GUI
@@ -111,6 +111,7 @@ gui_pkgs=(
     slurp
     zed
     zathura
+    zathura-pdf-mupdf
 )
 
 gui_paru_pkgs=(
@@ -120,12 +121,12 @@ gui_paru_pkgs=(
     sioyek-git
 )
 
-read -p "do you want to install GUI packages? [y/N]: " choice
+read -rp "do you want to install GUI packages? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
 if [ "$choice" == "y" ]; then
-    sudo pacman -S --noconfirm --needed ${gui_pkgs[@]}
-    paru -S --noconfirm --needed ${gui_paru_pkgs[@]}
+    sudo pacman -S --noconfirm --needed "${gui_pkgs[@]}"
+    paru -S --noconfirm --needed "${gui_paru_pkgs[@]}"
 fi
 
 # Hyprland
@@ -144,16 +145,16 @@ hypr_paru_pkgs=(
     wlogout
 )
 
-read -p "do you want to install Hyprland packages? [y/N]: " choice
+read -rp "do you want to install Hyprland packages? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
 if [ "$choice" == "y" ]; then
-    sudo pacman -S --noconfirm --needed ${hypr_pkgs[@]}
-    paru -S --noconfirm --needed ${hypr_paru_pkgs[@]}
+    sudo pacman -S --noconfirm --needed "${hypr_pkgs[@]}"
+    paru -S --noconfirm --needed "${hypr_paru_pkgs[@]}"
 fi
 
 # NPM packages
-read -p "do you want to install npm packages? [y/N]: " choice
+read -rp "do you want to install npm packages? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
 if [ "$choice" == "y" ]; then
@@ -163,7 +164,7 @@ fi
 
 # Install tmux TPM
 if [ ! -d "${HOME}/.tmux/plugins/tpm" ]; then
-    read -p "do you want to install tmux tpm? [y/N]: " choice
+    read -rp "do you want to install tmux tpm? [y/N]: " choice
     choice=${choice:-n}
     choice=${choice,,}
     if [ "$choice" == "y" ]; then
@@ -172,7 +173,7 @@ if [ ! -d "${HOME}/.tmux/plugins/tpm" ]; then
 fi
 
 # Install dotfiles
-read -p "do you want to bootstrap dotfiles? [y/N]: " choice
+read -rp "do you want to bootstrap dotfiles? [y/N]: " choice
 choice=${choice:-n}
 choice=${choice,,}
 if [ "$choice" == "y" ]; then
