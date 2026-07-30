@@ -24,6 +24,8 @@ return {
           '.cache/',
           '%.git/',
           '%.obsidian/',
+          '.venv/',
+          '%.egg-info/*',
         },
       },
       pickers = {
