@@ -4,15 +4,16 @@
 local apps = require("applications")
 local mainMod = "SUPER"
 
--- Some classic dispatchers (layoutmsg for the scrolling plugin, plain
--- workspace/movetoworkspace/pseudo/movewindow/resizewindow, ...) don't have
--- a confirmed typed hl.dsp.* signature in the docs available right now --
--- the Lua config only shipped in 0.55 (May 2026) and coverage is still
--- filling in. This helper calls them the classic way through hyprctl, which
--- still understands every dispatcher name regardless of which config
--- frontend is active. Swap these for native hl.dsp.* calls as the wiki's
--- Dispatchers page (https://wiki.hypr.land/Configuring/Dispatchers/) fills
--- in, or once `hyprctl dispatch <name>` confirms the exact call for you.
+-- Every compositor action below goes through the classic dispatcher name
+-- via `hyprctl dispatch`, instead of the newer typed hl.dsp.* functions.
+-- Reason: the typed dispatchers (hl.dsp.window.close, hl.dsp.focus, ...)
+-- have signatures that aren't fully confirmed in the docs yet (0.55 shipped
+-- May 2026, coverage is still filling in). If a typed call doesn't exist or
+-- has the wrong shape, Lua throws at config-load time and Hyprland ABORTS
+-- THE REST OF THE FILE -- which silently kills every bind declared after
+-- it. This fallback avoids that risk entirely: `hyprctl dispatch <name>
+-- <args>` is the same mechanism hyprctl has always used and works
+-- regardless of which config frontend (lua or hyprlang) is active.
 local function dispatch(name, arg)
 	local cmd = "hyprctl dispatch " .. name
 	if arg then
@@ -23,15 +24,15 @@ end
 
 -- Basics
 hl.bind(mainMod .. "+Return", hl.dsp.exec_cmd(apps.terminal))
-hl.bind(mainMod .. "+Q", hl.dsp.window.close())
+hl.bind(mainMod .. "+Q", dispatch("killactive"))
 hl.bind(mainMod .. "+E", hl.dsp.exec_cmd(apps.fileManager))
 hl.bind(mainMod .. "+B", hl.dsp.exec_cmd(apps.browser))
-hl.bind(mainMod .. "+V", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mainMod .. "+V", dispatch("togglefloating"))
 hl.bind(mainMod .. "+SPACE", hl.dsp.exec_cmd(apps.menu))
 hl.bind(mainMod .. "+BACKSPACE", hl.dsp.exec_cmd("wlogout"))
 hl.bind(mainMod .. "+F12", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy'))
 hl.bind(mainMod .. "+SHIFT+R", hl.dsp.exec_cmd("~/dotfiles/scripts/reload.sh"))
-hl.bind(mainMod .. "+F", hl.dsp.window.fullscreen())
+hl.bind(mainMod .. "+F", dispatch("fullscreen"))
 
 hl.bind(mainMod .. "+P", dispatch("pseudo")) -- dwindle
 -- hl.bind(mainMod .. "+J", dispatch("togglesplit")) -- dwindle
@@ -39,8 +40,8 @@ hl.bind(mainMod .. "+P", dispatch("pseudo")) -- dwindle
 -- scrolling layout: move focus / columns
 hl.bind(mainMod .. "+H", dispatch("layoutmsg", "move -col"))
 hl.bind(mainMod .. "+L", dispatch("layoutmsg", "move +col"))
-hl.bind(mainMod .. "+K", hl.dsp.focus({ direction = "up" }))
-hl.bind(mainMod .. "+J", hl.dsp.focus({ direction = "down" }))
+hl.bind(mainMod .. "+K", dispatch("movefocus", "u"))
+hl.bind(mainMod .. "+J", dispatch("movefocus", "d"))
 hl.bind(mainMod .. "+R", dispatch("layoutmsg", "colresize +conf"))
 
 -- Move window with mainMod + Shift + hjkl
@@ -66,9 +67,11 @@ hl.bind(mainMod .. "+mouse_down", dispatch("workspace", "e+1"))
 hl.bind(mainMod .. "+mouse_up", dispatch("workspace", "e-1"))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
--- (was `bindm`, the "hold + drag" bind family -- verify the exact opts
--- against https://wiki.hypr.land/Configuring/Basics/Binds/, this mirrors
--- the classic dispatcher names via the fallback above)
+-- (was `bindm`, the "hold + drag" bind family. If this doesn't drag
+-- correctly, it's the one remaining piece to double check against
+-- https://wiki.hypr.land/Configuring/Basics/Binds/ -- `bindm` behaves
+-- differently from a normal press-bind and the Lua equivalent might need
+-- an explicit option like `{ mouse = true }` in hl.bind's opts table.)
 hl.bind(mainMod .. "+mouse:272", dispatch("movewindow"))
 hl.bind(mainMod .. "+mouse:273", dispatch("resizewindow"))
 
