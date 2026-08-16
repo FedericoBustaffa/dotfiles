@@ -1,0 +1,10 @@
+-- ~/.config/hypr/plugins.lua
+
+hl.config({
+  plugin = {
+    hyprscrolling = {
+      column_width = 0.7,
+      fullscreen_on_one_column = false,
+    },
+  },
+})
