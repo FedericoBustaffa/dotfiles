@@ -15,7 +15,6 @@ require("keybindings")
 require("rules")
 require("startup")
 require("variables")
-require("plugins")
 
 -- Old hyprland.conf had a plain `exec = notify-send ...` (runs on *every*
 -- load/reload, unlike exec-once). "config.reloaded" fires on every reload,
