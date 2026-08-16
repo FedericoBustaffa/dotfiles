@@ -31,10 +31,10 @@ if outputs["DP-1"] and outputs["DP-2"] then
 	-- Profile A: full desktop setup, both externals connected (docked)
 	hl.monitor({ output = "DP-1", mode = "2560x1440@120", position = "1920x0", scale = 1.25 })
 	hl.monitor({ output = "DP-2", mode = "1920x1080@60", position = "0x0", scale = 1 })
-else
+elseif outputs["eDP-1"] then
 	-- Profile D: fallback -- unknown machine / laptop panel / anything else.
 	-- Let Hyprland pick the preferred mode and auto-place/auto-scale it.
-	hl.monitor({ output = "", mode = "preferred", position = "auto", scale = "auto" })
+	hl.monitor({ output = "", mode = "preferred", position = "0x0", scale = 2 })
 end
 
 -- --- Alternative: hostname-based detection ---------------------------------
