@@ -13,6 +13,7 @@ fi
 cli_pkgs=(
     # General CLI
     pacman-contrib
+    base-devel
     reflector
     bash-completion
     openssh
