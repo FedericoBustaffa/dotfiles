@@ -62,4 +62,9 @@ return {
     lazy = false,
     priority = 1000,
   },
+  {
+    'wtfox/luna.nvim',
+    lazy = false,
+    priority = 1000,
+  },
 }
