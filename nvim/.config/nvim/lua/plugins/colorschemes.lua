@@ -23,7 +23,7 @@ return {
       styles = {
         bold = false,
         italic = true,
-        transparency = false,
+        transparency = true,
       },
     },
   },
