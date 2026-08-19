@@ -24,7 +24,7 @@ end
 
 -- Basics
 hl.bind(mainMod .. "+Return", hl.dsp.exec_cmd(apps.terminal))
-hl.bind(mainMod .. "+Q", dispatch("killactive"))
+hl.bind(mainMod .. "+Q", hl.dsp.window.close())
 hl.bind(mainMod .. "+E", hl.dsp.exec_cmd(apps.fileManager))
 hl.bind(mainMod .. "+B", hl.dsp.exec_cmd(apps.browser))
 hl.bind(mainMod .. "+V", dispatch("togglefloating"))
@@ -38,25 +38,26 @@ hl.bind(mainMod .. "+P", dispatch("pseudo")) -- dwindle
 -- hl.bind(mainMod .. "+J", dispatch("togglesplit")) -- dwindle
 
 -- scrolling layout: move focus / columns
-hl.bind(mainMod .. "+H", dispatch("layoutmsg", "move -col"))
-hl.bind(mainMod .. "+L", dispatch("layoutmsg", "move +col"))
-hl.bind(mainMod .. "+K", dispatch("movefocus", "u"))
-hl.bind(mainMod .. "+J", dispatch("movefocus", "d"))
-hl.bind(mainMod .. "+R", dispatch("layoutmsg", "colresize +conf"))
+hl.bind(mainMod .. "+H", hl.dsp.focus({ direction = "left" }))
+hl.bind(mainMod .. "+L", hl.dsp.focus({ direction = "right" }))
+hl.bind(mainMod .. "+K", hl.dsp.focus({ direction = "up" }))
+hl.bind(mainMod .. "+J", hl.dsp.focus({ direction = "down" }))
+
+hl.bind(mainMod .. "+R", hl.dsp.layout("colresize +conf"))
 
 -- Move window with mainMod + Shift + hjkl
-hl.bind(mainMod .. "+SHIFT+H", dispatch("layoutmsg", "swapcol l"))
-hl.bind(mainMod .. "+SHIFT+L", dispatch("layoutmsg", "swapcol r"))
-hl.bind(mainMod .. "+SHIFT+K", dispatch("layoutmsg", "movewindowto u"))
-hl.bind(mainMod .. "+SHIFT+J", dispatch("layoutmsg", "movewindowto d"))
+hl.bind(mainMod .. "+SHIFT+H", hl.dsp.layout("swapcol l"))
+hl.bind(mainMod .. "+SHIFT+L", hl.dsp.layout("swapcol r"))
+-- hl.bind(mainMod .. "+SHIFT+K", hl.dsp.layout("movewindowto u"))
+-- hl.bind(mainMod .. "+SHIFT+J", hl.dsp.layout("movewindowto d"))
 
 -- Switch workspaces with mainMod + [0-9], move window with mainMod + SHIFT + [0-9]
 for i = 1, 9 do
-	hl.bind(mainMod .. "+" .. i, dispatch("workspace", tostring(i)))
-	hl.bind(mainMod .. "+SHIFT+" .. i, dispatch("movetoworkspace", tostring(i)))
+	hl.bind(mainMod .. "+" .. i, hl.dsp.focus({ workspace = i }))
+	hl.bind(mainMod .. "+ SHIFT +" .. i, hl.dsp.window.move({ workspace = i }))
 end
-hl.bind(mainMod .. "+0", dispatch("workspace", "10"))
-hl.bind(mainMod .. "+SHIFT+0", dispatch("movetoworkspace", "10"))
+hl.bind(mainMod .. "+ 0", hl.dsp.focus({ workspace = 0 }))
+hl.bind(mainMod .. "+ SHIFT + 0", hl.dsp.window.move({ workspace = 0 }))
 
 -- Special workspace (scratchpad)
 hl.bind(mainMod .. "+S", dispatch("togglespecialworkspace", "magic"))
