@@ -29,6 +29,7 @@ vim.lsp.enable {
   'shellcheck',
   'texlab',
   'tinymist',
+  'qmlls',
 }
 
 vim.diagnostic.config {
