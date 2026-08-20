@@ -17,24 +17,26 @@ hl.window_rule({ match = { class = "^(io.github.kaii_lb.Overskride)$" }, float =
 hl.window_rule({ match = { class = "^(nm-connection-editor)$" }, float = true, size = "640 480" })
 
 -- Workspace bindings
-hl.window_rule({ match = { class = "^(firefox)$" },              workspace = "1" })
-hl.window_rule({ match = { class = "^(zen)$" },                  workspace = "1" })
-hl.window_rule({ match = { class = "^(org.pwmt.zathura)$" },     workspace = "2" })
-hl.window_rule({ match = { class = "^(sioyek)$" },                workspace = "2" })
-hl.window_rule({ match = { class = "^(mpv)$" },                   workspace = "2" })
-hl.window_rule({ match = { class = "^(spotify)$" },               workspace = "3" })
-hl.window_rule({ match = { class = "^(dev.zed.Zed)$" },           workspace = "7" })
-hl.window_rule({ match = { class = "^(code)$" },                  workspace = "7" })
-hl.window_rule({ match = { class = "^(kitty)$" },                 workspace = "8" })
+hl.window_rule({ match = { class = "^(firefox)$" }, workspace = "1" })
+hl.window_rule({ match = { class = "^(zen)$" }, workspace = "1" })
+hl.window_rule({ match = { class = "^(org.pwmt.zathura)$" }, workspace = "2" })
+hl.window_rule({ match = { class = "^(sioyek)$" }, workspace = "2" })
+hl.window_rule({ match = { class = "^(mpv)$" }, workspace = "2" })
+hl.window_rule({ match = { class = "^(spotify)$" }, workspace = "3" })
+hl.window_rule({ match = { class = "^(dev.zed.Zed)$" }, workspace = "7" })
+hl.window_rule({ match = { class = "^(code)$" }, workspace = "7" })
+hl.window_rule({ match = { class = "^(kitty)$" }, workspace = "8" })
 hl.window_rule({ match = { class = "^(com.mitchellh.ghostty)$" }, workspace = "8" })
-hl.window_rule({ match = { class = "^(obsidian)$" },              workspace = "9" })
-hl.window_rule({ match = { class = "^(Notion)$" },                workspace = "10" })
+hl.window_rule({ match = { class = "^(obsidian)$" }, workspace = "9" })
+hl.window_rule({ match = { class = "^(Notion)$" }, workspace = "10" })
 
 -- Layers
 hl.layer_rule({ match = { namespace = ".*" }, blur = true })
 hl.layer_rule({ match = { namespace = ".*" }, blur_popups = true })
+hl.layer_rule({ match = { namespace = "waybar" }, blur = false })
+hl.layer_rule({ match = { namespace = "wlogout" }, blur = true })
 hl.layer_rule({
-  name = "no_anim_for_selection",
-  match = { namespace = "selection" },
-  no_anim = true,
+	name = "no_anim_for_selection",
+	match = { namespace = "selection" },
+	no_anim = true,
 })

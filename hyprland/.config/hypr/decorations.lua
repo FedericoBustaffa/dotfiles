@@ -54,7 +54,7 @@ hl.config({
 		},
 
 		shadow = {
-			enabled = true,
+			enabled = false,
 			range = 4,
 			render_power = 3,
 			sharp = false,
@@ -75,14 +75,15 @@ hl.config({
 			samples = 7,
 		},
 
-		wobble = {
-			enabled = true,
-      mesh = 12,
-      stiffness = 200,
-      damping = 12,
-      mass = 1,
-      intensity = 0.2,
-      value_epsilon 0.25,
-		},
+		-- wobble = {
+		-- 	enabled = true,
+		--     mesh = 12,
+		--     stiffness = 200,
+		--     damping = 12,
+		--     mass = 1,
+		--     intensity = 0.2,
+		--     value_epsilon = 0.25,
+		--     velocity_epsilon = 2,
+		-- },
 	},
 })

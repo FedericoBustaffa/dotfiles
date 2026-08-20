@@ -14,27 +14,20 @@ local mainMod = "SUPER"
 -- it. This fallback avoids that risk entirely: `hyprctl dispatch <name>
 -- <args>` is the same mechanism hyprctl has always used and works
 -- regardless of which config frontend (lua or hyprlang) is active.
-local function dispatch(name, arg)
-	local cmd = "hyprctl dispatch " .. name
-	if arg then
-		cmd = cmd .. ' "' .. arg .. '"'
-	end
-	return hl.dsp.exec_cmd(cmd)
-end
 
 -- Basics
 hl.bind(mainMod .. "+Return", hl.dsp.exec_cmd(apps.terminal))
 hl.bind(mainMod .. "+Q", hl.dsp.window.close())
 hl.bind(mainMod .. "+E", hl.dsp.exec_cmd(apps.fileManager))
 hl.bind(mainMod .. "+B", hl.dsp.exec_cmd(apps.browser))
-hl.bind(mainMod .. "+V", dispatch("togglefloating"))
+hl.bind(mainMod .. "+V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. "+SPACE", hl.dsp.exec_cmd(apps.menu))
 hl.bind(mainMod .. "+BACKSPACE", hl.dsp.exec_cmd("wlogout"))
 hl.bind(mainMod .. "+F12", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy'))
 hl.bind(mainMod .. "+SHIFT+R", hl.dsp.exec_cmd("~/dotfiles/scripts/reload.sh"))
-hl.bind(mainMod .. "+F", dispatch("fullscreen"))
+hl.bind(mainMod .. "+F", hl.dsp.window.fullscreen({ action = "toggle" }))
 
-hl.bind(mainMod .. "+P", dispatch("pseudo")) -- dwindle
+hl.bind(mainMod .. "+P", hl.dsp.window.pseudo({ action = "toggle" })) -- dwindle
 -- hl.bind(mainMod .. "+J", dispatch("togglesplit")) -- dwindle
 
 -- scrolling layout: move focus / columns
@@ -56,16 +49,16 @@ for i = 1, 9 do
 	hl.bind(mainMod .. "+" .. i, hl.dsp.focus({ workspace = i }))
 	hl.bind(mainMod .. "+ SHIFT +" .. i, hl.dsp.window.move({ workspace = i }))
 end
-hl.bind(mainMod .. "+ 0", hl.dsp.focus({ workspace = 0 }))
-hl.bind(mainMod .. "+ SHIFT + 0", hl.dsp.window.move({ workspace = 0 }))
+hl.bind(mainMod .. "+ 0", hl.dsp.focus({ workspace = 10 }))
+hl.bind(mainMod .. "+ SHIFT + 0", hl.dsp.window.move({ workspace = 10 }))
 
 -- Special workspace (scratchpad)
-hl.bind(mainMod .. "+S", dispatch("togglespecialworkspace", "magic"))
-hl.bind(mainMod .. "+SHIFT+S", dispatch("movetoworkspace", "special:magic"))
+-- hl.bind(mainMod .. "+S", dispatch("togglespecialworkspace", "magic"))
+-- hl.bind(mainMod .. "+SHIFT+S", dispatch("movetoworkspace", "special:magic"))
 
 -- Scroll through existing workspaces with mainMod + scroll
-hl.bind(mainMod .. "+mouse_down", dispatch("workspace", "e+1"))
-hl.bind(mainMod .. "+mouse_up", dispatch("workspace", "e-1"))
+-- hl.bind(mainMod .. "+mouse_down", dispatch("workspace", "e+1"))
+-- hl.bind(mainMod .. "+mouse_up", dispatch("workspace", "e-1"))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 -- (was `bindm`, the "hold + drag" bind family. If this doesn't drag
@@ -73,8 +66,8 @@ hl.bind(mainMod .. "+mouse_up", dispatch("workspace", "e-1"))
 -- https://wiki.hypr.land/Configuring/Basics/Binds/ -- `bindm` behaves
 -- differently from a normal press-bind and the Lua equivalent might need
 -- an explicit option like `{ mouse = true }` in hl.bind's opts table.)
-hl.bind(mainMod .. "+mouse:272", dispatch("movewindow"))
-hl.bind(mainMod .. "+mouse:273", dispatch("resizewindow"))
+hl.bind(mainMod .. "+mouse:272", hl.dsp.window.drag(), { mouse = true })
+hl.bind(mainMod .. "+mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Laptop multimedia keys for volume and LCD brightness
 hl.bind(
