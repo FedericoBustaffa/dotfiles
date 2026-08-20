@@ -8,8 +8,9 @@ hl.env("GDK_BACKEND", "wayland")
 hl.env("QT_QPA_PLATFORM", "wayland")
 
 hl.config({
-  xwayland = {
-    enabled = true,
-    use_nearest_neighbor = true,
-  },
+	general = {},
+	xwayland = {
+		enabled = true,
+		use_nearest_neighbor = true,
+	},
 })
