@@ -41,7 +41,7 @@ require('lazy').setup {
   },
 }
 
-vim.cmd.colorscheme 'luna'
+vim.cmd.colorscheme 'vague'
 
 -- Config options and keymaps
 require 'config.keymaps'

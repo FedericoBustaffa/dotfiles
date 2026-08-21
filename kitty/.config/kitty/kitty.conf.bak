@@ -26,7 +26,7 @@ draw_minimal_borders yes
 shell /bin/bash
 
 # BEGIN_KITTY_THEME
-# Catppuccin-Mocha
+# Rosé Pine Moon
 include current-theme.conf
 # END_KITTY_THEME
 # cursor #cccccc
