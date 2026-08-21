@@ -31,12 +31,14 @@ hl.window_rule({ match = { class = "^(obsidian)$" }, workspace = "9" })
 hl.window_rule({ match = { class = "^(Notion)$" }, workspace = "10" })
 
 -- Layers
-hl.layer_rule({ match = { namespace = ".*" }, blur = true })
-hl.layer_rule({ match = { namespace = ".*" }, blur_popups = true })
-hl.layer_rule({ match = { namespace = "waybar" }, blur = false })
-hl.layer_rule({ match = { namespace = "wlogout" }, blur = true })
 hl.layer_rule({
 	name = "no_anim_for_selection",
 	match = { namespace = "selection" },
 	no_anim = true,
+})
+
+hl.layer_rule({
+	name = "notification-animations",
+	match = { namespace = "swaync-control-center" },
+	animation = "slide top",
 })

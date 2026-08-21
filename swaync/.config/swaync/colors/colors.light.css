@@ -1,0 +1,13 @@
+@define-color center-bg              alpha(@bg0, 0.8);
+@define-color notification-bg        alpha(@bg0, 0.9);
+@define-color center-notification-bg @bg1;
+@define-color background             alpha(@bg0, 0.9);
+@define-color background-alt         @bg1;
+
+@define-color text                   @fg;
+@define-color text-alt               @fg1;
+
+@define-color selected               alpha(@fg2, 0.4);
+@define-color hover                  alpha(@selected, 0.4);
+@define-color urgent                 @red;
+
