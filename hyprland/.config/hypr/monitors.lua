@@ -14,25 +14,26 @@
 -- if the detected set is empty on first boot, use the hostname-based
 -- fallback commented at the bottom instead.
 
-local function connected_outputs()
-	local names = {}
-	local ok, monitors = pcall(hl.get_monitors)
-	if ok and monitors then
-		for _, m in ipairs(monitors) do
-			names[m.name] = true
-		end
-	end
-	return names
-end
+-- local function connected_outputs()
+-- 	local names = {}
+-- 	local ok, monitors = pcall(hl.get_monitors)
+-- 	if ok and monitors then
+-- 		for _, m in ipairs(monitors) do
+-- 			names[m.name] = true
+-- 		end
+-- 	end
+-- 	return names
+-- end
+--
+-- local outputs = connected_outputs()
 
-local outputs = connected_outputs()
+hl.monitor({ output = "DP-1", mode = "2560x1440@120", position = "0x0", scale = 1.25 })
+hl.monitor({ output = "DP-2", mode = "1920x1080@60", position = "0x0", scale = 1, disabled = true })
 
-if outputs["DP-1"] then
-	-- Profile A: full desktop setup, both externals connected (docked)
-	hl.monitor({ output = "DP-1", mode = "2560x1440@120", position = "0x0", scale = 1.25 })
-	hl.monitor({ output = "DP-2", mode = "1920x1080@60", position = "0x0", scale = 1, disabled = true })
-elseif outputs["eDP-1"] then
-	-- Profile D: fallback -- unknown machine / laptop panel / anything else.
-	-- Let Hyprland pick the preferred mode and auto-place/auto-scale it.
-	hl.monitor({ output = "eDP-1", mode = "2880x1800@90", position = "0x0", scale = 2 })
-end
+-- if outputs["DP-1"] then
+-- 	-- Profile A: full desktop setup, both externals connected (docked)
+-- elseif outputs["eDP-1"] then
+-- 	-- Profile D: fallback -- unknown machine / laptop panel / anything else.
+-- 	-- Let Hyprland pick the preferred mode and auto-place/auto-scale it.
+-- 	hl.monitor({ output = "eDP-1", mode = "2880x1800@90", position = "0x0", scale = 2 })
+-- end
