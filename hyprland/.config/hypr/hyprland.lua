@@ -20,5 +20,5 @@ require("variables")
 -- load/reload, unlike exec-once). "config.reloaded" fires on every reload,
 -- including the first load, which is the closest equivalent.
 hl.on("config.reloaded", function()
-	hl.exec_cmd('notify-send "Hyprland Config Reload"')
+	hl.exec_cmd('notify-send -e "Hyprland Config Reload"')
 end)

@@ -7,3 +7,6 @@ waybar &
 
 pkill swaync
 swaync &
+
+pkill hyprpaper
+hyprpaper &

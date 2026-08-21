@@ -2,5 +2,5 @@
 
 
 ~/dotfiles/scripts/dotsync.sh
-notify-send "Power Off"
+notify-send -e "Power Off"
 systemctl poweroff

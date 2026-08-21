@@ -4,8 +4,7 @@
 local apps = require("applications")
 local mainMod = "SUPER"
 
--- Every compositor action below goes through the classic dispatcher name
--- via `hyprctl dispatch`, instead of the newer typed hl.dsp.* functions.
+-- Every compositor action below goes through the classic dispatcher name via `hyprctl dispatch`, instead of the newer typed hl.dsp.* functions.
 -- Reason: the typed dispatchers (hl.dsp.window.close, hl.dsp.focus, ...)
 -- have signatures that aren't fully confirmed in the docs yet (0.55 shipped
 -- May 2026, coverage is still filling in). If a typed call doesn't exist or
@@ -90,3 +89,5 @@ hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { release = true })
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { release = true })
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { release = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { release = true })
+
+hl.bind(mainMod .. "+N", hl.dsp.exec_cmd("swaync-client -t -sw"))
