@@ -38,27 +38,12 @@ return {
     priority = 1000,
   },
   {
-    'Mofiqul/vscode.nvim',
-    lazy = false,
-    priority = 1000,
-  },
-  {
     'oskarnurm/koda.nvim',
     lazy = false,
     priority = 1000,
   },
   {
     'rebelot/kanagawa.nvim',
-    lazy = false,
-    priority = 1000,
-  },
-  {
-    'EdenEast/nightfox.nvim',
-    lazy = false,
-    priority = 1000,
-  },
-  {
-    'mitander/flume.nvim',
     lazy = false,
     priority = 1000,
   },
