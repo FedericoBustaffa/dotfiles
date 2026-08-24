@@ -6,8 +6,6 @@
 -- NOT re-trigger it, matching the old exec-once semantics).
 
 hl.on("hyprland.start", function()
-	local apps = require("applications")
-
 	hl.exec_cmd("~/dotfiles/scripts/dotsync.sh")
 
 	hl.exec_cmd("nm-applet --indicator")
@@ -16,8 +14,10 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("waybar")
 	hl.exec_cmd("swaync")
 	hl.exec_cmd("hyprsunset --temperature 4000")
+	hl.exec_cmd("mpris-proxy")
 	hl.exec_cmd("hyprpm reload")
 
+	local apps = require("applications")
 	hl.exec_cmd(apps.terminal)
 
 	-- was: exec-once = [workspace 1 silent] $browser
