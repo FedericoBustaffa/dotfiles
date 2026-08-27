@@ -16,6 +16,12 @@ return {
     '.git',
   },
 
+  init_options = {
+    fallbackFlags = {
+      '-std=c++23',
+    },
+  },
+
   settings = {
     clangd = {
       completion = { detailedLabel = true },
