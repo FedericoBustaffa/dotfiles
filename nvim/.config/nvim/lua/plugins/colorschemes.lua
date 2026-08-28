@@ -55,4 +55,10 @@ return {
       transparent = true,
     },
   },
+  {
+    'ramojus/mellifluous.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
 }
