@@ -61,4 +61,11 @@ return {
     priority = 1000,
     opts = {},
   },
+  {
+    'tadaa/vimade',
+    opts = {
+      recipe = { 'default', { animate = true } },
+      fadelavel = 0.9,
+    },
+  },
 }
