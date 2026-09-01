@@ -4,11 +4,6 @@
 # ---------- PACMAN packages ----------
 sudo pacman -Syuuu
 
-if [[ ! -d "${HOME}/paru/" ]]; then
-    git clone https://aur.archlinux.org/paru.git "${HOME}/paru/"
-    cd "${HOME}/paru" || exit
-    makepkg -si
-fi
 
 cli_pkgs=(
     # General CLI
@@ -83,14 +78,21 @@ cli_pkgs=(
     bash-language-server
 )
 
-paru_pkgs=(
+sudo pacman -S --noconfirm --needed "${cli_pkgs[@]}"
+
+if [[ ! -d "${HOME}/yay/" ]]; then
+    git clone https://aur.archlinux.org/yay.git "${HOME}/yay/"
+    cd "${HOME}/yay" || exit
+    makepkg -si
+fi
+
+yay_pkgs=(
     onedrive-abraunegg
     fswatch
 )
 
-# PACMAN and paru
-sudo pacman -S --noconfirm --needed "${cli_pkgs[@]}"
-paru -S --noconfirm --needed "${paru_pkgs[@]}"
+# PACMAN and yay
+yay -S --noconfirm --needed "${yay_pkgs[@]}"
 
 # Media
 media_pkgs=(
@@ -125,7 +127,7 @@ gui_pkgs=(
     zathura-pdf-mupdf
 )
 
-gui_paru_pkgs=(
+gui_yay_pkgs=(
     zen-browser-bin
     visual-studio-code-bin
     overskride-bin
@@ -137,7 +139,7 @@ choice=${choice:-n}
 choice=${choice,,}
 if [ "$choice" == "y" ]; then
     sudo pacman -S --noconfirm --needed "${gui_pkgs[@]}"
-    paru -S --noconfirm --needed "${gui_paru_pkgs[@]}"
+    yay -S --noconfirm --needed "${gui_yay_pkgs[@]}"
 fi
 
 # Hyprland
@@ -152,7 +154,7 @@ hypr_pkgs=(
     hyprtoolkit
 )
 
-hypr_paru_pkgs=(
+hypr_yay_pkgs=(
     wlogout
 )
 
@@ -161,7 +163,7 @@ choice=${choice:-n}
 choice=${choice,,}
 if [ "$choice" == "y" ]; then
     sudo pacman -S --noconfirm --needed "${hypr_pkgs[@]}"
-    paru -S --noconfirm --needed "${hypr_paru_pkgs[@]}"
+    yay -S --noconfirm --needed "${hypr_yay_pkgs[@]}"
 fi
 
 # NPM packages
