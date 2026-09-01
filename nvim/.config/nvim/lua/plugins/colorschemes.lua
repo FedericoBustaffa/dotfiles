@@ -2,7 +2,7 @@ vim.pack.add({
 	{ src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
 	{ src = "https://github.com/folke/tokyonight.nvim", name = "tokyonight" },
 	{ src = "https://github.com/rose-pine/neovim", name = "rose-pine" },
-	{ src = "https://github.com/vague-theme/vague.nvim", name = "vague" },
+	{ src = "https://github.com/vague-theme/vague.nvim" },
 	{ src = "https://github.com/oskarnurm/koda.nvim", name = "koda" },
 	{ src = "https://github.com/wtfox/luna.nvim", name = "luna" },
 	{ src = "https://github.com/wtfox/jellybeans.nvim", name = "jellybeans" },

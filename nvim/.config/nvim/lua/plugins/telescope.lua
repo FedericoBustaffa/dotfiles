@@ -78,6 +78,13 @@ require("telescope").setup({
 	},
 })
 
+-- build fzf
+vim.system({ "make" }, {
+	cwd = vim.pack.get({ "telescope-fzf-native" })[1].path,
+}):wait()
+
+-- load extensions
+require("telescope").load_extension("fzf")
 require("telescope").load_extension("file_browser")
 require("telescope").load_extension("ui-select")
 require("telescope").load_extension("nerdy")
@@ -88,9 +95,9 @@ vim.keymap.set("n", "<leader>ff", function()
 	builtin.find_files({ hidden = true })
 end)
 
--- vim.keymap.set("n", "<space>e", function()
--- 	require("telescope").extensions.file_browser.file_browser()
--- end)
+vim.keymap.set("n", "<space>e", function()
+	require("telescope").extensions.file_browser.file_browser()
+end)
 
 vim.keymap.set("n", "<space>fn", function()
 	local full_path = vim.api.nvim_buf_get_name(0)

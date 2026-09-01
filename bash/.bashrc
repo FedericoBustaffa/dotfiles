@@ -129,4 +129,4 @@ set -o vi
 bind -f ~/.inputrc
 
 
-alias vi-new="NVIM_APPNAME=nvim-new nvim"
+alias vibak="NVIM_APPNAME=nvim.bak nvim"

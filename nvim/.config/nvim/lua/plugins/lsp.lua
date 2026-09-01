@@ -4,8 +4,8 @@ vim.pack.add({
 	{ src = "https://github.com/saghen/blink.lib", name = "blink-lib" },
 })
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
 vim.lsp.config("*", {
 	on_attach = function(_, bufnr)
@@ -20,7 +20,7 @@ vim.lsp.config("*", {
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 	end,
-	capabilities = capabilities,
+	-- capabilities = capabilities,
 })
 
 vim.lsp.config("lua_ls", {
@@ -67,9 +67,7 @@ require("blink.cmp").setup({
 		["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
 	},
 
-	signature = {
-		enabled = false,
-	},
+	signature = { enabled = true },
 
 	completion = {
 		trigger = {
