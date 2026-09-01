@@ -118,7 +118,7 @@ fi
 
 eval "$(starship init bash)"
 
-source ${HOME}/dotfiles/scripts/shell.sh
+source "${HOME}"/dotfiles/scripts/shell.sh
 
 # OpenMPI enabling
 # source /etc/profile.d/modules.sh
@@ -128,3 +128,5 @@ source ${HOME}/dotfiles/scripts/shell.sh
 set -o vi
 bind -f ~/.inputrc
 
+
+alias vi-new="NVIM_APPNAME=nvim-new nvim"
