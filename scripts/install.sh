@@ -69,8 +69,18 @@ cli_pkgs=(
     python-scipy
     # LaTeX
     texlive
+    texlab
     # Typst
     typst
+    typstyle
+    tinymist
+    prettier
+    pyright
+    quickshell
+    marksman
+    biome
+    lua-language-server
+    bash-language-server
 )
 
 paru_pkgs=(

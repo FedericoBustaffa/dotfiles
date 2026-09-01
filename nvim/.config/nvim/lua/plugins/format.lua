@@ -1,82 +1,54 @@
-return {
-  {
-    'nvimtools/none-ls.nvim',
-    lazy = true,
-    event = 'VeryLazy',
-    config = function()
-      require('null-ls').setup {}
-    end,
-  },
-  {
-    'jay-babu/mason-null-ls.nvim',
-    lazy = true,
-    event = 'VeryLazy',
-    dependecies = {
-      'williamboman/mason.nvim',
-      'nvimtools/none-ls.nvim',
-    },
-    config = function()
-      require('mason-null-ls').setup {
-        ensure_installed = {
-          'stylua',
-          'clang-format',
-          'beautysh',
-          'shellcheck',
-          'cmakelang',
-          'markdownlint',
-          'prettierd',
-          'latexindent',
-          'typstyle',
-        },
-        automatic_installation = true,
-      }
-    end,
-  },
-  {
-    'stevearc/conform.nvim',
-    lazy = true,
-    event = 'BufWritePre',
-    dependencies = {
-      'jay-babu/mason-null-ls.nvim',
-      'nvimtools/none-ls.nvim',
-    },
-    config = function()
-      require('conform').setup {
-        formatters_by_ft = { -- specify the extension
-          lua = { 'stylua' },
-          c = { 'clang-format' },
-          cpp = { 'clang-format' },
-          python = { 'ruff_format', 'ruff_organize_imports' },
-          json = { 'biome' },
-          bash = { 'beautysh' },
-          sh = { 'beautysh', 'shellcheck' },
-          zsh = { 'beautysh' },
-          markdown = { 'prettierd' },
-          latex = { 'latexindent' },
-          typst = { 'typstyle' },
-        },
-        format_on_save = {
-          lsp_fallback = true,
-          timeout_ms = 1000,
-        },
-      }
-      vim.api.nvim_create_autocmd('LspAttach', {
-        callback = function(args)
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          if not client then
-            return
-          end
+vim.pack.add({
+	{ src = "https://github.com/stevearc/conform.nvim", name = "conform" },
+	{ src = "https://github.com/mfussenegger/nvim-lint", name = "lint" },
+})
 
-          if client.supports_method(client, 'textDocument/formatting') then
-            vim.api.nvim_create_autocmd('BufWritePre', {
-              buffer = args.buf,
-              callback = function()
-                require('conform').format { bufnr = args.buf, id = client.id }
-              end,
-            })
-          end
-        end,
-      })
-    end,
-  },
-}
+require("conform").setup({
+	formatters_by_ft = {
+		lua = { "stylua" },
+		c = { "clang-format" },
+		cpp = { "clang-format" },
+		python = { "ruff_format", "ruff_organize_imports" },
+		json = { "biome" },
+		bash = { "beautysh" },
+		sh = { "beautysh", "shellcheck" },
+		zsh = { "beautysh" },
+		markdown = { "prettier" },
+		css = { "prettier" },
+		latex = { "latexindent" },
+		typst = { "typstyle" },
+	},
+	format_on_save = true,
+	undojoin = true,
+})
+
+local lint = require("lint")
+
+-- Only show diagnostics close to the cursor
+vim.diagnostic.config({
+	virtual_text = {
+		spacing = 4,
+		prefix = function(diagnostic)
+			local icons = {
+				[vim.diagnostic.severity.ERROR] = " ",
+				[vim.diagnostic.severity.WARN] = "󰉀 ",
+				[vim.diagnostic.severity.INFO] = " ",
+				[vim.diagnostic.severity.HINT] = "󰌵 ",
+			}
+			return icons[diagnostic.severity] or ""
+		end,
+	},
+	signs = false,
+	underline = true,
+	update_in_insert = false,
+})
+
+-- Auto-run the linter only for the configured filetypes
+vim.api.nvim_create_autocmd("BufWritePost", {
+	callback = function()
+		local ft = vim.bo.filetype
+		if lint.linters_by_ft[ft] then
+			lint.try_lint()
+		end
+	end,
+})
