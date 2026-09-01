@@ -63,9 +63,7 @@ require("blink.cmp").setup({
 	fuzzy = { implementation = "rust" },
 	appearance = { use_nvim_cmp_as_default = true },
 
-	keymap = {
-		["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
-	},
+	keymap = { preset = "default" },
 
 	signature = { enabled = true },
 
@@ -84,9 +82,22 @@ require("blink.cmp").setup({
 		},
 		menu = {
 			auto_show = true,
+			scrolloff = 1,
 			border = "rounded",
 			min_width = 35,
 			auto_show_delay_ms = 100,
+			draw = {
+				columns = {
+					{ "kind_icon" },
+					{ "label", "label_description", gap = 1 },
+					{ "kind" },
+					{ "source_name" },
+				},
+			},
+		},
+		documentation = {
+			window = { border = "rounded" },
+			auto_show = true,
 		},
 	},
 

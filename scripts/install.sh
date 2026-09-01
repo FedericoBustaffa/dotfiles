@@ -89,6 +89,7 @@ fi
 yay_pkgs=(
     onedrive-abraunegg
     fswatch
+    neocmakelsp
 )
 
 # PACMAN and yay
