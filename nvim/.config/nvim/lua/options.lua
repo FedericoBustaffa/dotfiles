@@ -25,7 +25,7 @@ vim.opt.smartcase = true
 vim.opt.incsearch = true
 vim.opt.hlsearch = true
 
-vim.o.winborder = "rounded"
+vim.o.winborder = "single"
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
