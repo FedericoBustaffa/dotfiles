@@ -12,4 +12,4 @@ require("plugins.telescope")
 require("plugins.format")
 require("plugins.lsp")
 
-vim.cmd.colorscheme("tokyonight-night")
+vim.cmd.colorscheme("vague")
