@@ -74,6 +74,7 @@ cli_pkgs=(
     quickshell
     marksman
     biome
+    stylua
     lua-language-server
     bash-language-server
 )
