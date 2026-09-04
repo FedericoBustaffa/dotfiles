@@ -5,8 +5,8 @@ vim.pack.add({
 	{ src = "https://github.com/folke/lazydev.nvim", name = "lazydev" },
 })
 
--- local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
 vim.lsp.config("*", {
 	on_attach = function(_, bufnr)
@@ -21,7 +21,26 @@ vim.lsp.config("*", {
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 	end,
-	-- capabilities = capabilities,
+	capabilities = capabilities,
+})
+
+-- Only show diagnostics close to the cursor
+vim.diagnostic.config({
+	virtual_text = {
+		spacing = 4,
+		prefix = function(diagnostic)
+			local icons = {
+				[vim.diagnostic.severity.ERROR] = " ",
+				[vim.diagnostic.severity.WARN] = "󰉀 ",
+				[vim.diagnostic.severity.INFO] = " ",
+				[vim.diagnostic.severity.HINT] = "󰌵 ",
+			}
+			return icons[diagnostic.severity] or ""
+		end,
+	},
+	signs = false,
+	underline = true,
+	update_in_insert = false,
 })
 
 vim.lsp.config("lua_ls", {
@@ -43,7 +62,7 @@ vim.lsp.enable({
 	"lua_ls",
 	"clangd",
 	"neocmake",
-	"pyright",
+	"ty",
 	"bashls",
 	"marksman",
 	"biome",
@@ -72,18 +91,18 @@ require("blink.cmp").setup({
 	signature = { enabled = true },
 
 	completion = {
-		-- trigger = {
-		-- 	show_on_insert = true,
-		-- 	show_on_trigger_character = true,
-		-- 	show_on_keyword = true,
-		-- 	show_on_backspace = true,
-		-- },
-		-- list = {
-		-- 	selection = {
-		-- 		preselect = false,
-		-- 		auto_insert = true,
-		-- 	},
-		-- },
+		trigger = {
+			show_on_insert = true,
+			show_on_trigger_character = true,
+			show_on_keyword = true,
+			show_on_backspace = true,
+		},
+		list = {
+			selection = {
+				preselect = false,
+				auto_insert = true,
+			},
+		},
 		menu = {
 			border = "single",
 			scrolloff = 1,
