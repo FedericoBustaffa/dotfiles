@@ -17,9 +17,7 @@ return {
       'rafamadriz/friendly-snippets',
       'folke/lazydev.nvim',
     },
-    build = function()
-      require('blink.cmp').build():pwait()
-    end,
+    build = 'cargo build --release',
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {

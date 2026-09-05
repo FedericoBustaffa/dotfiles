@@ -130,3 +130,4 @@ bind -f ~/.inputrc
 
 
 alias vipack="NVIM_APPNAME=nvim.pack nvim"
+. "$HOME/.cargo/env"
