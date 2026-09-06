@@ -64,7 +64,7 @@ return {
         },
         ['fzf'] = {},
         ['ui-select'] = {
-          require('telescope.themes').get_dropdown {},
+          require('telescope.themes').get_ivy {},
         },
       },
     }
@@ -126,7 +126,7 @@ return {
     {
       '<leader>D',
       function()
-        require('telescope.builtin').diagnostics()
+        require('telescope.builtin').diagnostics(require('telescope.themes').get_ivy {})
       end,
       desc = 'Diagnostics',
     },

@@ -19,7 +19,6 @@ return {
           vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
           vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
           vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-          vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
           vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
         end,
         capabilities = capabilities,
@@ -61,7 +60,7 @@ return {
         signs = true,
         underline = true,
         float = {
-          focusable = false,
+          focusable = true,
           style = 'minimal',
           border = 'rounded',
           source = true,
