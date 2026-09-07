@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 sudo pacman -Syu
-paru -Syu
+yay -Syu
 
 flatpak update
 
