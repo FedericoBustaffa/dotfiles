@@ -9,20 +9,20 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
 
-      vim.lsp.config('*', {
-        on_attach = function(_, bufnr)
-          local opts = { buffer = bufnr, silent = true }
+      vim.api.nvim_create_autocmd('LspAttach', {
+        callback = function(args)
+          local opts = { buffer = args.buf, silent = true }
           vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
           vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
           vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-          vim.keymap.set('n', 'gr', vim.lsp.buf.rename, opts)
           vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
           vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
           vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
           vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
         end,
-        capabilities = capabilities,
       })
+
+      vim.lsp.config('*', { capabilities = capabilities })
 
       vim.lsp.config('lua_ls', {
         settings = {
