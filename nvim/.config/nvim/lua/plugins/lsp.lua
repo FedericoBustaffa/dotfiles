@@ -55,8 +55,20 @@ return {
       }
 
       vim.diagnostic.config {
-        virtual_text = false,
-        virtual_lines = true,
+        virtual_text = {
+          enabled = true,
+          spacing = 4,
+          prefix = function(diagnostic)
+            local icons = {
+              [vim.diagnostic.severity.ERROR] = ' ',
+              [vim.diagnostic.severity.WARN] = '󰉀 ',
+              [vim.diagnostic.severity.INFO] = ' ',
+              [vim.diagnostic.severity.HINT] = '󰌵 ',
+            }
+            return icons[diagnostic.severity] or ''
+          end,
+        },
+        virtual_lines = false,
         signs = true,
         underline = true,
         float = {
