@@ -53,6 +53,7 @@ return {
   },
   {
     'tadaa/vimade',
+    enabled = false,
     lazy = false,
     opts = {
       recipe = { 'minimalist', { animate = true } },
