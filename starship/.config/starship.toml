@@ -6,7 +6,9 @@ $username \
 $directory\
 $git_branch\
 $git_status\
+$cmake\
 $c\
+$cpp\
 $rust\
 $golang\
 $nodejs\
@@ -30,8 +32,14 @@ symbol = " "
 [c]
 symbol = " "
 
+[cpp]
+symbol = " "
+disabled = false
+commands = [["g++", "--version"]]
+
 [cmake]
 symbol = " "
+disabled = false
 
 [conda]
 symbol = " "
