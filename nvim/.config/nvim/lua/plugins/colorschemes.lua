@@ -46,12 +46,6 @@ return {
     },
   },
   {
-    'wtfox/jellybeans.nvim',
-    lazy = false,
-    priority = 1000,
-    opts = {},
-  },
-  {
     'tadaa/vimade',
     enabled = false,
     lazy = false,
