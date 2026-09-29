@@ -3,7 +3,8 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/ ~/dotfiles ~/dev/ ~/latex/ \
+    selected=$(find ~/ ~/dotfiles ~/dev/ ~/notes/ ~/notes/latex/ ~/notes/typst/ \
+        ~/notes/obsidian/ \
         -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
 
