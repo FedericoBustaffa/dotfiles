@@ -31,6 +31,7 @@
     "dark": "Colored Zed Icons Theme Dark",
   },
   "terminal": {
+    "default_width": 800.0,
     "font_family": "JetBrainsMono Nerd Font",
     "font_size": 16.0,
     "dock": "right",
