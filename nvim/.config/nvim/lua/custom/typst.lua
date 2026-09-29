@@ -224,6 +224,4 @@ vim.api.nvim_create_autocmd('VimLeavePre', {
   end,
 })
 
-vim.keymap.set('n', '<localleader>ty', M.toggle, { desc = 'Typst Preview' })
-
 return M

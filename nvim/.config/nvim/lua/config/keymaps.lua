@@ -65,3 +65,7 @@ vim.keymap.set('n', '<leader>u', function()
   vim.cmd.packadd 'nvim.undotree'
   require('undotree').open()
 end, { desc = 'Toggle Builtin Undotree' })
+
+-- typst
+local typst = require 'custom.typst'
+vim.keymap.set('n', '<localleader>ty', typst.toggle, { desc = 'Typst Preview' })
