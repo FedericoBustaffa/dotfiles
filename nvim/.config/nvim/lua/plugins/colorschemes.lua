@@ -46,6 +46,11 @@ return {
     },
   },
   {
+    'scottmckendry/cyberdream.nvim',
+    lazy = false,
+    priority = 1000,
+  },
+  {
     'tadaa/vimade',
     enabled = false,
     lazy = false,
