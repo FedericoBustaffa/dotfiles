@@ -4,3 +4,4 @@
 ~/dotfiles/scripts/dotsync.sh
 notify-send -e "Power Off"
 systemctl poweroff
+onedrive --sync
