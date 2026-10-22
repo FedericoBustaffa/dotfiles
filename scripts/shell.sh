@@ -48,7 +48,7 @@ fzf_vault() {
 
 fzf_recordings() {
     DIR="$HOME/recordings/"
-    FILE=$(find "$DIR" -type f -name "*.mp4" | fzf)
+    FILE=$(find "$DIR" -type f | fzf)
 
     if [[ -n "$FILE" ]]; then
         nohup mpv "$FILE" &>/dev/null &
