@@ -3,5 +3,5 @@
 sudo paccache -r
 sudo pacman -Rns $(pacman -Qtdq)
 
-paru -Scc
-paru -Yc
+yay -Scc
+yay -Yc
