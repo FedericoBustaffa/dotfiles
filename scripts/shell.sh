@@ -37,7 +37,7 @@ fzf_uni() {
 }
 
 fzf_vault() {
-    DIR="$HOME/typst/"
+    DIR="$HOME/notes/"
     FILE=$(find "$DIR" -type f -name "*.pdf" | fzf)
 
     if [[ -n "$FILE" ]]; then
