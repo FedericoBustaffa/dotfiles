@@ -131,3 +131,5 @@ bind -f ~/.inputrc
 
 alias vipack="NVIM_APPNAME=nvim.pack nvim"
 . "$HOME/.cargo/env"
+
+export OLLAMA_API_KEY=b494fab47c1247e9b8b89c11ff86696b.vuFvDPNA2x-VWYJQAwvzJg3R
