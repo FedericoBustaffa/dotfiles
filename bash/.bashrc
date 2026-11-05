@@ -132,3 +132,7 @@ bind -f ~/.inputrc
 alias vipack="NVIM_APPNAME=nvim.pack nvim"
 . "$HOME/.cargo/env"
 
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/federico/.local/bin:$PATH"
