@@ -9,6 +9,7 @@ cli_pkgs=(
     # General CLI
     pacman-contrib
     base-devel
+    syncthing
     reflector
     bash-completion
     openssh
