@@ -27,8 +27,8 @@
   },
   "icon_theme": {
     "mode": "dark",
-    "light": "Colored Zed Icons Theme Dark",
-    "dark": "Colored Zed Icons Theme Dark",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)",
   },
   "terminal": {
     "default_width": 800.0,
@@ -37,7 +37,7 @@
     "dock": "right",
     "detect_venv": {
       "on": {
-        "directories": [".env"],
+        "directories": [".env", ".venv"],
         "activate_script": "default",
       },
     },
