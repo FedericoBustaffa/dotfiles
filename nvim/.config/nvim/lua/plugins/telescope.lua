@@ -50,6 +50,9 @@ return {
             i = { ['<CR>'] = actions.select_drop },
             n = { ['<CR>'] = actions.select_drop },
           },
+          additional_args = function()
+            return { '--hidden' }
+          end,
         },
         live_grep = {
           additional_args = function()
