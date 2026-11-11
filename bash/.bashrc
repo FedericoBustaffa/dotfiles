@@ -136,3 +136,6 @@ alias vipack="NVIM_APPNAME=nvim.pack nvim"
 
 # Added by Antigravity CLI installer
 export PATH="/home/federico/.local/bin:$PATH"
+
+# Pi
+export PATH="/home/federico/.pi/agent/bin:$PATH"
