@@ -14,9 +14,14 @@ return {
           bash = { 'beautysh' },
           sh = { 'beautysh', 'shellcheck' },
           zsh = { 'beautysh' },
-          markdown = { 'prettierd' },
+          markdown = { 'prettier' },
           latex = { 'latexindent' },
           typst = { 'typstyle' },
+        },
+        formatters = {
+          prettier = {
+            prepend_args = { '--tab-width', '2', '--use-tabs', 'false' },
+          },
         },
         format_on_save = {
           lsp_fallback = true,
