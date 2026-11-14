@@ -5,8 +5,8 @@
 -- (startup.lua, keybindings.lua, ...) does: local apps = require("applications")
 
 return {
-  terminal    = "kitty",
-  fileManager = "nautilus",
-  menu        = "hyprlauncher",
-  browser     = "zen-browser",
+	terminal = "kitty",
+	fileManager = "nautilus",
+	menu = "rofi -show drun",
+	browser = "zen-browser",
 }

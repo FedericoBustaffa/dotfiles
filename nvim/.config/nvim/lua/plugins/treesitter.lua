@@ -21,6 +21,7 @@ return {
       'html',
       'css',
       'latex',
+      'markdown',
       'markdown_inline',
       'query',
       'yaml',
@@ -31,7 +32,6 @@ return {
       'bash',
       'json',
       'typst',
-      'markdown',
       'latex',
       'rust',
     }

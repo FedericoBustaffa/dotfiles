@@ -63,6 +63,7 @@ cli_pkgs=(
     python-matplotlib
     python-pandas
     python-scipy
+    python-pymupdf
     # LaTeX
     texlive
     texlab
@@ -153,7 +154,6 @@ hypr_pkgs=(
     hyprlock
     hypridle
     waybar
-    hyprlauncher
     hyprtoolkit
 )
 
