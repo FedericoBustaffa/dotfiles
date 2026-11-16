@@ -109,10 +109,10 @@ return {
     lazy = false,
     version = '*',
     opts = {
-      direction = 'horizontal',
-      size = function()
-        return math.floor(vim.o.lines * 0.6)
-      end,
+      direction = 'float',
+      float_opts = {
+        border = 'single',
+      },
       open_mapping = [[<A-p>]],
     },
   },
