@@ -47,7 +47,7 @@ vim.api.nvim_create_autocmd('CursorHold', {
         border = 'rounded',
         source = 'always',
         prefix = '',
-        scope = 'cursor',
+        scope = 'line',
       })
     end
   end,

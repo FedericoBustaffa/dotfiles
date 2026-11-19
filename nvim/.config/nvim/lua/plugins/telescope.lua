@@ -129,7 +129,10 @@ return {
     {
       '<leader>D',
       function()
-        require('telescope.builtin').diagnostics(require('telescope.themes').get_ivy {})
+        require('telescope.builtin').diagnostics(require('telescope.themes').get_ivy {
+          wrap_results = true,
+          line_width = 'full',
+        })
       end,
       desc = 'Diagnostics',
     },

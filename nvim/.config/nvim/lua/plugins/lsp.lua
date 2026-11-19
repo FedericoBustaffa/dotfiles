@@ -77,6 +77,8 @@ return {
           style = 'minimal',
           border = 'rounded',
           source = true,
+          scope = 'line',
+          max_width = 100,
         },
       }
     end,
