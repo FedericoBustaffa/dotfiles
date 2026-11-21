@@ -8,9 +8,13 @@ auth.json
 # Pi runtime state (created when this repo is used as ~/.pi/agent)
 .pi/
 sessions/
+pi-subagents/
+missions/
 settings.json
 models-store.json
 git/
+npm/
+pi-web-access/
 mcp-cache.json
 mcp-npx-cache.json
 run-history.jsonl
