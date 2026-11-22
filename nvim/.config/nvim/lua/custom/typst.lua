@@ -1,12 +1,16 @@
 local M = {}
 
+local sioyek_instance = 'typst-nvim-' .. vim.fn.getpid()
+local wiki_root = vim.fn.expand '~/dev/wiki'
+
 local state = {
   active = false,
   watch_job = nil,
   current_file = nil,
+  sioyek_job = nil,
   sioyek_pid = nil,
   autocmd_ids = {},
-  pending_open = false,
+  compile_job = nil,
 }
 
 -- ── Utilities ───────────────────────────────────────────────────────────────
@@ -17,8 +21,22 @@ local function get_paths(file)
   return file, pdf
 end
 
+local function typst_command(action, file)
+  if vim.startswith(file, wiki_root .. '/') then
+    return { 'typst', action, '--package-path', wiki_root .. '/templates', file }
+  end
+  return { 'typst', action, file }
+end
+
 local function is_hyprland()
   return vim.env.HYPRLAND_INSTANCE_SIGNATURE ~= nil
+end
+
+local function apply_preview_zoom(pid)
+  if state.sioyek_pid == pid then
+    -- Equivalent to `fw` then `+`, without focusing the preview.
+    vim.fn.jobstart({ 'sioyek', '--instance-name', sioyek_instance, '--nofocus', '--execute-command', 'fit_to_page_width;zoom_in' })
+  end
 end
 
 local function move_to_workspace_8(pid)
@@ -27,6 +45,9 @@ local function move_to_workspace_8(pid)
       return
     end
     vim.defer_fn(function()
+      if state.sioyek_pid ~= pid then
+        return
+      end
       local result = vim.fn.systemlist 'hyprctl clients -j'
       local ok, clients = pcall(vim.json.decode, table.concat(result, ''))
       if not ok or not clients then
@@ -34,7 +55,12 @@ local function move_to_workspace_8(pid)
       end
       for _, client in ipairs(clients) do
         if client.pid == pid then
-          vim.fn.system('hyprctl dispatch movetoworkspacesilent 8,address:' .. client.address)
+          local dispatch = string.format('hl.dispatch(hl.dsp.window.move({ workspace = "8", window = %q, follow = false }))', 'address:' .. client.address)
+          local output = vim.fn.system { 'hyprctl', 'eval', dispatch }
+          if vim.v.shell_error ~= 0 or vim.trim(output) ~= 'ok' then
+            vim.notify('Typst: could not move Sioyek to workspace 8: ' .. vim.trim(output), vim.log.levels.WARN)
+          end
+          apply_preview_zoom(pid)
           return
         end
       end
@@ -46,41 +72,48 @@ end
 
 -- ── Viewer ──────────────────────────────────────────────────────────────────
 
--- Controlla se il processo del plugin è ancora vivo
-local function viewer_alive()
-  if not state.sioyek_pid then
-    return false
-  end
-  local res = vim.fn.system('kill -0 ' .. state.sioyek_pid .. ' 2>/dev/null; echo $?')
-  return vim.trim(res) == '0'
-end
-
 local function close_viewer()
-  if state.sioyek_pid then
-    -- SIGTERM solo sulla finestra del plugin, non tocca le altre
-    vim.fn.system('kill ' .. state.sioyek_pid)
-    state.sioyek_pid = nil
+  local job_id = state.sioyek_job
+  state.sioyek_job = nil
+  state.sioyek_pid = nil
+  if job_id then
+    vim.fn.jobstop(job_id)
   end
 end
 
 local function open_viewer(pdf)
-  if viewer_alive() then
-    -- Riusa la finestra già aperta dal plugin: cambia solo il PDF
-    -- --nofocus evita di rubare il focus dall'editor
-    vim.fn.jobstart({ 'sioyek', '--reuse-window', '--nofocus', pdf }, { detach = true })
-  else
-    -- Prima apertura (o finestra chiusa manualmente dall'utente)
-    local job_id = vim.fn.jobstart({ 'sioyek', '--new-window', pdf }, {
-      detach = true,
-      on_exit = function()
-        state.sioyek_pid = nil
+  if state.sioyek_job then
+    local file, pid = state.current_file, state.sioyek_pid
+    vim.fn.jobstart({ 'sioyek', '--instance-name', sioyek_instance, '--reuse-window', '--nofocus', pdf }, {
+      on_exit = function(_, code)
+        -- A separate request is needed: Sioyek runs --execute-command before opening the PDF.
+        if code == 0 and state.current_file == file then
+          apply_preview_zoom(pid)
+        end
       end,
     })
-    state.sioyek_pid = vim.fn.jobpid(job_id)
+    return
+  end
 
-    if is_hyprland() then
-      move_to_workspace_8(state.sioyek_pid)
-    end
+  local job_id = vim.fn.jobstart({ 'sioyek', '--instance-name', sioyek_instance, '--new-window', '--nofocus', pdf }, {
+    detach = true,
+    on_exit = function(exited_job)
+      if state.sioyek_job == exited_job then
+        state.sioyek_job = nil
+        state.sioyek_pid = nil
+        M.stop()
+      end
+    end,
+  })
+  if job_id <= 0 then
+    M.stop()
+    vim.notify('Typst: could not start Sioyek', vim.log.levels.ERROR)
+    return
+  end
+  state.sioyek_job = job_id
+  state.sioyek_pid = vim.fn.jobpid(job_id)
+  if is_hyprland() then
+    move_to_workspace_8(state.sioyek_pid)
   end
 end
 
@@ -95,35 +128,37 @@ end
 
 local function start_watch(file)
   stop_watch()
-  state.watch_job = vim.fn.jobstart({ 'typst', 'watch', file }, {
+  local job_id = vim.fn.jobstart(typst_command('watch', file), {
     detach = false,
-    on_exit = function()
-      state.watch_job = nil
+    on_exit = function(exited_job)
+      if state.watch_job == exited_job then
+        state.watch_job = nil
+      end
     end,
   })
+  state.watch_job = job_id > 0 and job_id or nil
 end
 
 -- ── Compile + open ───────────────────────────────────────────────────────────
 
 local function activate_for_file(file)
-  if state.pending_open and state.current_file == file then
+  if state.compile_job and state.current_file == file then
     return
   end
 
   state.current_file = file
-  state.pending_open = true
 
   start_watch(file)
 
   local _, pdf = get_paths(file)
   vim.notify('Typst: compiling ' .. vim.fn.fnamemodify(file, ':t') .. '...', vim.log.levels.INFO)
 
-  vim.fn.jobstart({ 'typst', 'compile', file }, {
-    on_exit = function(_, code)
-      state.pending_open = false
-      if state.current_file ~= file then
+  local job_id = vim.fn.jobstart(typst_command('compile', file), {
+    on_exit = function(exited_job, code)
+      if state.compile_job ~= exited_job then
         return
       end
+      state.compile_job = nil
 
       if code == 0 then
         open_viewer(pdf)
@@ -132,6 +167,7 @@ local function activate_for_file(file)
       end
     end,
   })
+  state.compile_job = job_id > 0 and job_id or nil
 end
 
 -- ── Autocmds ─────────────────────────────────────────────────────────────────
@@ -175,9 +211,7 @@ local function setup_autocmds()
         :totable()
 
       if #remaining == 0 then
-        stop_watch()
-        close_viewer()
-        state.current_file = nil
+        M.stop()
       elseif closed_file == state.current_file then
         activate_for_file(remaining[1].name)
       end
@@ -206,7 +240,7 @@ function M.stop()
   close_viewer()
   clear_autocmds()
   state.current_file = nil
-  state.pending_open = false
+  state.compile_job = nil
   vim.notify('Typst: stopped', vim.log.levels.INFO)
 end
 
