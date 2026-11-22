@@ -15,6 +15,7 @@ models-store.json
 git/
 npm/
 pi-web-access/
+web-search-cache/
 mcp-cache.json
 mcp-npx-cache.json
 run-history.jsonl
