@@ -1,9 +1,14 @@
 return {
   {
     'OXY2DEV/markview.nvim',
-    enabled = false,
+    enabled = true,
     lazy = false,
     dependencies = { 'saghen/blink.cmp' },
+    opts = {
+      list_items = {
+        shift_width = 2,
+      },
+    },
   },
   {
     'iamcco/markdown-preview.nvim',
