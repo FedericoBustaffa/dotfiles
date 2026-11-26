@@ -28,4 +28,8 @@ hl.on("hyprland.start", function()
 	-- hl.exec_cmd("obsidian --enable-features=UseOzonePlatform --ozone-platform=wayland")
 
 	hl.exec_cmd("onedrive --sync")
+
+	hl.on("hyprland.start", function()
+		hl.exec_cmd("noctalia")
+	end)
 end)
