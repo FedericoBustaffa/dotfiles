@@ -29,7 +29,5 @@ hl.on("hyprland.start", function()
 
 	hl.exec_cmd("onedrive --sync")
 
-	hl.on("hyprland.start", function()
-		hl.exec_cmd("noctalia")
-	end)
+	hl.exec_cmd("noctalia")
 end)
