@@ -8,12 +8,12 @@
 hl.on("hyprland.start", function()
 	hl.exec_cmd("~/dotfiles/scripts/dotsync.sh")
 
-	-- hl.exec_cmd("nm-applet --indicator")
-	-- hl.exec_cmd("hypridle")
-	-- hl.exec_cmd("hyprpaper")
-	-- hl.exec_cmd("waybar")
-	-- hl.exec_cmd("swaync")
-	-- hl.exec_cmd("hyprsunset --temperature 4000")
+	hl.exec_cmd("nm-applet --indicator")
+	hl.exec_cmd("hypridle")
+	hl.exec_cmd("hyprpaper")
+	hl.exec_cmd("waybar")
+	hl.exec_cmd("swaync")
+	hl.exec_cmd("hyprsunset --temperature 4000")
 	hl.exec_cmd("mpris-proxy")
 	hl.exec_cmd("hyprpm reload")
 
@@ -28,6 +28,4 @@ hl.on("hyprland.start", function()
 	-- hl.exec_cmd("obsidian --enable-features=UseOzonePlatform --ozone-platform=wayland")
 
 	hl.exec_cmd("onedrive --sync")
-
-	hl.exec_cmd("noctalia")
 end)
