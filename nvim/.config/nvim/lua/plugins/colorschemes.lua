@@ -45,18 +45,4 @@ return {
       transparent = false,
     },
   },
-  {
-    'scottmckendry/cyberdream.nvim',
-    lazy = false,
-    priority = 1000,
-  },
-  {
-    'tadaa/vimade',
-    enabled = false,
-    lazy = false,
-    opts = {
-      recipe = { 'minimalist', { animate = true } },
-      fadelavel = 0.95,
-    },
-  },
 }

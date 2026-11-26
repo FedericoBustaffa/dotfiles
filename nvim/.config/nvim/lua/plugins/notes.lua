@@ -5,8 +5,8 @@ return {
     lazy = false,
     dependencies = { 'saghen/blink.cmp' },
     opts = {
-      list_items = {
-        shift_width = 2,
+      typst = {
+        enable = false,
       },
     },
   },
