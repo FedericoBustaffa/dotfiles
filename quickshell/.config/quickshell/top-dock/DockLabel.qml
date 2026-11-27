@@ -11,6 +11,6 @@ Text {
     ToolTip.text: hint
     ToolTip.delay: 350
     color: Theme.foreground
-    font.pixelSize: 12
+    font.pixelSize: Theme.bodyFontSize
     verticalAlignment: Text.AlignVCenter
 }

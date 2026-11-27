@@ -209,7 +209,7 @@ ShellRoot {
             DockPanel {
                 screen: output.modelData
 
-                ResourceControl { snapshot: root.status }
+                DockLabel { text: "󰣇"; hint: "Arch Linux"; color: Theme.accent; font.pixelSize: 17 }
 
                 Item {
                     id: workspaceStrip
@@ -272,6 +272,7 @@ ShellRoot {
                     Layout.preferredHeight: 16
                     color: Theme.outline
                 }
+                ResourceControl { snapshot: root.status }
                 VolumeControl {
                     id: volumeControl
                     audio: root.audio

@@ -82,7 +82,7 @@ Button {
                 anchors { top: parent.top; left: parent.left; right: parent.right; margins: 14 }
                 spacing: 12
 
-                DockLabel { text: "System resources"; font.bold: true; font.pixelSize: 15 }
+                DockLabel { text: "System resources"; font.bold: true; font.pixelSize: Theme.subtitleFontSize }
                 Metric { label: "CPU"; glyph: ""; value: control.snapshot.cpu; tint: Theme.dockIcons.cpu; gauge: true }
                 Metric { label: "Memory"; glyph: ""; value: control.snapshot.memory; tint: Theme.dockIcons.memory; gauge: true }
                 Metric { label: "Root disk"; glyph: ""; value: control.snapshot.disk; tint: Theme.dockIcons.disk; gauge: true }
