@@ -32,6 +32,12 @@ hl.window_rule({ match = { class = "^(Notion)$" }, workspace = "10" })
 
 -- Layers
 hl.layer_rule({
+	name = "quickshell_overlay_blur",
+	match = { namespace = "^(power-menu|wallpaper-picker)$" },
+	blur = true,
+})
+
+hl.layer_rule({
 	name = "no_anim_for_selection",
 	match = { namespace = "selection" },
 	no_anim = true,
