@@ -85,7 +85,7 @@ Scope {
             text: action.text
             textFormat: Text.PlainText
             color: action.accented ? Theme.accent : Theme.foreground
-            font.pixelSize: 12
+            font.pixelSize: Theme.bodyFontSize
             elide: Text.ElideRight
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
@@ -116,7 +116,7 @@ Scope {
                     text: card.entry?.appName || "Notification"
                     textFormat: Text.PlainText
                     color: Theme.accent
-                    font.pixelSize: 11
+                    font.pixelSize: Theme.bodyFontSize
                     elide: Text.ElideRight
                 }
                 ActionButton {
@@ -141,7 +141,7 @@ Scope {
                         Layout.fillWidth: true
                         text: card.entry?.summary ?? ""
                         textFormat: Text.PlainText
-                        font { pixelSize: 14; bold: true }
+                        font { pixelSize: Theme.subtitleFontSize; bold: true }
                         color: Theme.foreground
                         wrapMode: Text.Wrap
                         maximumLineCount: 2
@@ -152,7 +152,7 @@ Scope {
                         visible: text !== ""
                         text: card.entry?.body ?? ""
                         textFormat: Text.PlainText
-                        font.pixelSize: 13
+                        font.pixelSize: Theme.bodyFontSize
                         color: Theme.muted
                         wrapMode: Text.Wrap
                         maximumLineCount: 5
@@ -239,7 +239,7 @@ Scope {
                         Layout.fillWidth: true
                         text: "Notifications"
                         color: Theme.foreground
-                        font { pixelSize: 18; bold: true }
+                        font { pixelSize: Theme.titleFontSize; bold: true }
                     }
                     ActionButton {
                         text: center.dnd ? "DND on" : "DND off"
@@ -277,6 +277,7 @@ Scope {
                     visible: center.count === 0
                     text: "No notifications"
                     color: Theme.muted
+                    font.pixelSize: Theme.bodyFontSize
                 }
             }
         }

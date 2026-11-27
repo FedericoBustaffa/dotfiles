@@ -74,7 +74,7 @@ ShellRoot {
                     selectionColor: Theme.accent
                     selectedTextColor: Theme.background
                     selectByMouse: true
-                    font.pixelSize: 16
+                    font.pixelSize: Theme.bodyFontSize
                     focus: true
                     Component.onCompleted: forceActiveFocus()
                     background: Rectangle { radius: 9; color: Theme.raised; border.color: Theme.outline }
@@ -129,7 +129,7 @@ ShellRoot {
                                 visible: icon.status === Image.Error || icon.status === Image.Null
                                 text: row.modelData.name.charAt(0).toUpperCase()
                                 color: Theme.muted
-                                font.pixelSize: 16
+                                font.pixelSize: Theme.subtitleFontSize
                             }
                         }
                         Text {
@@ -137,7 +137,7 @@ ShellRoot {
                             text: row.modelData.name
                             textFormat: Text.PlainText
                             color: row.selected ? Theme.accent : Theme.foreground
-                            font.pixelSize: 14
+                            font.pixelSize: Theme.bodyFontSize
                             elide: Text.ElideRight
                         }
                         HoverHandler { id: hover }
@@ -150,6 +150,7 @@ ShellRoot {
                     visible: results.count === 0
                     text: "No matching applications"
                     color: Theme.muted
+                    font.pixelSize: Theme.bodyFontSize
                 }
             }
         }

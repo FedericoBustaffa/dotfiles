@@ -11,12 +11,11 @@ local function apply()
 	local home = os.getenv("HOME")
 	local state = os.getenv("XDG_STATE_HOME")
 	if not state or state == "" then state = home .. "/.local/state" end
-	local selected = read(state .. "/quickshell/theme"):match("^%s*(%a+)%s*$")
-	if selected ~= "lavender" then selected = "original" end
+	local selected = read(state .. "/quickshell/theme"):match("^%s*([%w-]+)%s*$") or "original"
 
 	local palette = read(home .. "/dotfiles/quickshell/.config/quickshell/theme/accents")
 	local accent = "8dccad"
-	for name, hex in palette:gmatch("(%a+)=([%da-f]+)") do
+	for name, hex in palette:gmatch("([%w-]+)=([%da-f]+)") do
 		if name == selected and #hex == 6 then accent = hex end
 	end
 

@@ -14,8 +14,6 @@ import "./theme"
 ShellRoot {
     id: root
 
-    readonly property color foreground: Theme.foreground
-    readonly property color muted: Theme.muted
     readonly property color accent: Theme.accent
     readonly property string directory: Quickshell.env("HOME") + "/dotfiles/quickshell/.config/quickshell/top-dock"
     property var status: ({})
@@ -54,9 +52,13 @@ ShellRoot {
 
     function showOsd(brightness) {
         levelOsd.isBrightness = brightness;
-        levelOsd.screen = Quickshell.screens.find(screen => screen.name === Hyprland.focusedMonitor?.name)
-            ?? Quickshell.screens[0] ?? null;
-        if (levelOsd.screen) osdTimeout.restart();
+        if (!levelOsd.visible) {
+            levelOsd.screen = Quickshell.screens.find(screen => screen.name === Hyprland.focusedMonitor?.name)
+                ?? Quickshell.screens[0] ?? null;
+            if (!levelOsd.screen) return;
+            levelOsd.visible = true;
+        }
+        osdTimeout.restart();
     }
 
     IpcHandler {
@@ -68,7 +70,12 @@ ShellRoot {
         }
     }
 
-    Timer { id: osdTimeout; interval: 1400 }
+    Timer {
+        id: osdTimeout
+        interval: 1400
+        // Restarting this timer should not unmap the visible popup.
+        onTriggered: levelOsd.visible = false
+    }
 
     PanelWindow {
         id: levelOsd
@@ -76,7 +83,7 @@ ShellRoot {
         property real brightnessLevel: 0
         readonly property bool muted: !isBrightness && (root.audio?.muted ?? false)
         readonly property real level: isBrightness ? brightnessLevel : (root.audio?.volume ?? 0)
-        visible: osdTimeout.running && (isBrightness || !!root.audio)
+        visible: false
         anchors.bottom: true
         margins.bottom: 36
         implicitWidth: 240
@@ -162,7 +169,8 @@ ShellRoot {
 
     component DockButton: Button {
         id: control
-        property color textColor: root.foreground
+        property string glyph: ""
+        property color glyphColor: Theme.foreground
         implicitWidth: Math.max(26, implicitContentWidth + 12)
         implicitHeight: 24
         padding: 0
@@ -172,12 +180,10 @@ ShellRoot {
             radius: 7
             color: control.hovered ? Theme.outline : "transparent"
         }
-        contentItem: Text {
+        contentItem: DockReadout {
+            icon: control.glyph
+            iconColor: control.glyphColor
             text: control.text
-            color: control.textColor
-            font.pixelSize: 12
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
         }
     }
 
@@ -204,11 +210,11 @@ ShellRoot {
                 screen: output.modelData
                 position: "left"
 
-                DockLabel { text: "󰣇"; hint: "Arch Linux"; color: root.accent; font.pixelSize: 16 }
-                DockLabel { visible: !!root.status.cpu; text: " " + (root.status.cpu ?? ""); hint: "CPU usage" }
-                DockLabel { visible: !!root.status.temp; text: " " + (root.status.temp ?? ""); hint: "CPU temperature" }
-                DockLabel { visible: !!root.status.memory; text: " " + (root.status.memory ?? ""); hint: "Memory usage" }
-                DockLabel { visible: !!root.status.disk; text: " " + (root.status.disk ?? ""); hint: "Root disk usage" }
+                DockLabel { text: "󰣇"; hint: "Arch Linux"; color: Theme.accent; font.pixelSize: 16 }
+                DockReadout { visible: !!root.status.cpu; icon: ""; iconColor: Theme.dockIcons.cpu; text: root.status.cpu ?? ""; hint: "CPU usage" }
+                DockReadout { visible: !!root.status.temp; icon: ""; iconColor: Theme.dockIcons.temperature; text: root.status.temp ?? ""; hint: "CPU temperature" }
+                DockReadout { visible: !!root.status.memory; icon: ""; iconColor: Theme.dockIcons.memory; text: root.status.memory ?? ""; hint: "Memory usage" }
+                DockReadout { visible: !!root.status.disk; icon: ""; iconColor: Theme.dockIcons.disk; text: root.status.disk ?? ""; hint: "Root disk usage" }
             }
 
             DockPanel {
@@ -227,7 +233,8 @@ ShellRoot {
                         width: workspaceStrip.buttonWidth
                         height: workspaceStrip.height
                         radius: 7
-                        color: root.accent
+                        color: Theme.selectedButton
+                        border.color: root.accent
                         opacity: output.activeIndex >= 0 ? 1 : 0
                         Behavior on x { NumberAnimation { duration: 210; easing.type: Easing.OutCubic } }
                         Behavior on opacity { NumberAnimation { duration: 120 } }
@@ -244,7 +251,6 @@ ShellRoot {
                                 readonly property bool selected: output.activeWorkspaceId === modelData
                                 width: workspaceStrip.buttonWidth
                                 text: String(modelData)
-                                textColor: selected ? Theme.background : root.muted
                                 background: Rectangle {
                                     radius: 7
                                     color: workspaceButton.hovered && !workspaceButton.selected ? Theme.outline : "transparent"
@@ -264,8 +270,8 @@ ShellRoot {
                 }
                 DockLabel { text: Qt.formatDateTime(clock.date, "ddd d MMM · HH:mm") }
                 DockButton {
-                    text: (notifications.dnd ? "󰂛" : notifications.count ? "󱅫" : "󰂜")
-                        + (notifications.count ? " " + notifications.count : "")
+                    glyph: notifications.dnd ? "󰂛" : notifications.count ? "󱅫" : "󰂜"
+                    text: notifications.count ? String(notifications.count) : ""
                     Accessible.name: "Notifications"
                     onClicked: notifications.toggle(output.modelData)
                 }
@@ -285,7 +291,8 @@ ShellRoot {
                 }
                 DockButton {
                     visible: !!root.bluetoothAdapter
-                    text: !root.bluetoothAdapter?.enabled ? "󰂲" : root.bluetoothConnected ? "󰂱" : "󰂯"
+                    glyph: !root.bluetoothAdapter?.enabled ? "󰂲" : root.bluetoothConnected ? "󰂱" : "󰂯"
+                    glyphColor: root.bluetoothAdapter?.enabled ? Theme.dockIcons.bluetooth : Theme.muted
                     Accessible.name: "Bluetooth settings"
                     onClicked: Quickshell.execDetached([
                         "env", "BLUETOOTH_MANAGER_OUTPUT=" + output.modelData.name, "quickshell", "-n", "-p",
@@ -294,7 +301,9 @@ ShellRoot {
                 }
                 DockButton {
                     visible: !!root.status.network
-                    text: root.status.network === "Wired" ? "󰈀" : root.status.network === "Wi-Fi" ? "󰖩" : "󰖪"
+                    glyph: root.status.network === "Wired" ? "󰈀" : root.status.network === "Wi-Fi" ? "󰖩" : "󰖪"
+                    glyphColor: root.status.network === "Wired" ? Theme.dockIcons.wired
+                        : root.status.network === "Wi-Fi" ? Theme.dockIcons.wifi : Theme.muted
                     Accessible.name: "Network settings"
                     onClicked: Quickshell.execDetached([
                         "env", "NETWORK_MANAGER_OUTPUT=" + output.modelData.name, "quickshell", "-n", "-p",
@@ -303,7 +312,9 @@ ShellRoot {
                 }
                 DockButton {
                     visible: !!root.status.profile
-                    text: root.status.profile === "performance" ? "" : root.status.profile === "power-saver" ? "" : ""
+                    glyph: root.status.profile === "performance" ? "" : root.status.profile === "power-saver" ? "" : ""
+                    glyphColor: root.status.profile === "performance" ? Theme.dockIcons.performance
+                        : root.status.profile === "power-saver" ? Theme.dockIcons.powerSaver : Theme.dockIcons.balanced
                     readonly property string description: "Power profile: " + (root.status.profile ?? "")
                         + (root.nextPowerProfile ? " · Click for " + root.nextPowerProfile : "")
                     Accessible.name: description
@@ -316,8 +327,7 @@ ShellRoot {
                         profileProcess.exec(["powerprofilesctl", "set", root.nextPowerProfile]);
                     }
                 }
-                ThemeControl {}
-                DockLabel { visible: !!root.status.battery; text: "󰁹 " + (root.status.battery ?? "") }
+                DockReadout { visible: !!root.status.battery; icon: "󰁹"; iconColor: Theme.dockIcons.battery; text: root.status.battery ?? "" }
             }
         }
     }

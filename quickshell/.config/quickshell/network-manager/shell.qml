@@ -95,7 +95,7 @@ ShellRoot {
 
     component LabelText: Text {
         color: root.foreground
-        font.pixelSize: 13
+        font.pixelSize: Theme.bodyFontSize
         textFormat: Text.PlainText
         verticalAlignment: Text.AlignVCenter
     }
@@ -111,7 +111,7 @@ ShellRoot {
         contentItem: Text {
             text: button.text
             color: !button.enabled ? root.muted : button.accented ? Theme.background : root.foreground
-            font.pixelSize: 12
+            font.pixelSize: Theme.bodyFontSize
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
         }
@@ -158,7 +158,7 @@ ShellRoot {
                     spacing: 10
 
                     RowLayout {
-                        LabelText { Layout.fillWidth: true; text: "Network"; font { pixelSize: 22; bold: true } }
+                        LabelText { Layout.fillWidth: true; text: "Network"; font { pixelSize: Theme.titleFontSize; bold: true } }
                         ActionButton { text: "Close"; onClicked: Qt.quit() }
                     }
 
@@ -184,7 +184,7 @@ ShellRoot {
                     }
 
                     RowLayout {
-                        LabelText { Layout.fillWidth: true; text: "Wi-Fi"; font.bold: true }
+                        LabelText { Layout.fillWidth: true; text: "Wi-Fi"; font { pixelSize: Theme.subtitleFontSize; bold: true } }
                         Switch {
                             text: "Wi-Fi power"
                             Accessible.name: text
@@ -213,6 +213,7 @@ ShellRoot {
                             id: password
                             Layout.fillWidth: true
                             placeholderText: "Wi-Fi password"
+                            font.pixelSize: Theme.bodyFontSize
                             echoMode: TextInput.Password
                             onAccepted: root.join()
                         }
@@ -256,7 +257,6 @@ ShellRoot {
                                         LabelText {
                                             Layout.fillWidth: true
                                             color: row.modelData.active ? root.accent : root.muted
-                                            font.pixelSize: 11
                                             elide: Text.ElideRight
                                             text: (row.modelData.active ? "Connected  ·  " : row.modelData.saved ? "Saved  ·  " : "")
                                                 + row.modelData.security + "  ·  " + row.modelData.signal + "% signal"

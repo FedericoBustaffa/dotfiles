@@ -33,7 +33,8 @@ def security(ap):
 
 def compatible_profiles(device, ap=None):
     profiles = device.get_available_connections()
-    return ap.filter_connections(profiles) if ap else profiles
+    # The GI binding for filter_connections() can crash when marshalling profiles.
+    return [profile for profile in profiles if ap.connection_valid(profile)] if ap else profiles
 
 
 def snapshot(client):

@@ -75,7 +75,7 @@ ShellRoot {
 
         implicitHeight: 40
         focusPolicy: Qt.NoFocus
-        font.family: root.fontFamily
+        font { family: root.fontFamily; pixelSize: Theme.bodyFontSize }
         background: Rectangle {
             radius: 8
             color: button.down ? Theme.surface("#3c393f") : button.hovered ? Theme.surface("#33343d") : Theme.surface("#282930")
@@ -95,7 +95,6 @@ ShellRoot {
             ?? Quickshell.screens[0] ?? null
         anchors { top: true; bottom: true; left: true; right: true }
         exclusionMode: ExclusionMode.Ignore
-        // Hyprland blurs behind this translucent surface.
         color: Theme.powerScrim
         WlrLayershell.namespace: "power-menu"
         WlrLayershell.layer: WlrLayer.Overlay
@@ -129,7 +128,7 @@ ShellRoot {
                         Layout.alignment: Qt.AlignHCenter
                         visible: root.pendingAction !== null
                         text: root.pendingAction ? root.pendingAction.label + "?" : ""
-                        font { family: root.fontFamily; pixelSize: 24; bold: true }
+                        font { family: root.fontFamily; pixelSize: Theme.titleFontSize; bold: true }
                         color: Theme.foreground
                         style: Text.Outline
                         styleColor: Theme.background
@@ -164,7 +163,7 @@ ShellRoot {
 
                                 contentItem: Rectangle {
                                     radius: 12
-                                    color: tile.down ? Theme.surface("#39434a") : tile.selected ? Theme.surface("#314348") : Theme.raised
+                                    color: tile.down ? Theme.surface("#39434a") : tile.selected ? Theme.selectedButton : Theme.raised
                                     border.width: tile.selected ? 2 : 1
                                     border.color: tile.selected ? root.accent : Theme.surface("#3b3d46")
                                     scale: tile.down ? 1.06 : tile.selected ? 1.15 : 1
@@ -192,7 +191,7 @@ ShellRoot {
                                             horizontalAlignment: Text.AlignHCenter
                                             text: tile.text
                                             elide: Text.ElideRight
-                                            font { family: root.fontFamily; pixelSize: 14; bold: true }
+                                            font { family: root.fontFamily; pixelSize: Theme.subtitleFontSize; bold: true }
                                             color: Theme.foreground
                                         }
 
@@ -206,7 +205,7 @@ ShellRoot {
                                             Text {
                                                 anchors.centerIn: parent
                                                 text: tile.modelData.hint
-                                                font { family: root.fontFamily; pixelSize: 12; bold: true }
+                                                font { family: root.fontFamily; pixelSize: Theme.bodyFontSize; bold: true }
                                                 color: tile.selected ? Theme.surface("#182225") : Theme.foreground
                                             }
                                         }

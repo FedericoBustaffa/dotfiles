@@ -12,7 +12,7 @@ Button {
     readonly property bool adjusting: slider.pressed
 
     visible: audio != null
-    text: muted ? "󰝟" : "󰕾 " + Math.round(level * 100) + "%"
+    text: muted ? "" : Math.round(level * 100) + "%"
     Accessible.name: "Volume. Click to toggle mute."
     implicitWidth: Math.max(26, implicitContentWidth + 12)
     implicitHeight: 24
@@ -36,9 +36,10 @@ Button {
         radius: 7
         color: button.hovered ? Theme.outline : "transparent"
     }
-    contentItem: DockLabel {
+    contentItem: DockReadout {
+        icon: button.muted ? "󰝟" : "󰕾"
+        iconColor: button.muted ? Theme.muted : Theme.dockIcons.volume
         text: button.text
-        horizontalAlignment: Text.AlignHCenter
     }
 
     Timer {
@@ -119,6 +120,7 @@ Button {
                 DockLabel {
                     Layout.alignment: Qt.AlignHCenter
                     text: button.muted ? "󰝟" : Math.round(button.level * 100) + "%"
+                    font.pixelSize: Theme.bodyFontSize
                 }
             }
         }

@@ -66,7 +66,6 @@ ShellRoot {
             ?? Quickshell.screens[0] ?? null
         anchors { top: true; bottom: true; left: true; right: true }
         exclusionMode: ExclusionMode.Ignore
-        // Hyprland blurs behind this translucent surface.
         color: Theme.wallpaperScrim
         WlrLayershell.namespace: "wallpaper-picker"
         WlrLayershell.layer: WlrLayer.Overlay
@@ -100,13 +99,14 @@ ShellRoot {
 
                     Text {
                         text: "Wallpapers"
-                        font { pixelSize: 24; bold: true }
+                        font { pixelSize: Theme.titleFontSize; bold: true }
                         color: Theme.foreground
                     }
 
                     Text {
                         Layout.fillWidth: true
                         text: "~/dotfiles/wallpapers  ·  Applies to all displays"
+                        font.pixelSize: Theme.subtitleFontSize
                         color: Theme.muted
                         elide: Text.ElideRight
                     }
@@ -167,6 +167,7 @@ ShellRoot {
                                         Text {
                                             Layout.fillWidth: true
                                             text: tile.fileName
+                                            font.pixelSize: Theme.bodyFontSize
                                             textFormat: Text.PlainText
                                             elide: Text.ElideRight
                                             color: Theme.foreground
@@ -180,6 +181,7 @@ ShellRoot {
                             anchors.centerIn: parent
                             visible: images.count === 0
                             text: images.status === FolderListModel.Loading ? "Loading wallpapers…" : "No supported images found."
+                            font.pixelSize: Theme.bodyFontSize
                             color: Theme.muted
                         }
                     }
@@ -191,6 +193,7 @@ ShellRoot {
                         Text {
                             Layout.fillWidth: true
                             text: root.errorMessage || "Arrow keys to browse  ·  Enter to apply  ·  Esc to close"
+                            font.pixelSize: Theme.bodyFontSize
                             textFormat: Text.PlainText
                             color: root.errorMessage ? Theme.errorText : Theme.muted
                             wrapMode: Text.Wrap
@@ -198,6 +201,7 @@ ShellRoot {
 
                         Button {
                             text: applyProcess.running ? "Applying…" : "Apply wallpaper"
+                            font.pixelSize: Theme.bodyFontSize
                             enabled: grid.currentIndex >= 0 && !applyProcess.running
                             focusPolicy: Qt.NoFocus
                             onClicked: root.apply()

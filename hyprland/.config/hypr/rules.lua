@@ -32,10 +32,9 @@ hl.window_rule({ match = { class = "^(Notion)$" }, workspace = "10" })
 
 -- Layers
 hl.layer_rule({
-	name = "quickshell_overlay_blur",
-	match = { namespace = "^(power-menu|wallpaper-picker|bluetooth-manager|network-manager|app-launcher|notification-center)$" },
-	blur = true,
-	ignore_alpha = 0,
+	name = "quickshell_overlay_fade",
+	match = { namespace = "^(power-menu|wallpaper-picker|bluetooth-manager|network-manager|app-launcher|notification-center|theme-picker)$" },
+	-- Blurring the full-screen fade-out snapshot can briefly darken the desktop.
 	animation = "fade",
 })
 

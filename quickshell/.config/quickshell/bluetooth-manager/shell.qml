@@ -54,7 +54,7 @@ ShellRoot {
 
     component LabelText: Text {
         color: root.foreground
-        font.pixelSize: 13
+        font.pixelSize: Theme.bodyFontSize
         verticalAlignment: Text.AlignVCenter
         textFormat: Text.PlainText
     }
@@ -70,7 +70,7 @@ ShellRoot {
         contentItem: Text {
             text: action.text
             color: !action.enabled ? root.muted : action.accented ? Theme.background : root.foreground
-            font.pixelSize: 12
+            font.pixelSize: Theme.bodyFontSize
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
         }
@@ -123,7 +123,7 @@ ShellRoot {
                         LabelText {
                             Layout.fillWidth: true
                             text: "Bluetooth"
-                            font { pixelSize: 22; bold: true }
+                            font { pixelSize: Theme.titleFontSize; bold: true }
                         }
                         ActionButton {
                             text: "Close"
@@ -138,6 +138,7 @@ ShellRoot {
                             color: root.muted
                             elide: Text.ElideRight
                             text: root.adapter?.name ?? "No Bluetooth adapter"
+                            font.pixelSize: Theme.subtitleFontSize
                         }
                         Switch {
                             id: powerSwitch
@@ -208,7 +209,6 @@ ShellRoot {
                                         LabelText {
                                             Layout.fillWidth: true
                                             elide: Text.ElideRight
-                                            font.pixelSize: 11
                                             color: row.device.connected ? root.accent : root.muted
                                             text: (row.device.pairing ? "Pairing…" : row.busy ? BluetoothDeviceState.toString(row.device.state)
                                                 : row.device.connected ? "Connected" : row.saved ? "Paired" : "Nearby")
@@ -261,7 +261,6 @@ ShellRoot {
                         LabelText {
                             Layout.fillWidth: true
                             color: root.muted
-                            font.pixelSize: 11
                             text: "For devices that require a PIN or passkey"
                         }
                         ActionButton {
