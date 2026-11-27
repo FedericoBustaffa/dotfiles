@@ -208,6 +208,9 @@ ShellRoot {
 
             DockPanel {
                 screen: output.modelData
+                extension: resources.drawer
+                sideExtension: volumeControl.drawer
+                sideAnchor: volumeControl
 
                 DockLabel { text: "󰣇"; hint: "Arch Linux"; color: Theme.accent; font.pixelSize: 17 }
 
@@ -272,10 +275,15 @@ ShellRoot {
                     Layout.preferredHeight: 16
                     color: Theme.outline
                 }
-                ResourceControl { snapshot: root.status }
+                ResourceControl {
+                    id: resources
+                    snapshot: root.status
+                    drawerObscured: volumeControl.progress > 0
+                }
                 VolumeControl {
                     id: volumeControl
                     audio: root.audio
+                    yieldDrawer: resources.hovered
                     onAdjustingChanged: {
                         if (adjusting) root.adjustingControl = volumeControl;
                         else if (root.adjustingControl === volumeControl) root.adjustingControl = null;
@@ -318,6 +326,13 @@ ShellRoot {
                         root.profileError = "";
                         profileProcess.exec(["powerprofilesctl", "set", root.nextPowerProfile]);
                     }
+                }
+                DockReadout {
+                    visible: !!root.status.battery
+                    icon: "󰁹"
+                    iconColor: Theme.dockIcons.battery
+                    text: root.status.battery ?? ""
+                    hint: "Battery"
                 }
             }
         }

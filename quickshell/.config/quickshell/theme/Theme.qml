@@ -28,17 +28,17 @@ Singleton {
     readonly property color foreground: tokyoNight ? "#c0caf5" : vague ? "#cdcdcd" : "#e6e4e1"
     readonly property color muted: tokyoNight ? "#9aa5ce" : vague ? "#90a0b5" : "#a5a3a6"
     readonly property var dockIcons: tokyoNight ? ({
-        cpu: "#7aa2f7", temperature: "#ff9e64", memory: "#bb9af7", disk: "#e0af68",
+        cpu: "#7aa2f7", memory: "#bb9af7", disk: "#e0af68",
         volume: "#e0af68", bluetooth: "#7dcfff", wifi: "#bb9af7", wired: "#73daca",
         performance: "#ff9e64", balanced: "#e0af68", powerSaver: "#9ece6a",
         battery: "#9ece6a"
     }) : vague ? ({
-        cpu: "#8ba9c1", temperature: "#e8b589", memory: "#aeaed1", disk: "#e0a363",
+        cpu: "#8ba9c1", memory: "#aeaed1", disk: "#e0a363",
         volume: "#f3be7c", bluetooth: "#8ba9c1", wifi: "#bb9dbd", wired: "#b4d4cf",
         performance: "#c48282", balanced: "#e8b589", powerSaver: "#99b782",
         battery: "#99b782"
     }) : ({
-        cpu: "#8fbce8", temperature: "#efac8d", memory: "#c5a6e6", disk: "#e2c28a",
+        cpu: "#8fbce8", memory: "#c5a6e6", disk: "#e2c28a",
         volume: "#f2d477", bluetooth: "#8fbce8", wifi: "#b999e8", wired: "#8dccbd",
         performance: "#efac8d", balanced: "#e2c28a", powerSaver: "#8dccbd",
         battery: "#8dccbd"

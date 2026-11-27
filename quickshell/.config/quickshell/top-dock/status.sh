@@ -15,8 +15,11 @@ if ((next_total > total)); then
 fi
 
 awk '/^MemTotal:/ { total=$2 } /^MemAvailable:/ { available=$2 }
-    END { if (total) printf "memory=%.0f%%\n", 100 * (total - available) / total }' /proc/meminfo
-df -P / | awk 'NR == 2 { print "disk=" $5 }'
+    END { if (total) {
+        used = total - available
+        printf "memory=%.0f%%\nmemoryUsed=%.1f GB\n", 100 * used / total, used * 1024 / 1e9
+    } }' /proc/meminfo
+df -kP / | awk 'NR == 2 { printf "disk=%s\ndiskUsed=%.1f GB\n", $5, $3 * 1024 / 1e9 }'
 
 for hwmon in /sys/class/hwmon/hwmon*; do
     [[ -r "$hwmon/name" ]] || continue
