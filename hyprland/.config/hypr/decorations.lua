@@ -38,7 +38,8 @@ hl.config({
 			enabled = true,
 			size = 2,
 			passes = 1,
-			ignore_opacity = true,
+			-- Let blur fade with translucent layers instead of holding until unmap.
+			ignore_opacity = false,
 			new_optimizations = true,
 			xray = true,
 			noise = 0.0117,

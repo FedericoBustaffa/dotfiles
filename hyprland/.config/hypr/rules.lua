@@ -35,6 +35,8 @@ hl.layer_rule({
 	name = "quickshell_overlay_blur",
 	match = { namespace = "^(power-menu|wallpaper-picker)$" },
 	blur = true,
+	ignore_alpha = 0,
+	animation = "fade",
 })
 
 hl.layer_rule({

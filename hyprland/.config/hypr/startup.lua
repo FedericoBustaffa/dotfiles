@@ -10,7 +10,7 @@ hl.on("hyprland.start", function()
 
 	hl.exec_cmd("nm-applet --indicator")
 	hl.exec_cmd("hypridle")
-	hl.exec_cmd("hyprpaper")
+	hl.exec_cmd('bash "$HOME/dotfiles/scripts/hyprpaper-state.sh" start')
 	hl.exec_cmd("waybar")
 	hl.exec_cmd("swaync")
 	hl.exec_cmd("hyprsunset --temperature 4000")

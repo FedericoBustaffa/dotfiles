@@ -53,7 +53,8 @@ ShellRoot {
             return;
         }
         root.errorMessage = "";
-        applyProcess.command = ["hyprctl", "hyprpaper", "wallpaper", root.monitorName + "," + path + ",cover"];
+        applyProcess.command = ["bash", Quickshell.env("HOME") + "/dotfiles/scripts/hyprpaper-state.sh",
+            "apply", root.monitorName, path];
         applyProcess.running = true;
     }
 
