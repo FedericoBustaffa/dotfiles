@@ -6,13 +6,10 @@
 -- NOT re-trigger it, matching the old exec-once semantics).
 
 hl.on("hyprland.start", function()
-	hl.exec_cmd("~/dotfiles/scripts/dotsync.sh")
-
 	hl.exec_cmd("nm-applet --indicator")
 	hl.exec_cmd("hypridle")
 	hl.exec_cmd('bash "$HOME/dotfiles/scripts/hyprpaper-state.sh" start')
-	hl.exec_cmd("waybar")
-	hl.exec_cmd("swaync")
+	hl.exec_cmd('quickshell -n -p "$HOME/dotfiles/quickshell/.config/quickshell/top-dock"')
 	hl.exec_cmd("hyprsunset --temperature 4000")
 	hl.exec_cmd("mpris-proxy")
 	hl.exec_cmd("hyprpm reload")

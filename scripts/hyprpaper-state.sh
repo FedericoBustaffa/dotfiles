@@ -2,57 +2,85 @@
 set -euo pipefail
 
 state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/hyprpaper"
+state_file="$state_dir/current"
 
-apply_wallpaper() {
-    hyprctl hyprpaper wallpaper "$1,$2,cover"
+valid_path() {
+    [[ "$1" == /* && -f "$1" && "$1" != *,* && "$1" != *$'\n'* ]]
 }
 
-restore_wallpapers() {
-    local entry monitor path
-    local -a pending=() next=() monitors=()
-    [[ -d "$state_dir" ]] || return 0
-    mapfile -t monitors < <(hyprctl monitors -j | jq -r '.[].name')
-    for monitor in "${monitors[@]}"; do
-        [[ "$monitor" =~ ^[[:alnum:]_.-]+$ && "$monitor" != .* ]] || continue
-        entry="$state_dir/$monitor"
-        if [[ -f "$entry" ]] && IFS= read -r path < "$entry" && [[ -f "$path" && "$path" != *,* ]]; then
-            pending+=("$entry")
-        fi
-    done
+apply_wallpaper() {
+    local path=$1 monitors monitor reply active failed=0
+    monitors=$(hyprctl monitors | awk '$1 == "Monitor" { print $2 }') || return 1
+    if [[ -z "$monitors" ]]; then
+        echo 'No active Hyprland monitors found.' >&2
+        return 1
+    fi
 
-    # The IPC socket may not be ready when Hyprland starts hyprpaper.
-    for ((attempt = 0; attempt < 20 && ${#pending[@]} > 0; attempt++)); do
-        next=()
-        for entry in "${pending[@]}"; do
-            IFS= read -r path < "$entry" || continue
-            apply_wallpaper "${entry##*/}" "$path" >/dev/null 2>&1 || next+=("$entry")
-        done
-        pending=("${next[@]}")
-        if ((${#pending[@]} > 0)); then sleep 0.2; fi
+    while IFS= read -r monitor; do
+        if ! reply=$(hyprctl hyprpaper wallpaper "$monitor,$path,cover" 2>&1) || [[ -n "$reply" && "$reply" != ok ]]; then
+            printf 'Wallpaper on %s: %s\n' "$monitor" "$reply" >&2
+            failed=1
+        fi
+    done <<< "$monitors"
+    (( failed == 0 )) || return 1
+
+    # Some Hyprpaper versions return no text on success. Verify the actual outputs.
+    active=$(hyprctl hyprpaper listactive) || return 1
+    while IFS= read -r monitor; do
+        if ! grep -Fxq -- "$monitor: $path" <<< "$active"; then
+            printf 'Wallpaper was not applied on %s.\n' "$monitor" >&2
+            failed=1
+        fi
+    done <<< "$monitors"
+    return "$failed"
+}
+
+saved_wallpaper() {
+    local path
+    [[ -f "$state_file" ]] && IFS= read -r path < "$state_file" && valid_path "$path" || return 1
+    printf '%s\n' "$path"
+}
+
+restore_wallpaper() {
+    local path attempt
+    path=$(saved_wallpaper) || return 0
+
+    # Give hyprpaper time to open its IPC socket at login.
+    for ((attempt = 0; attempt < 20; attempt++)); do
+        apply_wallpaper "$path" 2>/dev/null && return 0
+        sleep 0.2
     done
+    echo 'Could not restore the saved wallpaper.' >&2
 }
 
 case "${1:-}" in
     start)
-        restore_wallpapers &
+        restore_wallpaper &
         exec hyprpaper
         ;;
+    lock)
+        pidof hyprlock >/dev/null && exit 0
+        unset HYPRLOCK_WALLPAPER
+        if path=$(saved_wallpaper); then
+            export HYPRLOCK_WALLPAPER="$path"
+        fi
+        exec hyprlock
+        ;;
     apply)
-        monitor="${2:-}"
-        path="${3:-}"
-        if [[ ! "$monitor" =~ ^[[:alnum:]_.-]+$ || "$monitor" == .* || ! -f "$path" || "$path" == *,* || "$path" == *$'\n'* ]]; then
-            echo "Invalid monitor or wallpaper path." >&2
+        path="${2:-}"
+        if [[ $# != 2 ]] || ! valid_path "$path"; then
+            echo 'Expected an absolute path to an image, without commas or newlines.' >&2
             exit 1
         fi
         mkdir -p -- "$state_dir"
         tmp=$(mktemp "$state_dir/.wallpaper.XXXXXX")
         trap 'rm -f -- "$tmp"' EXIT
         printf '%s\n' "$path" > "$tmp"
-        apply_wallpaper "$monitor" "$path"
-        mv -f -- "$tmp" "$state_dir/$monitor"
+        apply_wallpaper "$path"
+        mv -f -- "$tmp" "$state_file"
         ;;
     *)
-        echo "Usage: $0 start | apply MONITOR PATH" >&2
+        echo "Usage: $0 start | apply PATH | lock" >&2
         exit 2
         ;;
 esac

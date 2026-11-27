@@ -1,6 +1,6 @@
 {
     "label" : "lock",
-    "action" : "hyprlock",
+    "action" : "bash \"$HOME/dotfiles/scripts/hyprpaper-state.sh\" lock",
     "text" : "Lock",
     "keybind" : "l"
 }

@@ -155,6 +155,11 @@ hypr_pkgs=(
     hypridle
     waybar
     hyprtoolkit
+    brightnessctl
+    networkmanager
+    libnm
+    python-gobject
+    nm-connection-editor
 )
 
 hypr_yay_pkgs=(

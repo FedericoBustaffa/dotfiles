@@ -1,20 +1,10 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-WALL_DIR="$HOME/dotfiles/wallpapers"
-STATE_FILE="$HOME/.cache/current_wallpaper"
+repo=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+wall_dir="$repo/wallpapers"
 
-[ -d "$WALL_DIR" ] || exit 1
+selected=$(cd -- "$wall_dir" && find . -maxdepth 1 -type f -printf '%f\0' | fzf --read0) || exit 0
+[[ -n "$selected" ]] || exit 0
 
-selected=$(ls "$WALL_DIR" | fzf)
-
-[ -z "$selected" ] && exit 0
-
-WALL="$WALL_DIR/$selected"
-
-# salva stato
-echo "$WALL" > "$STATE_FILE"
-
-# applica wallpaper (hyprpaper)
-hyprctl hyprpaper preload "$WALL"
-hyprctl hyprpaper wallpaper ",$WALL"
-
+exec bash "$repo/scripts/hyprpaper-state.sh" apply "$wall_dir/$selected"

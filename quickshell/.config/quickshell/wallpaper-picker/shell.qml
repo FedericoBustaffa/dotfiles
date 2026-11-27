@@ -8,12 +8,13 @@ import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Io
 import Quickshell.Wayland
+import "./theme"
 
 ShellRoot {
     id: root
 
     readonly property string directory: Quickshell.env("HOME") + "/dotfiles/wallpapers"
-    readonly property color accent: "#b4d4cf"
+    readonly property color accent: Theme.accent
     property string monitorName: ""
     property string errorMessage: ""
 
@@ -54,7 +55,7 @@ ShellRoot {
         }
         root.errorMessage = "";
         applyProcess.command = ["bash", Quickshell.env("HOME") + "/dotfiles/scripts/hyprpaper-state.sh",
-            "apply", root.monitorName, path];
+            "apply", path];
         applyProcess.running = true;
     }
 
@@ -66,7 +67,7 @@ ShellRoot {
         anchors { top: true; bottom: true; left: true; right: true }
         exclusionMode: ExclusionMode.Ignore
         // Hyprland blurs behind this translucent surface.
-        color: "#180c0d12"
+        color: Theme.wallpaperScrim
         WlrLayershell.namespace: "wallpaper-picker"
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
@@ -90,8 +91,8 @@ ShellRoot {
                 width: Math.min(960, surface.width - 40)
                 height: Math.min(640, surface.height - 40)
                 radius: 18
-                color: "#18191e"
-                border.color: "#35363c"
+                color: Theme.background
+                border.color: Theme.outline
 
                 ColumnLayout {
                     anchors { fill: parent; margins: 20 }
@@ -100,13 +101,13 @@ ShellRoot {
                     Text {
                         text: "Wallpapers"
                         font { pixelSize: 24; bold: true }
-                        color: "#e6e4e1"
+                        color: Theme.foreground
                     }
 
                     Text {
                         Layout.fillWidth: true
-                        text: "~/dotfiles/wallpapers  ·  " + root.monitorName
-                        color: "#a5a3a6"
+                        text: "~/dotfiles/wallpapers  ·  Applies to all displays"
+                        color: Theme.muted
                         elide: Text.ElideRight
                     }
 
@@ -148,8 +149,8 @@ ShellRoot {
                                     }
                                     background: Rectangle {
                                         radius: 9
-                                        color: thumbnail.hovered || grid.currentIndex === tile.index ? "#30363c" : "#22242a"
-                                        border.color: grid.currentIndex === tile.index ? root.accent : "#3b3d46"
+                                        color: thumbnail.hovered || grid.currentIndex === tile.index ? Theme.surface("#30363c") : Theme.raised
+                                        border.color: grid.currentIndex === tile.index ? root.accent : Theme.surface("#3b3d46")
                                         border.width: grid.currentIndex === tile.index ? 2 : 1
                                     }
                                     contentItem: ColumnLayout {
@@ -168,7 +169,7 @@ ShellRoot {
                                             text: tile.fileName
                                             textFormat: Text.PlainText
                                             elide: Text.ElideRight
-                                            color: "#e6e4e1"
+                                            color: Theme.foreground
                                         }
                                     }
                                 }
@@ -179,7 +180,7 @@ ShellRoot {
                             anchors.centerIn: parent
                             visible: images.count === 0
                             text: images.status === FolderListModel.Loading ? "Loading wallpapers…" : "No supported images found."
-                            color: "#a5a3a6"
+                            color: Theme.muted
                         }
                     }
 
@@ -191,7 +192,7 @@ ShellRoot {
                             Layout.fillWidth: true
                             text: root.errorMessage || "Arrow keys to browse  ·  Enter to apply  ·  Esc to close"
                             textFormat: Text.PlainText
-                            color: root.errorMessage ? "#f0aaa7" : "#a5a3a6"
+                            color: root.errorMessage ? Theme.errorText : Theme.muted
                             wrapMode: Text.Wrap
                         }
 

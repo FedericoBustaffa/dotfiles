@@ -30,19 +30,18 @@ hl.bind(mainMod .. "+F", hl.dsp.window.fullscreen({ action = "toggle" }))
 hl.bind(mainMod .. "+P", hl.dsp.window.pseudo({ action = "toggle" })) -- dwindle
 -- hl.bind(mainMod .. "+J", dispatch("togglesplit")) -- dwindle
 
--- scrolling layout: move focus / columns
-hl.bind(mainMod .. "+H", hl.dsp.focus({ direction = "left" }))
-hl.bind(mainMod .. "+L", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. "+K", hl.dsp.focus({ direction = "up" }))
-hl.bind(mainMod .. "+J", hl.dsp.focus({ direction = "down" }))
+-- Scrolling layout: Shift swaps columns horizontally and reorders windows vertically.
+for key, direction in pairs({ H = "left", J = "down", K = "up", L = "right" }) do
+	local short = direction:sub(1, 1)
+	hl.bind(mainMod .. "+" .. key, hl.dsp.layout("focus " .. short))
+	if key == "H" or key == "L" then
+		hl.bind(mainMod .. "+SHIFT+" .. key, hl.dsp.layout("swapcol " .. short))
+	else
+		hl.bind(mainMod .. "+SHIFT+" .. key, hl.dsp.window.move({ direction = direction }))
+	end
+end
 
 hl.bind(mainMod .. "+R", hl.dsp.layout("colresize +conf"))
-
--- Move window with mainMod + Shift + hjkl
-hl.bind(mainMod .. "+SHIFT+H", hl.dsp.layout("swapcol l"))
-hl.bind(mainMod .. "+SHIFT+L", hl.dsp.layout("swapcol r"))
--- hl.bind(mainMod .. "+SHIFT+K", hl.dsp.layout("movewindowto u"))
--- hl.bind(mainMod .. "+SHIFT+J", hl.dsp.layout("movewindowto d"))
 
 -- Switch workspaces with mainMod + [0-9], move window with mainMod + SHIFT + [0-9]
 for i = 1, 9 do
@@ -82,8 +81,9 @@ hl.bind(
 )
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true })
 hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), { locked = true })
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl s 10%+"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl s 10%-"), { locked = true, repeating = true })
+local brightness = 'bash "$HOME/dotfiles/quickshell/.config/quickshell/top-dock/brightness.sh" '
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(brightness .. "up"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(brightness .. "down"), { locked = true, repeating = true })
 
 -- Requires playerctl
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { release = true })
@@ -91,4 +91,4 @@ hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { release = t
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { release = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { release = true })
 
-hl.bind(mainMod .. "+N", hl.dsp.exec_cmd("swaync-client -t -sw"))
+hl.bind(mainMod .. "+N", hl.dsp.exec_cmd('quickshell ipc -p "$HOME/dotfiles/quickshell/.config/quickshell/top-dock" call notifications toggle'))

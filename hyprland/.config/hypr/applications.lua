@@ -7,6 +7,6 @@
 return {
 	terminal = "kitty",
 	fileManager = "nautilus",
-	menu = "rofi -show drun",
+	menu = 'quickshell -n -p "$HOME/dotfiles/quickshell/.config/quickshell/app-launcher"',
 	browser = "zen-browser",
 }

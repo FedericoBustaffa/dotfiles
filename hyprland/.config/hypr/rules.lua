@@ -33,7 +33,7 @@ hl.window_rule({ match = { class = "^(Notion)$" }, workspace = "10" })
 -- Layers
 hl.layer_rule({
 	name = "quickshell_overlay_blur",
-	match = { namespace = "^(power-menu|wallpaper-picker)$" },
+	match = { namespace = "^(power-menu|wallpaper-picker|bluetooth-manager|network-manager|app-launcher|notification-center)$" },
 	blur = true,
 	ignore_alpha = 0,
 	animation = "fade",
@@ -47,6 +47,6 @@ hl.layer_rule({
 
 hl.layer_rule({
 	name = "notification-animations",
-	match = { namespace = "swaync-control-center" },
+	match = { namespace = "^notification-toast$" },
 	animation = "slide top",
 })

@@ -9,7 +9,6 @@ hl.config({
 
 		-- see https://wiki.hypr.land/Configuring/Basics/Variables/#colors
 		col = {
-			active_border = "rgba(8faec9ff)",
 			inactive_border = "rgba(595959aa)",
 		},
 
@@ -65,10 +64,10 @@ hl.config({
 		},
 
 		glow = {
-			enabled = false,
-			range = 10,
+			enabled = true,
+			range = 6,
 			render_power = 3,
-			color = "rgba(ee33ccff)",
+			color_inactive = "rgba(00000000)",
 		},
 
 		motion_blur = {
@@ -88,3 +87,5 @@ hl.config({
 		-- },
 	},
 })
+
+require("decoration-theme").apply()

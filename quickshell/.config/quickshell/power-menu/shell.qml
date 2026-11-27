@@ -6,12 +6,13 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Wayland
+import "./theme"
 
 ShellRoot {
     id: root
 
     readonly property string fontFamily: "JetBrainsMono Nerd Font Propo"
-    readonly property color accent: "#b4d4cf"
+    readonly property color accent: Theme.accent
     readonly property var actions: [
         { label: "Shutdown", key: Qt.Key_S, hint: "S", icon: "\uf011", command: [Quickshell.env("HOME") + "/dotfiles/scripts/pre_poweroff.sh"], confirm: true },
         { label: "Reboot", key: Qt.Key_R, hint: "R", icon: "\uf021", command: ["systemctl", "reboot"], confirm: true },
@@ -70,15 +71,15 @@ ShellRoot {
     component ConfirmButton: Button {
         id: button
         property bool selected: false
-        property color textColor: "#e6e4e1"
+        property color textColor: Theme.foreground
 
         implicitHeight: 40
         focusPolicy: Qt.NoFocus
         font.family: root.fontFamily
         background: Rectangle {
             radius: 8
-            color: button.down ? "#3c393f" : button.hovered ? "#33343d" : "#282930"
-            border.color: button.selected ? root.accent : "#3b3c45"
+            color: button.down ? Theme.surface("#3c393f") : button.hovered ? Theme.surface("#33343d") : Theme.surface("#282930")
+            border.color: button.selected ? root.accent : Theme.surface("#3b3c45")
         }
         contentItem: Text {
             text: button.text
@@ -95,7 +96,7 @@ ShellRoot {
         anchors { top: true; bottom: true; left: true; right: true }
         exclusionMode: ExclusionMode.Ignore
         // Hyprland blurs behind this translucent surface.
-        color: "#0c0c0d12"
+        color: Theme.powerScrim
         WlrLayershell.namespace: "power-menu"
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
@@ -129,9 +130,9 @@ ShellRoot {
                         visible: root.pendingAction !== null
                         text: root.pendingAction ? root.pendingAction.label + "?" : ""
                         font { family: root.fontFamily; pixelSize: 24; bold: true }
-                        color: "#e6e4e1"
+                        color: Theme.foreground
                         style: Text.Outline
-                        styleColor: "#18191e"
+                        styleColor: Theme.background
                     }
 
                     RowLayout {
@@ -163,9 +164,9 @@ ShellRoot {
 
                                 contentItem: Rectangle {
                                     radius: 12
-                                    color: tile.down ? "#39434a" : tile.selected ? "#314348" : "#22242a"
+                                    color: tile.down ? Theme.surface("#39434a") : tile.selected ? Theme.surface("#314348") : Theme.raised
                                     border.width: tile.selected ? 2 : 1
-                                    border.color: tile.selected ? root.accent : "#3b3d46"
+                                    border.color: tile.selected ? root.accent : Theme.surface("#3b3d46")
                                     scale: tile.down ? 1.06 : tile.selected ? 1.15 : 1
                                     transform: Translate {
                                         y: tile.selected ? -13 : 0
@@ -182,7 +183,7 @@ ShellRoot {
                                             Layout.alignment: Qt.AlignHCenter
                                             text: tile.modelData.icon
                                             font { family: root.fontFamily; pixelSize: 30 }
-                                            color: tile.selected ? root.accent : "#e6e4e1"
+                                            color: tile.selected ? root.accent : Theme.foreground
                                         }
 
                                         Text {
@@ -192,7 +193,7 @@ ShellRoot {
                                             text: tile.text
                                             elide: Text.ElideRight
                                             font { family: root.fontFamily; pixelSize: 14; bold: true }
-                                            color: "#e6e4e1"
+                                            color: Theme.foreground
                                         }
 
                                         Rectangle {
@@ -200,13 +201,13 @@ ShellRoot {
                                             implicitWidth: 26
                                             implicitHeight: 22
                                             radius: 5
-                                            color: tile.selected ? root.accent : "#30323b"
+                                            color: tile.selected ? root.accent : Theme.surface("#30323b")
 
                                             Text {
                                                 anchors.centerIn: parent
                                                 text: tile.modelData.hint
                                                 font { family: root.fontFamily; pixelSize: 12; bold: true }
-                                                color: tile.selected ? "#182225" : "#e6e4e1"
+                                                color: tile.selected ? Theme.surface("#182225") : Theme.foreground
                                             }
                                         }
                                     }
@@ -231,7 +232,7 @@ ShellRoot {
                         ConfirmButton {
                             Layout.fillWidth: true
                             text: root.pendingAction?.label ?? "Confirm"
-                            textColor: "#f0aaa7"
+                            textColor: Theme.errorText
                             selected: root.confirmSelected
                             onClicked: if (root.pendingAction) root.runAction(root.pendingAction)
                         }

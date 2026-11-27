@@ -1,0 +1,284 @@
+pragma ComponentBehavior: Bound
+
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import Quickshell
+import Quickshell.Hyprland
+import Quickshell.Io
+import Quickshell.Services.Notifications
+import Quickshell.Wayland
+import "./theme"
+
+Scope {
+    id: center
+    readonly property var history: server.trackedNotifications.values.filter(item => !item.transient).slice().reverse()
+    readonly property int count: history.length
+    property bool dnd: false
+    property Notification toast: null
+    property var toastScreen: null
+    property var centerScreen: null
+    property bool opened: false
+
+    function focusedScreen() {
+        return Quickshell.screens.find(screen => screen.name === Hyprland.focusedMonitor?.name) ?? Quickshell.screens[0] ?? null;
+    }
+
+    function hideToast() {
+        const item = toast;
+        toast = null;
+        toastTimer.stop();
+        if (item?.transient) item.expire();
+    }
+
+    function toggle(screen) {
+        if (!screen) screen = focusedScreen();
+        opened = !(opened && centerScreen === screen) && !!screen;
+        centerScreen = screen;
+        if (opened) hideToast();
+    }
+
+    NotificationServer {
+        id: server
+        keepOnReload: true
+        persistenceSupported: true
+        bodySupported: true
+        bodyMarkupSupported: false
+        bodyHyperlinksSupported: false
+        actionsSupported: true
+        imageSupported: true
+        onNotification: item => {
+            item.tracked = true;
+            if (item.lastGeneration) return;
+            if (!item.transient && center.history.length > 100) center.history[100].dismiss();
+            if (center.opened || (center.dnd && item.urgency !== NotificationUrgency.Critical)) {
+                if (item.transient) item.expire();
+                return;
+            }
+            if (center.toast !== item) center.hideToast();
+            center.toastScreen = center.focusedScreen();
+            center.toast = item;
+            toastTimer.interval = item.expireTimeout > 0 ? Math.min(item.expireTimeout, 60000) : 5000;
+            toastTimer.start();
+        }
+    }
+
+    Connections {
+        target: center.toast
+        function onClosed() { center.toast = null; toastTimer.stop(); }
+    }
+
+    Timer { id: toastTimer; onTriggered: center.hideToast() }
+
+    IpcHandler {
+        target: "notifications"
+        function toggle(): void { center.toggle(null); }
+    }
+
+    component ActionButton: Button {
+        id: action
+        property bool accented: false
+        hoverEnabled: true
+        focusPolicy: Qt.NoFocus
+        padding: 8
+        contentItem: Text {
+            text: action.text
+            textFormat: Text.PlainText
+            color: action.accented ? Theme.accent : Theme.foreground
+            font.pixelSize: 12
+            elide: Text.ElideRight
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+        }
+        background: Rectangle {
+            radius: 7
+            color: action.hovered ? Theme.outline : Theme.button
+        }
+    }
+
+    component NotificationCard: Rectangle {
+        id: card
+        required property Notification entry
+        implicitHeight: content.implicitHeight + 20
+        radius: 10
+        color: Theme.raised
+        border.color: entry?.urgency === NotificationUrgency.Critical ? Theme.errorText : Theme.outline
+
+        ColumnLayout {
+            id: content
+            anchors { left: parent.left; right: parent.right; top: parent.top; margins: 10 }
+            spacing: 5
+
+            RowLayout {
+                Layout.fillWidth: true
+                Text {
+                    Layout.fillWidth: true
+                    text: card.entry?.appName || "Notification"
+                    textFormat: Text.PlainText
+                    color: Theme.accent
+                    font.pixelSize: 11
+                    elide: Text.ElideRight
+                }
+                ActionButton {
+                    text: "×"
+                    Accessible.name: "Dismiss notification"
+                    onClicked: card.entry?.dismiss()
+                }
+            }
+
+            RowLayout {
+                Layout.fillWidth: true
+                Image {
+                    visible: status === Image.Ready
+                    Layout.preferredWidth: 36
+                    Layout.preferredHeight: 36
+                    fillMode: Image.PreserveAspectFit
+                    source: card.entry?.image || (card.entry?.appIcon ? Quickshell.iconPath(card.entry.appIcon, true) : "")
+                }
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    Text {
+                        Layout.fillWidth: true
+                        text: card.entry?.summary ?? ""
+                        textFormat: Text.PlainText
+                        font { pixelSize: 14; bold: true }
+                        color: Theme.foreground
+                        wrapMode: Text.Wrap
+                        maximumLineCount: 2
+                        elide: Text.ElideRight
+                    }
+                    Text {
+                        Layout.fillWidth: true
+                        visible: text !== ""
+                        text: card.entry?.body ?? ""
+                        textFormat: Text.PlainText
+                        font.pixelSize: 13
+                        color: Theme.muted
+                        wrapMode: Text.Wrap
+                        maximumLineCount: 5
+                        elide: Text.ElideRight
+                    }
+                }
+            }
+
+            Flow {
+                Layout.fillWidth: true
+                spacing: 5
+                visible: (card.entry?.actions.length ?? 0) > 0
+                Repeater {
+                    model: card.entry?.actions ?? []
+                    ActionButton {
+                        required property var modelData
+                        text: modelData.text || (modelData.identifier === "default" ? "Open" : "Action")
+                        width: Math.min(implicitWidth, content.width)
+                        onClicked: modelData.invoke()
+                    }
+                }
+            }
+        }
+    }
+
+    PanelWindow {
+        screen: center.toastScreen
+        visible: !!center.toast && !!center.toastScreen && !center.opened
+        anchors { top: true; right: true }
+        margins { top: 44; right: 12 }
+        implicitWidth: 390
+        implicitHeight: toastCard.implicitHeight
+        exclusionMode: ExclusionMode.Ignore
+        color: "transparent"
+        WlrLayershell.namespace: "notification-toast"
+        WlrLayershell.layer: WlrLayer.Overlay
+
+        NotificationCard {
+            id: toastCard
+            anchors.fill: parent
+            entry: center.toast
+            HoverHandler {
+                onHoveredChanged: {
+                    if (hovered) toastTimer.stop();
+                    else if (center.toast) toastTimer.restart();
+                }
+            }
+        }
+    }
+
+    PanelWindow {
+        screen: center.centerScreen
+        visible: center.opened && !!center.centerScreen
+        anchors { top: true; bottom: true; left: true; right: true }
+        exclusionMode: ExclusionMode.Ignore
+        color: Theme.managerScrim
+        WlrLayershell.namespace: "notification-center"
+        WlrLayershell.layer: WlrLayer.Overlay
+        WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
+
+        Item {
+            id: overlay
+            anchors.fill: parent
+            focus: true
+            Keys.onEscapePressed: center.opened = false
+            TapHandler {
+                onTapped: point => {
+                    if (!panel.contains(panel.mapFromItem(overlay, point.position))) center.opened = false;
+                }
+            }
+            Rectangle {
+                id: panel
+                anchors { right: parent.right; top: parent.top; topMargin: 44; rightMargin: 12 }
+                width: Math.min(440, overlay.width - 24)
+                height: Math.min(520, overlay.height - 56)
+                radius: 14
+                color: Theme.background
+                border.color: Theme.outline
+
+                RowLayout {
+                    id: header
+                    anchors { top: parent.top; left: parent.left; right: parent.right; margins: 12 }
+                    Text {
+                        Layout.fillWidth: true
+                        text: "Notifications"
+                        color: Theme.foreground
+                        font { pixelSize: 18; bold: true }
+                    }
+                    ActionButton {
+                        text: center.dnd ? "DND on" : "DND off"
+                        Accessible.name: "Do Not Disturb"
+                        accented: center.dnd
+                        onClicked: center.dnd = !center.dnd
+                    }
+                    ActionButton {
+                        text: "Clear all"
+                        enabled: center.count > 0
+                        onClicked: center.history.slice().forEach(item => item.dismiss())
+                    }
+                    ActionButton {
+                        text: "×"
+                        Accessible.name: "Close notification center"
+                        onClicked: center.opened = false
+                    }
+                }
+
+                ListView {
+                    id: list
+                    anchors { top: header.bottom; bottom: parent.bottom; left: parent.left; right: parent.right; margins: 12 }
+                    clip: true
+                    spacing: 6
+                    model: center.history
+                    ScrollBar.vertical: ScrollBar { policy: ScrollBar.AsNeeded }
+                    delegate: NotificationCard {
+                        required property Notification modelData
+                        entry: modelData
+                        width: list.width - 8
+                    }
+                }
+                Text {
+                    anchors.centerIn: list
+                    visible: center.count === 0
+                    text: "No notifications"
+                    color: Theme.muted
+                }
+            }
+        }
+    }
+}
