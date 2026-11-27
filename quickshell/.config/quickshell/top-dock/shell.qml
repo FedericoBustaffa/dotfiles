@@ -208,17 +208,8 @@ ShellRoot {
 
             DockPanel {
                 screen: output.modelData
-                position: "left"
 
-                DockLabel { text: "󰣇"; hint: "Arch Linux"; color: Theme.accent; font.pixelSize: 16 }
-                DockReadout { visible: !!root.status.cpu; icon: ""; iconColor: Theme.dockIcons.cpu; text: root.status.cpu ?? ""; hint: "CPU usage" }
-                DockReadout { visible: !!root.status.temp; icon: ""; iconColor: Theme.dockIcons.temperature; text: root.status.temp ?? ""; hint: "CPU temperature" }
-                DockReadout { visible: !!root.status.memory; icon: ""; iconColor: Theme.dockIcons.memory; text: root.status.memory ?? ""; hint: "Memory usage" }
-                DockReadout { visible: !!root.status.disk; icon: ""; iconColor: Theme.dockIcons.disk; text: root.status.disk ?? ""; hint: "Root disk usage" }
-            }
-
-            DockPanel {
-                screen: output.modelData
+                ResourceControl { snapshot: root.status }
 
                 Item {
                     id: workspaceStrip
@@ -275,12 +266,12 @@ ShellRoot {
                     Accessible.name: "Notifications"
                     onClicked: notifications.toggle(output.modelData)
                 }
-            }
 
-            DockPanel {
-                screen: output.modelData
-                position: "right"
-
+                Rectangle {
+                    Layout.preferredWidth: 1
+                    Layout.preferredHeight: 16
+                    color: Theme.outline
+                }
                 VolumeControl {
                     id: volumeControl
                     audio: root.audio
@@ -327,7 +318,6 @@ ShellRoot {
                         profileProcess.exec(["powerprofilesctl", "set", root.nextPowerProfile]);
                     }
                 }
-                DockReadout { visible: !!root.status.battery; icon: "󰁹"; iconColor: Theme.dockIcons.battery; text: root.status.battery ?? "" }
             }
         }
     }
