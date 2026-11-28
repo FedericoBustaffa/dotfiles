@@ -11,6 +11,8 @@ import "./theme/Fuzzy.js" as Fuzzy
 ShellRoot {
     id: root
     readonly property var commands: [
+        { name: "Display settings", icon: "video-display", keywords: ["screen", "monitor", "resolution", "scale"],
+            command: ["python", Quickshell.env("HOME") + "/dotfiles/scripts/display-settings.py"] },
         { name: "Theme picker", icon: "preferences-desktop-theme", menu: "theme", keywords: ["appearance", "colors", "palette"] },
         { name: "Wallpaper picker", icon: "preferences-desktop-wallpaper", menu: "wallpaper-picker", keywords: ["background", "appearance"] },
         { name: "Wi-Fi manager", icon: "network-wireless", menu: "network-manager", keywords: ["connectivity", "network", "internet"] },
@@ -22,28 +24,31 @@ ShellRoot {
     function runShellCommand(command: string): void {
         if (!command.trim()) return;
         // Pass the command as data to the wrapper; only Bash interprets its text.
-        Quickshell.execDetached({
+        card.dismiss(() => Quickshell.execDetached({
             command: ["env", "-u", "BASH_ENV", "sh", "-c",
                 'exec bash --noprofile --norc -c "$1" </dev/null >/dev/null 2>&1', "launcher", command],
             workingDirectory: Quickshell.env("HOME")
-        });
-        Qt.quit();
+        }));
     }
 
     function launch(app) {
         if (!app) return;
-        if (search.commandMode) {
+        const query = search.text;
+        card.dismiss(() => root.activate(app, query));
+    }
+
+    function activate(app, query) {
+        if (query.startsWith(">")) {
             const base = Quickshell.shellDir + "/..";
-            const command = app.menu
-                ? ["env", "QUICKSHELL_PALETTE_PARENT=" + search.text, "quickshell", "-n", "-p", base + "/" + app.menu]
-                : ["quickshell", "ipc", "-p", base + "/top-dock", "call", "notifications", "openFromPalette", search.text];
+            const command = app.command ?? (app.menu
+                ? ["env", "QUICKSHELL_PALETTE_PARENT=" + query, "quickshell", "-n", "-p", base + "/" + app.menu]
+                : ["quickshell", "ipc", "-p", base + "/top-dock", "call", "notifications", "openFromPalette", query]);
             Quickshell.execDetached(command);
         } else if (app.runInTerminal) {
             Quickshell.execDetached({ command: ["kitty", "--", ...app.command], workingDirectory: app.workingDirectory });
         } else {
             app.execute();
         }
-        Qt.quit();
     }
 
     PanelWindow {
@@ -51,7 +56,7 @@ ShellRoot {
             ?? Quickshell.screens[0] ?? null
         anchors { top: true; bottom: true; left: true; right: true }
         exclusionMode: ExclusionMode.Ignore
-        color: Theme.managerScrim
+        color: card.scrim(Theme.managerScrim)
         WlrLayershell.namespace: "app-launcher"
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
@@ -61,7 +66,7 @@ ShellRoot {
             anchors.fill: parent
             TapHandler {
                 onTapped: point => {
-                    if (!card.contains(card.mapFromItem(surface, point.position))) Qt.quit();
+                    if (!card.contains(card.mapFromItem(surface, point.position))) card.dismiss();
                 }
             }
 
@@ -98,7 +103,7 @@ ShellRoot {
                         if (shellMode) root.runShellCommand(text.slice(1));
                         else root.launch(results.model[results.currentIndex]);
                     }
-                    Keys.onEscapePressed: Qt.quit()
+                    Keys.onEscapePressed: card.dismiss()
                     Keys.onDownPressed: if (results.count) results.currentIndex = (results.currentIndex + 1) % results.count
                     Keys.onUpPressed: if (results.count) results.currentIndex = (results.currentIndex + results.count - 1) % results.count
                 }

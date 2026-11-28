@@ -16,7 +16,7 @@ ShellRoot {
     function choose(id: string): void {
         if (Theme.saving) return;
         if (id === Theme.current) {
-            Qt.quit();
+            card.dismiss();
         } else {
             root.pendingTheme = id;
             Theme.select(id);
@@ -26,7 +26,7 @@ ShellRoot {
     Connections {
         target: Theme
         function onCurrentChanged() {
-            if (root.pendingTheme === Theme.current) Qt.quit();
+            if (root.pendingTheme === Theme.current) card.dismiss();
         }
     }
 
@@ -35,7 +35,7 @@ ShellRoot {
             ?? Quickshell.screens[0] ?? null
         anchors { top: true; bottom: true; left: true; right: true }
         exclusionMode: ExclusionMode.Ignore
-        color: Theme.managerScrim
+        color: card.scrim(Theme.managerScrim)
         WlrLayershell.namespace: "theme-picker"
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
@@ -45,7 +45,7 @@ ShellRoot {
             anchors.fill: parent
             TapHandler {
                 onTapped: point => {
-                    if (!card.contains(card.mapFromItem(surface, point.position))) Qt.quit();
+                    if (!card.contains(card.mapFromItem(surface, point.position))) card.dismiss();
                 }
             }
 

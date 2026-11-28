@@ -16,6 +16,14 @@ hl.window_rule({ match = { class = "^(io.github.kaii_lb.Overskride)$" }, float =
 -- Network manager
 hl.window_rule({ match = { class = "^(nm-connection-editor)$" }, float = true, size = "640 480" })
 
+-- Display settings
+hl.window_rule({
+	match = { class = "^io[.]github[.]dotfiles[.]DisplaySettings$", title = "^Display settings$" },
+	float = true,
+	size = { "monitor_w*0.6", "monitor_h*0.6" },
+	center = true,
+})
+
 -- Workspace bindings
 hl.window_rule({ match = { class = "^(firefox)$" }, workspace = "1" })
 hl.window_rule({ match = { class = "^(zen)$" }, workspace = "1" })
@@ -33,9 +41,15 @@ hl.window_rule({ match = { class = "^(Notion)$" }, workspace = "10" })
 -- Layers
 hl.layer_rule({
 	name = "quickshell_overlay_fade",
-	match = { namespace = "^(power-menu|wallpaper-picker|bluetooth-manager|network-manager|app-launcher|notification-center|theme-picker)$" },
-	-- Blurring the full-screen fade-out snapshot can briefly darken the desktop.
+	match = { namespace = "^power-menu$" },
 	animation = "fade",
+})
+
+hl.layer_rule({
+	name = "quickshell_edge_overlays",
+	match = { namespace = "^(wallpaper-picker|bluetooth-manager|network-manager|app-launcher|notification-center|theme-picker)$" },
+	-- QML slides the cards in and out before hiding their layers.
+	no_anim = true,
 })
 
 hl.layer_rule({

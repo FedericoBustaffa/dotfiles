@@ -6,7 +6,11 @@
 -- Modules are split the same way the old .conf sources were. `require()`
 -- resolves paths relative to this file and the ".lua" extension is omitted.
 
-require("monitors")
+if package.searchpath("monitors", package.path) then
+	require("monitors")
+else
+	hl.monitor({ output = "", mode = "preferred", position = "auto", scale = "auto" })
+end
 require("decorations")
 require("animations")
 require("input")

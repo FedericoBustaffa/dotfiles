@@ -1,12 +1,15 @@
 import QtQuick
 import Quickshell
+import "Palette.js" as Palette
 
 Rectangle {
     id: card
 
-    // Bind to the window's visibility when the same overlay can open repeatedly.
     property bool presented: true
     property real slideOffset: 1
+    property bool closing: false
+    property var afterDismiss: null
+    enabled: !closing
 
     anchors.horizontalCenter: parent.horizontalCenter
     anchors.bottom: parent.bottom
@@ -14,15 +17,19 @@ Rectangle {
     bottomLeftRadius: 0
     bottomRightRadius: 0
 
-    function returnToPalette(query: string): void {
-        if (!query.startsWith(">")) return;
-        Quickshell.execDetached(["env", "QUICKSHELL_PALETTE_QUERY=" + query,
-            "quickshell", "-n", "-p", Quickshell.shellDir + "/../app-launcher"]);
+    function scrim(color: color): color {
+        return Qt.rgba(color.r, color.g, color.b, color.a * (1 - slideOffset));
+    }
+
+    function dismiss(after) {
+        if (closing) return;
+        afterDismiss = after;
+        closing = true;
+        slide.restart();
     }
 
     function dismissFromKeyboard(): void {
-        returnToPalette(Quickshell.env("QUICKSHELL_PALETTE_PARENT"));
-        Qt.quit();
+        dismiss(() => Palette.returnToPalette(Quickshell.env("QUICKSHELL_PALETTE_PARENT")));
     }
 
     // Keep the outline on the top and sides, but let the card meet the screen edge.
@@ -34,19 +41,18 @@ Rectangle {
 
     transform: Translate { y: card.height * card.slideOffset }
 
-    onPresentedChanged: {
-        if (presented) rise.restart();
-        else rise.stop();
-    }
-    Component.onCompleted: if (presented) rise.start()
+    onPresentedChanged: if (presented && !closing) slide.restart()
+    Component.onCompleted: if (presented) slide.start()
 
-    NumberAnimation {
-        id: rise
-        target: card
-        property: "slideOffset"
-        from: 1
-        to: 0
-        duration: 235
-        easing.type: Easing.OutCubic
+    NumberAnimation on slideOffset {
+        id: slide
+        running: false
+        to: card.closing ? 1 : 0
+        duration: 160
+        easing.type: card.closing ? Easing.InCubic : Easing.OutCubic
+        onFinished: {
+            if (!card.closing) return;
+            try { card.afterDismiss?.(); } finally { Qt.quit(); }
+        }
     }
 }

@@ -18,6 +18,7 @@ Singleton {
     }
     readonly property bool saving: writer.running
     property string error: ""
+    readonly property int dockHeight: 36
     readonly property int dockSpacing: 12
     readonly property int titleFontSize: 22
     readonly property int subtitleFontSize: 16

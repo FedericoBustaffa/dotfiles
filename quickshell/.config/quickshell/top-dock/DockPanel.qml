@@ -13,13 +13,14 @@ Scope {
     property Component extension
     property Component sideExtension
     property Item sideAnchor
-    readonly property int barHeight: 36
+    property int sideDrawerDepth: 0
+    readonly property int barHeight: Theme.dockHeight
 
     property var window: PanelWindow {
         id: panel
         anchors { top: true; left: true; right: true }
-        // Animate the drawers inside a fixed layer so hover doesn't depend on Wayland resizes.
-        implicitHeight: dock.barHeight + Math.max(details.item?.expandedHeight ?? 0, sideDetails.item?.expandedHeight ?? 0)
+        // Reserve room for the deepest side drawer before hover loads it.
+        implicitHeight: dock.barHeight + Math.max(details.item?.expandedHeight ?? 0, dock.sideDrawerDepth)
         // Only the header reserves workspace space; the drawer overlays it.
         exclusionMode: ExclusionMode.Normal
         exclusiveZone: dock.barHeight

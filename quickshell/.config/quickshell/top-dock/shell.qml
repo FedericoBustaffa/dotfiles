@@ -283,6 +283,7 @@ ShellRoot {
                 id: dockPanel
                 screen: output.modelData
                 extension: resources.drawer
+                sideDrawerDepth: systemInfo.drawerDepth
 
                 // A drag owns the drawer until release; otherwise the hovered button wins.
                 readonly property var sideDrawers: [

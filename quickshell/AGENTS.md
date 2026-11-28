@@ -9,10 +9,11 @@
 
 ## Floating overlays
 
-Use `theme/DropUpCard.qml` for full-screen menu overlays: the card slides up
-from the bottom edge while the compositor retains its existing fade. Bind
-`presented` to the overlay's open state if the window is reused. Register new
-floating menus in the app launcher's `commands` list so they appear after `>`.
+Use `theme/DropUpCard.qml` for bottom-edge menu overlays. Call `dismiss()`
+(or `dismissFromKeyboard()` to return to the palette) so the card slides out
+before the process quits. The notification center instead retracts into the
+top dock, and the centered power menu retains the compositor fade. Register
+new floating menus in the app launcher's `commands` list so they appear after `>`.
 
 ## Drawer design
 

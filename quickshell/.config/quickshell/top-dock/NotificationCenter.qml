@@ -9,6 +9,7 @@ import Quickshell.Io
 import Quickshell.Services.Notifications
 import Quickshell.Wayland
 import "./theme"
+import "./theme/Palette.js" as Palette
 
 Scope {
     id: center
@@ -20,7 +21,10 @@ Scope {
     property var centerScreen: null
     property bool opened: false
     property string paletteQuery: ""
-    onOpenedChanged: if (!opened) paletteQuery = ""
+    onOpenedChanged: {
+        if (opened) overlay.returnQuery = "";
+        else paletteQuery = "";
+    }
 
     function focusedScreen() {
         return Quickshell.screens.find(screen => screen.name === Hyprland.focusedMonitor?.name) ?? Quickshell.screens[0] ?? null;
@@ -213,81 +217,119 @@ Scope {
 
     PanelWindow {
         screen: center.centerScreen
-        visible: center.opened && !!center.centerScreen
+        visible: !!center.centerScreen && (center.opened || drawer.revealProgress > 0)
+        onVisibleChanged: {
+            if (visible || !overlay.returnQuery) return;
+            Palette.returnToPalette(overlay.returnQuery);
+            overlay.returnQuery = "";
+        }
         anchors { top: true; bottom: true; left: true; right: true }
         exclusionMode: ExclusionMode.Ignore
-        color: Theme.managerScrim
+        color: "transparent"
         WlrLayershell.namespace: "notification-center"
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
         Item {
             id: overlay
+            property string returnQuery: ""
             anchors.fill: parent
             focus: true
             Keys.onEscapePressed: {
-                panel.returnToPalette(center.paletteQuery);
+                if (!center.opened) return;
+                returnQuery = center.paletteQuery;
                 center.opened = false;
             }
             TapHandler {
                 onTapped: point => {
-                    if (!panel.contains(panel.mapFromItem(overlay, point.position))) center.opened = false;
+                    if (!drawer.contains(drawer.mapFromItem(overlay, point.position))) center.opened = false;
                 }
             }
-            DropUpCard {
-                id: panel
-                presented: center.opened && !!center.centerScreen
+            Item {
+                id: barGeometry
+                width: parent.width
+                height: Theme.dockHeight
+            }
+
+            Rectangle {
+                anchors { top: barGeometry.bottom; left: parent.left; right: parent.right; bottom: parent.bottom }
+                color: Theme.managerScrim
+                opacity: drawer.revealProgress
+            }
+
+            DrawerJoin { drawer: drawer; bar: barGeometry }
+
+            Item {
+                id: drawer
+                readonly property real expandedHeight: Math.max(0, Math.min(520, overlay.height - Theme.dockHeight - 20))
+                property real revealProgress: center.opened ? 1 : 0
+                enabled: center.opened
+                anchors { top: barGeometry.bottom; horizontalCenter: parent.horizontalCenter }
                 width: Math.min(440, overlay.width - 24)
-                height: Math.min(520, overlay.height - 56)
-                color: Theme.background
-                border.color: Theme.outline
+                height: expandedHeight * revealProgress
+                clip: true
 
-                RowLayout {
-                    id: header
-                    anchors { top: parent.top; left: parent.left; right: parent.right; margins: 12 }
+                Behavior on revealProgress {
+                    NumberAnimation {
+                        duration: 160
+                        easing.type: center.opened ? Easing.OutCubic : Easing.InCubic
+                    }
+                }
+
+                Rectangle {
+                    anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+                    height: drawer.expandedHeight
+                    color: Theme.background
+                    bottomLeftRadius: 16
+                    bottomRightRadius: 16
+
+                    RowLayout {
+                        id: header
+                        anchors { top: parent.top; left: parent.left; right: parent.right; margins: 12 }
+                        Text {
+                            Layout.fillWidth: true
+                            text: "Notifications"
+                            color: Theme.foreground
+                            font { pixelSize: Theme.menuTitleFontSize; bold: true }
+                        }
+                        ActionButton {
+                            text: center.dnd ? "DND on" : "DND off"
+                            Accessible.name: "Do Not Disturb"
+                            accented: center.dnd
+                            onClicked: center.dnd = !center.dnd
+                        }
+                        ActionButton {
+                            text: "Clear all"
+                            enabled: center.count > 0
+                            onClicked: center.history.slice().forEach(item => item.dismiss())
+                        }
+                        ActionButton {
+                            text: "×"
+                            Accessible.name: "Close notification center"
+                            onClicked: center.opened = false
+                        }
+                    }
+
+                    ListView {
+                        id: list
+                        anchors { top: header.bottom; bottom: parent.bottom; left: parent.left; right: parent.right; margins: 12 }
+                        clip: true
+                        spacing: 6
+                        model: center.history
+                        ScrollBar.vertical: ScrollBar { policy: ScrollBar.AsNeeded }
+                        delegate: NotificationCard {
+                            required property Notification modelData
+                            entry: modelData
+                            width: list.width - 8
+                        }
+                    }
                     Text {
-                        Layout.fillWidth: true
-                        text: "Notifications"
-                        color: Theme.foreground
-                        font { pixelSize: Theme.menuTitleFontSize; bold: true }
+                        anchors.centerIn: list
+                        visible: center.count === 0
+                        text: "No notifications"
+                        color: Theme.muted
+                        font.pixelSize: Theme.bodyFontSize
                     }
-                    ActionButton {
-                        text: center.dnd ? "DND on" : "DND off"
-                        Accessible.name: "Do Not Disturb"
-                        accented: center.dnd
-                        onClicked: center.dnd = !center.dnd
-                    }
-                    ActionButton {
-                        text: "Clear all"
-                        enabled: center.count > 0
-                        onClicked: center.history.slice().forEach(item => item.dismiss())
-                    }
-                    ActionButton {
-                        text: "×"
-                        Accessible.name: "Close notification center"
-                        onClicked: center.opened = false
-                    }
-                }
-
-                ListView {
-                    id: list
-                    anchors { top: header.bottom; bottom: parent.bottom; left: parent.left; right: parent.right; margins: 12 }
-                    clip: true
-                    spacing: 6
-                    model: center.history
-                    ScrollBar.vertical: ScrollBar { policy: ScrollBar.AsNeeded }
-                    delegate: NotificationCard {
-                        required property Notification modelData
-                        entry: modelData
-                        width: list.width - 8
-                    }
-                }
-                Text {
-                    anchors.centerIn: list
-                    visible: center.count === 0
-                    text: "No notifications"
-                    color: Theme.muted
-                    font.pixelSize: Theme.bodyFontSize
                 }
             }
         }

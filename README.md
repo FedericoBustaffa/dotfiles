@@ -24,6 +24,19 @@ divergence and run `~/dotfiles/scripts/dotsync.sh` to retry. No force-pushes.
 
 Check logs with `journalctl --user -u dotfiles-sync.service`.
 
+## Display settings
+
+Open **Super+Space → `> Display settings`**, or run
+`python ~/dotfiles/scripts/display-settings.py`. Drag displays to snap them
+edge-to-edge, select a resolution and scale, then apply and confirm the layout.
+Unconfirmed changes revert automatically.
+
+`~/.config/hypr/monitors.lua` is machine-local and ignored by Git. Fresh
+checkouts use Hyprland's automatic display layout until you save one. **Before
+pulling the migration on another computer**, back up its existing `monitors.lua`
+outside the checkout (Git removes the formerly tracked copy when updating),
+then restore it to `~/.config/hypr/monitors.lua` after pulling and running Stow.
+
 ## Quickshell
 
 - Bar

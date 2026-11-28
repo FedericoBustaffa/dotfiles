@@ -7,6 +7,7 @@ import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Wayland
 import "./theme"
+import "./theme/Palette.js" as Palette
 
 ShellRoot {
     id: root
@@ -45,10 +46,7 @@ ShellRoot {
         const left = event.key === Qt.Key_Left;
         const right = event.key === Qt.Key_Right;
         if (event.key === Qt.Key_Escape) {
-            if (pendingAction)
-                pendingAction = null;
-            else
-                card.dismissFromKeyboard();
+            Palette.dismissFromKeyboard();
         } else if (pendingAction) {
             if (left || right)
                 confirmSelected = right;
@@ -115,8 +113,10 @@ ShellRoot {
                 }
             }
 
-            DropUpCard {
+            Rectangle {
                 id: card
+                anchors.centerIn: parent
+                radius: 18
                 color: Theme.background
                 border.color: Theme.outline
                 width: Math.min(820, surface.width - 32)
@@ -169,11 +169,8 @@ ShellRoot {
                                     color: tile.down ? Theme.surface("#39434a") : tile.selected ? Theme.selectedButton : Theme.raised
                                     border.width: tile.selected ? 2 : 1
                                     border.color: tile.selected ? root.accent : Theme.surface("#3b3d46")
-                                    scale: tile.down ? 1.06 : tile.selected ? 1.15 : 1
-                                    transform: Translate {
-                                        y: tile.selected ? -13 : 0
-                                        Behavior on y { NumberAnimation { duration: 190; easing.type: Easing.OutCubic } }
-                                    }
+                                    transformOrigin: Item.Center
+                                    scale: tile.down ? 1.03 : tile.selected ? 1.06 : 1
                                     Behavior on scale { NumberAnimation { duration: 190; easing.type: Easing.OutCubic } }
                                     Behavior on color { ColorAnimation { duration: 120 } }
 

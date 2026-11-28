@@ -46,7 +46,7 @@ ShellRoot {
 
     function dismiss() {
         stopScan();
-        Qt.quit();
+        card.dismiss();
     }
 
     Timer { id: scanTimeout; interval: 30000; onTriggered: root.stopScan() }
@@ -92,7 +92,7 @@ ShellRoot {
             ?? Quickshell.screens[0] ?? null
         anchors { top: true; bottom: true; left: true; right: true }
         exclusionMode: ExclusionMode.Ignore
-        color: Theme.managerScrim
+        color: card.scrim(Theme.managerScrim)
         WlrLayershell.namespace: "bluetooth-manager"
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive

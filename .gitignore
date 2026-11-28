@@ -9,5 +9,8 @@ onedrive/.config/onedrive/items.sqlite3
 onedrive/.config/onedrive/items.sqlite3-shm
 onedrive/.config/onedrive/items.sqlite3-wal
 
+# Local display layout (managed by Display settings)
+/hyprland/.config/hypr/monitors.lua
+
 # sway
 sway/.config/sway/monitors.conf

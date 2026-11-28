@@ -12,6 +12,7 @@ DockButton {
     drawerOpen: progress > 0
     Accessible.name: "System information"
     property bool yieldDrawer: false
+    readonly property int drawerDepth: 345
     readonly property real progress: reveal.progress
     property var info: ({})
     property double lastRefresh: 0
@@ -62,7 +63,7 @@ DockButton {
 
     readonly property Component drawer: Rectangle {
         id: card
-        readonly property int expandedHeight: 345
+        readonly property int expandedHeight: control.drawerDepth
         implicitWidth: 368
         implicitHeight: Math.round(expandedHeight * control.progress)
         visible: height > 0

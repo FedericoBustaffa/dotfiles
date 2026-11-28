@@ -38,7 +38,7 @@ ShellRoot {
         stderr: StdioCollector { id: errors }
         onExited: (code, status) => {
             if (code === 0 && status === 0) {
-                Qt.quit();
+                card.dismiss();
             } else {
                 root.errorMessage = errors.text.trim() || reply.text.trim()
                     || "Could not reach hyprpaper.";
@@ -67,7 +67,7 @@ ShellRoot {
             ?? Quickshell.screens[0] ?? null
         anchors { top: true; bottom: true; left: true; right: true }
         exclusionMode: ExclusionMode.Ignore
-        color: Theme.wallpaperScrim
+        color: card.scrim(Theme.wallpaperScrim)
         WlrLayershell.namespace: "wallpaper-picker"
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
@@ -81,7 +81,7 @@ ShellRoot {
             TapHandler {
                 onTapped: point => {
                     if (!applyProcess.running && !card.contains(card.mapFromItem(surface, point.position)))
-                        Qt.quit();
+                        card.dismiss();
                 }
             }
 

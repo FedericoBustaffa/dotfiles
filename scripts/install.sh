@@ -153,6 +153,8 @@ hypr_pkgs=(
     networkmanager
     libnm
     python-gobject
+    python-cairo
+    gtk4
     nm-connection-editor
 )
 

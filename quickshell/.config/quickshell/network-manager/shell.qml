@@ -143,7 +143,7 @@ ShellRoot {
             ?? Quickshell.screens[0] ?? null
         anchors { top: true; bottom: true; left: true; right: true }
         exclusionMode: ExclusionMode.Ignore
-        color: Theme.managerScrim
+        color: card.scrim(Theme.managerScrim)
         WlrLayershell.namespace: "network-manager"
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
@@ -155,7 +155,7 @@ ShellRoot {
             Keys.onEscapePressed: root.passwordNetwork ? root.cancelPassword() : card.dismissFromKeyboard()
             TapHandler {
                 onTapped: point => {
-                    if (!card.contains(card.mapFromItem(surface, point.position))) Qt.quit();
+                    if (!card.contains(card.mapFromItem(surface, point.position))) card.dismiss();
                 }
             }
 
@@ -175,7 +175,7 @@ ShellRoot {
                         ActionButton {
                             text: "Close"
                             Component.onCompleted: forceActiveFocus(Qt.TabFocusReason)
-                            onClicked: Qt.quit()
+                            onClicked: card.dismiss()
                         }
                     }
 
@@ -338,7 +338,7 @@ ShellRoot {
                         }
                         ActionButton {
                             text: "Advanced settings…"
-                            onClicked: { Quickshell.execDetached(["nm-connection-editor"]); Qt.quit(); }
+                            onClicked: card.dismiss(() => Quickshell.execDetached(["nm-connection-editor"]))
                         }
                     }
                 }
