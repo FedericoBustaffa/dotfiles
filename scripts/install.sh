@@ -9,7 +9,6 @@ cli_pkgs=(
     # General CLI
     pacman-contrib
     base-devel
-    syncthing
     reflector
     bash-completion
     openssh
@@ -100,7 +99,6 @@ yay -S --noconfirm --needed "${yay_pkgs[@]}"
 
 # Media
 media_pkgs=(
-    swaync
     bluez
     bluez-tools
     pipewire
@@ -118,8 +116,6 @@ fi
 
 # GUI
 gui_pkgs=(
-    bluetui
-    impala
     gnome-tweaks
     kitty
     obsidian
@@ -134,7 +130,6 @@ gui_pkgs=(
 gui_yay_pkgs=(
     zen-browser-bin
     visual-studio-code-bin
-    overskride-bin
     sioyek-git
 )
 
@@ -153,17 +148,12 @@ hypr_pkgs=(
     hyprsunset
     hyprlock
     hypridle
-    waybar
     hyprtoolkit
     brightnessctl
     networkmanager
     libnm
     python-gobject
     nm-connection-editor
-)
-
-hypr_yay_pkgs=(
-    wlogout
 )
 
 read -rp "do you want to install Hyprland packages? [y/N]: " choice
