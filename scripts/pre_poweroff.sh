@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 
-~/dotfiles/scripts/dotsync.sh
+# The graphical session service syncs dotfiles during shutdown.
 notify-send -e "Power Off"
-systemctl poweroff
-onedrive --sync
+exec systemctl poweroff

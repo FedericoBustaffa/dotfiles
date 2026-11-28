@@ -1,0 +1,17 @@
+[Unit]
+Description=Fetch dotfiles at desktop login and publish tracked edits at logout
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=%h/dotfiles
+# Stay armed even if GitHub is unreachable at login.
+ExecStart=-%h/dotfiles/scripts/dotsync.sh login
+ExecStop=%h/dotfiles/scripts/dotsync.sh logout
+TimeoutStartSec=30s
+TimeoutStopSec=30s
+
+[Install]
+WantedBy=graphical-session.target
