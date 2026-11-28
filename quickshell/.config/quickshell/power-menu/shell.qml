@@ -48,7 +48,7 @@ ShellRoot {
             if (pendingAction)
                 pendingAction = null;
             else
-                Qt.quit();
+                card.dismissFromKeyboard();
         } else if (pendingAction) {
             if (left || right)
                 confirmSelected = right;
@@ -71,12 +71,12 @@ ShellRoot {
     component ConfirmButton: Button {
         id: button
         property bool selected: false
-        property color textColor: Theme.foreground
+
 
         implicitWidth: implicitContentWidth + leftPadding + rightPadding
         implicitHeight: 40
         focusPolicy: Qt.NoFocus
-        font { family: root.fontFamily; pixelSize: Theme.bodyFontSize }
+        font { family: root.fontFamily; pixelSize: Theme.menuBodyFontSize }
         background: SelectionOutline {
             radius: 8
             strokeWidth: button.selected ? 1.25 : 1
@@ -86,7 +86,7 @@ ShellRoot {
         contentItem: Text {
             text: button.text
             font: button.font
-            color: button.textColor
+            color: Theme.menuText(button.selected)
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
         }
@@ -115,9 +115,10 @@ ShellRoot {
                 }
             }
 
-            Item {
+            DropUpCard {
                 id: card
-                anchors.centerIn: parent
+                color: Theme.background
+                border.color: Theme.outline
                 width: Math.min(820, surface.width - 32)
                 height: content.implicitHeight + 40
 
@@ -130,7 +131,7 @@ ShellRoot {
                         Layout.alignment: Qt.AlignHCenter
                         visible: root.pendingAction !== null
                         text: root.pendingAction ? root.pendingAction.label + "?" : ""
-                        font { family: root.fontFamily; pixelSize: Theme.titleFontSize; bold: true }
+                        font { family: root.fontFamily; pixelSize: Theme.menuTitleFontSize; bold: true }
                         color: Theme.foreground
                         style: Text.Outline
                         styleColor: Theme.background
@@ -193,8 +194,8 @@ ShellRoot {
                                             horizontalAlignment: Text.AlignHCenter
                                             text: tile.text
                                             elide: Text.ElideRight
-                                            font { family: root.fontFamily; pixelSize: Theme.subtitleFontSize; bold: true }
-                                            color: Theme.foreground
+                                            font { family: root.fontFamily; pixelSize: Theme.menuBodyFontSize; bold: true }
+                                            color: Theme.menuText(tile.selected)
                                         }
 
                                         Rectangle {
@@ -202,13 +203,13 @@ ShellRoot {
                                             implicitWidth: 26
                                             implicitHeight: 22
                                             radius: 5
-                                            color: tile.selected ? root.accent : Theme.surface("#30323b")
+                                            color: tile.selected ? Theme.selectedButton : Theme.surface("#30323b")
 
                                             Text {
                                                 anchors.centerIn: parent
                                                 text: tile.modelData.hint
                                                 font { family: root.fontFamily; pixelSize: Theme.bodyFontSize; bold: true }
-                                                color: tile.selected ? Theme.surface("#182225") : Theme.foreground
+                                                color: Theme.menuText(tile.selected)
                                             }
                                         }
                                     }
@@ -233,7 +234,6 @@ ShellRoot {
                         ConfirmButton {
                             Layout.fillWidth: true
                             text: root.pendingAction?.label ?? "Confirm"
-                            textColor: Theme.errorText
                             selected: root.confirmSelected
                             onClicked: if (root.pendingAction) root.runAction(root.pendingAction)
                         }

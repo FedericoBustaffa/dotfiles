@@ -13,7 +13,6 @@ import "./theme"
 ShellRoot {
     id: root
 
-    readonly property color accent: Theme.accent
     function siblingConfig(name) { return Quickshell.shellDir + "/../" + name; }
 
     function openManager(name, outputVariable, screen) {
@@ -162,7 +161,11 @@ ShellRoot {
                 anchors.leftMargin: 14
                 anchors.rightMargin: 14
                 spacing: 10
-                DockLabel { text: levelOsd.isBrightness ? "󰃠" : levelOsd.muted ? "󰝟" : "󰕾"; font.pixelSize: 16 }
+                DockLabel {
+                    text: levelOsd.isBrightness ? "󰃠" : levelOsd.muted ? "󰝟" : "󰕾"
+                    color: Theme.accent
+                    font.pixelSize: 16
+                }
                 Rectangle {
                     Layout.fillWidth: true
                     implicitHeight: 6
@@ -172,7 +175,7 @@ ShellRoot {
                         width: parent.width * (levelOsd.muted ? 0 : Math.min(levelOsd.level, 1))
                         height: parent.height
                         radius: 3
-                        color: root.accent
+                        color: Theme.accent
                         Behavior on width { NumberAnimation { duration: 110; easing.type: Easing.OutCubic } }
                     }
                 }
@@ -238,6 +241,7 @@ ShellRoot {
 
                 // A drag owns the drawer until release; otherwise the hovered button wins.
                 readonly property var sideDrawers: [
+                    { anchor: systemInfo, menu: systemInfo },
                     { anchor: volumeControl, menu: volumeControl },
                     { anchor: bluetoothButton, menu: bluetoothQuick },
                     { anchor: networkButton, menu: networkQuick },
@@ -254,7 +258,10 @@ ShellRoot {
                 sideAnchor: activeSide?.anchor ?? null
 
                 leftItems: [
-                    DockLabel { text: "󰣇"; color: Theme.accent; font.pixelSize: 17 },
+                    SystemInfoControl {
+                        id: systemInfo
+                        yieldDrawer: dockPanel.yieldsTo(systemInfo)
+                    },
                     WorkspaceStrip {
                         id: workspaceStrip
                         screen: output.modelData
@@ -306,7 +313,7 @@ ShellRoot {
                     id: bluetoothButton
                     visible: !!root.bluetoothAdapter
                     glyph: !root.bluetoothAdapter?.enabled ? "󰂲" : root.bluetoothConnected ? "󰂱" : "󰂯"
-                    glyphColor: root.bluetoothAdapter?.enabled ? Theme.dockIcons.bluetooth : Theme.muted
+                    drawerOpen: bluetoothQuick.progress > 0
                     Accessible.name: "Bluetooth settings"
                     onClicked: root.openManager("bluetooth-manager", "BLUETOOTH_MANAGER_OUTPUT", output.modelData)
                 }
@@ -318,7 +325,7 @@ ShellRoot {
                         root.refreshNetworks();
                     }
                     glyph: root.status.network === "Wired" ? "󰈀" : root.status.network === "Wi-Fi" ? "󰖩" : "󰖪"
-                    glyphColor: root.status.network === "Offline" ? Theme.muted : Theme.dockIcons.wifi
+                    drawerOpen: networkQuick.progress > 0
                     Accessible.name: "Network settings"
                     onClicked: root.openManager("network-manager", "NETWORK_MANAGER_OUTPUT", output.modelData)
                 }
@@ -341,7 +348,6 @@ ShellRoot {
                     triggerHovered: bluetoothButton.visible && bluetoothButton.hovered
                     blocked: dockPanel.yieldsTo(bluetoothQuick)
                     entries: root.savedBluetooth
-                    activeColor: Theme.dockIcons.bluetooth
                     message: root.bluetoothAdapter?.enabled ? "No saved devices" : "Bluetooth is off"
                     onConnectRequested: entry => entry.device.connect()
                 }
@@ -351,7 +357,6 @@ ShellRoot {
                     triggerHovered: networkButton.visible && networkButton.hovered
                     blocked: dockPanel.yieldsTo(networkQuick)
                     entries: root.savedNetworks
-                    activeColor: Theme.dockIcons.wifi
                     busy: networkConnect.running
                     error: root.networkError
                     message: networkList.running ? "Loading…" : "No saved networks"
@@ -369,8 +374,10 @@ ShellRoot {
                 DockReadout {
                     visible: !!root.status.battery
                     icon: "󰁹"
-                    iconColor: Theme.dockIcons.battery
+                    iconColor: Theme.dockGlyph
+                    highlightOnHover: true
                     Layout.preferredWidth: 48
+                    Layout.preferredHeight: 24
                     text: root.status.battery ?? ""
                     hint: "Battery"
                 }

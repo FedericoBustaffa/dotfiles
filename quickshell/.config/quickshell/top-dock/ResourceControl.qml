@@ -27,10 +27,10 @@ Button {
         duration: 185
     }
 
-    contentItem: DockReadout { icon: "󰓅"; iconColor: Theme.errorText }
+    contentItem: DockReadout { icon: "󰓅"; iconColor: Theme.dockGlyph }
     background: Rectangle {
         radius: 7
-        color: control.progress > 0 ? Theme.selectedButton : "transparent"
+        color: control.hovered || control.progress > 0 ? Theme.dockHover : "transparent"
     }
 
     readonly property Component drawer: Rectangle {
@@ -60,9 +60,9 @@ Button {
                     title: "CPU"
                     secondReadoutOnArc: true
                     metrics: [
-                        { label: "CPU", glyph: "", tint: Theme.dockIcons.cpu,
+                        { label: "CPU", glyph: "", tint: Theme.resourceTints.cpu,
                             value: control.snapshot.cpu, hint: "CPU usage" },
-                        { label: "Temp", glyph: "", tint: Theme.dockIcons.performance,
+                        { label: "Temp", glyph: "", tint: Theme.resourceTints.cpu,
                             value: control.snapshot.temp, hint: "CPU temperature · 0–100°C scale" }
                     ]
                 }
@@ -70,9 +70,9 @@ Button {
                     title: "Memory"
                     secondReadoutOnArc: true
                     metrics: [
-                        { label: "RAM", glyph: "", tint: Theme.dockIcons.memory,
+                        { label: "RAM", glyph: "", tint: Theme.resourceTints.memory,
                             value: control.snapshot.memory, display: control.snapshot.memoryUsed, hint: "RAM usage" },
-                        { label: "Disk", glyph: "", tint: Theme.dockIcons.disk,
+                        { label: "Disk", glyph: "", tint: Theme.resourceTints.disk,
                             value: control.snapshot.disk, display: control.snapshot.diskUsed, hint: "Root disk usage" }
                     ]
                 }

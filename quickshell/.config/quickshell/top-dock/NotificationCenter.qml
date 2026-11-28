@@ -19,6 +19,8 @@ Scope {
     property var toastScreen: null
     property var centerScreen: null
     property bool opened: false
+    property string paletteQuery: ""
+    onOpenedChanged: if (!opened) paletteQuery = ""
 
     function focusedScreen() {
         return Quickshell.screens.find(screen => screen.name === Hyprland.focusedMonitor?.name) ?? Quickshell.screens[0] ?? null;
@@ -73,6 +75,12 @@ Scope {
     IpcHandler {
         target: "notifications"
         function toggle(): void { center.toggle(null); }
+        function openFromPalette(query: string): void {
+            center.centerScreen = center.focusedScreen();
+            center.paletteQuery = query;
+            center.opened = !!center.centerScreen;
+            if (center.opened) center.hideToast();
+        }
     }
 
     component ActionButton: Button {
@@ -84,8 +92,8 @@ Scope {
         contentItem: Text {
             text: action.text
             textFormat: Text.PlainText
-            color: action.accented ? Theme.accent : Theme.foreground
-            font.pixelSize: Theme.bodyFontSize
+            color: Theme.menuText(action.accented)
+            font.pixelSize: Theme.menuBodyFontSize
             elide: Text.ElideRight
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
@@ -217,18 +225,20 @@ Scope {
             id: overlay
             anchors.fill: parent
             focus: true
-            Keys.onEscapePressed: center.opened = false
+            Keys.onEscapePressed: {
+                panel.returnToPalette(center.paletteQuery);
+                center.opened = false;
+            }
             TapHandler {
                 onTapped: point => {
                     if (!panel.contains(panel.mapFromItem(overlay, point.position))) center.opened = false;
                 }
             }
-            Rectangle {
+            DropUpCard {
                 id: panel
-                anchors { right: parent.right; top: parent.top; topMargin: 44; rightMargin: 12 }
+                presented: center.opened && !!center.centerScreen
                 width: Math.min(440, overlay.width - 24)
                 height: Math.min(520, overlay.height - 56)
-                radius: 14
                 color: Theme.background
                 border.color: Theme.outline
 
@@ -239,7 +249,7 @@ Scope {
                         Layout.fillWidth: true
                         text: "Notifications"
                         color: Theme.foreground
-                        font { pixelSize: Theme.titleFontSize; bold: true }
+                        font { pixelSize: Theme.menuTitleFontSize; bold: true }
                     }
                     ActionButton {
                         text: center.dnd ? "DND on" : "DND off"

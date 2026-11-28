@@ -84,7 +84,7 @@ Scope {
             id: sideDetails
             anchors.top: header.bottom
             x: dock.sideAnchor ? Math.max(0, Math.min(header.width - width,
-                rightControls.x + dock.sideAnchor.x + (dock.sideAnchor.width - width) / 2)) : 0
+                (dock.sideAnchor.parent?.x ?? 0) + dock.sideAnchor.x + (dock.sideAnchor.width - width) / 2)) : 0
             sourceComponent: dock.sideExtension
         }
     }

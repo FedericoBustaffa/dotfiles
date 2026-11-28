@@ -142,7 +142,7 @@ Item {
                     enabled: slot.shown && slot.presence > 0.5
                     background: Rectangle {
                         radius: 7
-                        color: workspaceButton.hovered && !workspaceButton.selected ? Theme.outline : "transparent"
+                        color: workspaceButton.hovered && !workspaceButton.selected ? Theme.dockHover : "transparent"
                     }
                     Accessible.name: `Workspace ${slot.modelData}`
                     onClicked: Hyprland.dispatch(`hl.dsp.focus({ workspace = ${slot.modelData} })`)

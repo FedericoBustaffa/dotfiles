@@ -6,27 +6,28 @@ import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Wayland
 import "./theme"
+import "./theme/Fuzzy.js" as Fuzzy
 
 ShellRoot {
     id: root
-
-    function normalize(text) {
-        return (text ?? "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    }
-
-    function rank(app, query, words) {
-        const name = normalize(app.name);
-        if (!query || name === query) return 0;
-        if (name.startsWith(query)) return 1;
-        if (name.includes(query)) return 2;
-        if (words.every(word => name.includes(word))) return 3;
-        const details = [name, app.genericName, app.id, app.comment, ...app.categories, ...app.keywords];
-        return words.every(word => details.some(value => normalize(value).includes(word))) ? 4 : -1;
-    }
+    readonly property var commands: [
+        { name: "Theme picker", icon: "preferences-desktop-theme", menu: "theme", keywords: ["appearance", "colors", "palette"] },
+        { name: "Wallpaper picker", icon: "preferences-desktop-wallpaper", menu: "wallpaper-picker", keywords: ["background", "appearance"] },
+        { name: "Wi-Fi manager", icon: "network-wireless", menu: "network-manager", keywords: ["connectivity", "network", "internet"] },
+        { name: "Bluetooth manager", icon: "bluetooth", menu: "bluetooth-manager", keywords: ["connectivity", "devices", "pair"] },
+        { name: "Notifications", icon: "preferences-system-notifications", keywords: ["alerts", "dnd"] },
+        { name: "Power menu", icon: "system-shutdown", menu: "power-menu", keywords: ["shutdown", "reboot", "logout", "lock", "suspend"] }
+    ]
 
     function launch(app) {
         if (!app) return;
-        if (app.runInTerminal) {
+        if (search.commandMode) {
+            const base = Quickshell.shellDir + "/..";
+            const command = app.menu
+                ? ["env", "QUICKSHELL_PALETTE_PARENT=" + search.text, "quickshell", "-n", "-p", base + "/" + app.menu]
+                : ["quickshell", "ipc", "-p", base + "/top-dock", "call", "notifications", "openFromPalette", search.text];
+            Quickshell.execDetached(command);
+        } else if (app.runInTerminal) {
             Quickshell.execDetached({ command: ["kitty", "--", ...app.command], workingDirectory: app.workingDirectory });
         } else {
             app.execute();
@@ -53,30 +54,33 @@ ShellRoot {
                 }
             }
 
-            Rectangle {
+            DropUpCard {
                 id: card
-                anchors.centerIn: parent
                 width: Math.min(560, surface.width - 32)
                 height: Math.min(470, surface.height - 32)
-                radius: 18
                 color: Theme.background
                 border.color: Theme.outline
 
                 TextField {
                     id: search
+                    readonly property bool commandMode: text.startsWith(">")
+                    text: Quickshell.env("QUICKSHELL_PALETTE_QUERY")
                     anchors { top: parent.top; left: parent.left; right: parent.right; margins: 16 }
                     height: 42
                     leftPadding: 12
                     rightPadding: 12
-                    placeholderText: "Search applications…"
+                    placeholderText: "Search apps · Type > for commands"
                     placeholderTextColor: Theme.muted
                     color: Theme.foreground
                     selectionColor: Theme.accent
                     selectedTextColor: Theme.background
                     selectByMouse: true
-                    font.pixelSize: Theme.bodyFontSize
+                    font.pixelSize: Theme.menuBodyFontSize
                     focus: true
-                    Component.onCompleted: forceActiveFocus()
+                    Component.onCompleted: {
+                        cursorPosition = text.length;
+                        forceActiveFocus();
+                    }
                     background: Rectangle { radius: 9; color: Theme.raised; border.color: Theme.outline }
                     onAccepted: root.launch(results.model[results.currentIndex])
                     Keys.onEscapePressed: Qt.quit()
@@ -91,13 +95,12 @@ ShellRoot {
                     spacing: 4
                     keyNavigationEnabled: false
                     model: {
-                        const query = root.normalize(search.text).trim();
-                        const words = query.split(/\s+/);
-                        return DesktopEntries.applications.values.filter(app => app.name && !app.noDisplay && app.command.length)
-                            .map(app => ({ app: app, rank: root.rank(app, query, words) }))
-                            .filter(result => result.rank >= 0)
-                            .sort((a, b) => a.rank - b.rank || a.app.name.localeCompare(b.app.name))
-                            .map(result => result.app);
+                        const entries = search.commandMode ? root.commands
+                            : DesktopEntries.applications.values.filter(app => app.name && !app.noDisplay && app.command.length)
+                                .sort((a, b) => a.name.localeCompare(b.name));
+                        return Fuzzy.search(entries, search.commandMode ? search.text.slice(1) : search.text,
+                            app => app.name, app => [app.genericName, app.id, app.comment,
+                                ...(app.categories ?? []), ...(app.keywords ?? [])]);
                     }
                     onModelChanged: {
                         currentIndex = count ? 0 : -1;
@@ -137,8 +140,8 @@ ShellRoot {
                             anchors { left: icon.right; leftMargin: 12; right: parent.right; rightMargin: 10; verticalCenter: parent.verticalCenter }
                             text: row.modelData.name
                             textFormat: Text.PlainText
-                            color: row.selected ? Theme.accent : Theme.foreground
-                            font.pixelSize: Theme.bodyFontSize
+                            color: Theme.menuText(row.selected)
+                            font.pixelSize: Theme.menuBodyFontSize
                             elide: Text.ElideRight
                         }
                         HoverHandler { id: hover }
@@ -149,9 +152,9 @@ ShellRoot {
                 Text {
                     anchors.centerIn: results
                     visible: results.count === 0
-                    text: "No matching applications"
+                    text: search.commandMode ? "No matching commands" : "No matching applications"
                     color: Theme.muted
-                    font.pixelSize: Theme.bodyFontSize
+                    font.pixelSize: Theme.menuBodyFontSize
                 }
             }
         }

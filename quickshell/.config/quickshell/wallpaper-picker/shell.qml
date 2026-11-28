@@ -9,6 +9,7 @@ import Quickshell.Hyprland
 import Quickshell.Io
 import Quickshell.Wayland
 import "./theme"
+import "./theme/Fuzzy.js" as Fuzzy
 
 ShellRoot {
     id: root
@@ -46,9 +47,9 @@ ShellRoot {
     }
 
     function apply(): void {
-        if (applyProcess.running || grid.currentIndex < 0 || grid.currentIndex >= images.count)
+        if (applyProcess.running || grid.currentIndex < 0 || grid.currentIndex >= grid.count)
             return;
-        const path = images.get(grid.currentIndex, "filePath");
+        const path = grid.model[grid.currentIndex].filePath;
         if (path.includes(",")) {
             root.errorMessage = "Hyprpaper does not accept commas in wallpaper paths.";
             return;
@@ -70,12 +71,12 @@ ShellRoot {
         WlrLayershell.namespace: "wallpaper-picker"
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
-        onVisibleChanged: if (visible) grid.forceActiveFocus()
+        onVisibleChanged: if (visible) search.forceActiveFocus()
 
         Item {
             id: surface
             anchors.fill: parent
-            Keys.onEscapePressed: if (!applyProcess.running) Qt.quit()
+            Keys.onEscapePressed: if (!applyProcess.running) card.dismissFromKeyboard()
 
             TapHandler {
                 onTapped: point => {
@@ -84,12 +85,11 @@ ShellRoot {
                 }
             }
 
-            Rectangle {
+            DropUpCard {
                 id: card
-                anchors.centerIn: parent
+                presented: picker.visible
                 width: Math.min(960, surface.width - 40)
                 height: Math.min(640, surface.height - 40)
-                radius: 18
                 color: Theme.background
                 border.color: Theme.outline
 
@@ -99,16 +99,27 @@ ShellRoot {
 
                     Text {
                         text: "Wallpapers"
-                        font { pixelSize: Theme.titleFontSize; bold: true }
+                        font { pixelSize: Theme.menuTitleFontSize; bold: true }
                         color: Theme.foreground
                     }
 
                     Text {
                         Layout.fillWidth: true
                         text: "~/dotfiles/wallpapers  ·  Applies to all displays"
-                        font.pixelSize: Theme.subtitleFontSize
+                        font.pixelSize: Theme.menuSubtitleFontSize
                         color: Theme.muted
                         elide: Text.ElideRight
+                    }
+
+                    TextField {
+                        id: search
+                        Layout.fillWidth: true
+                        placeholderText: "Search wallpapers…"
+                        font.pixelSize: Theme.menuBodyFontSize
+                        color: Theme.menuText()
+                        background: Rectangle { radius: 8; color: Theme.raised; border.color: Theme.outline }
+                        onAccepted: root.apply()
+                        Keys.onDownPressed: if (grid.count) grid.forceActiveFocus()
                     }
 
                     Item {
@@ -120,10 +131,16 @@ ShellRoot {
                             anchors { fill: parent; rightMargin: 10 }
                             clip: true
                             focus: true
-                            currentIndex: images.count > 0 ? 0 : -1
                             cellWidth: Math.floor(width / Math.max(1, Math.floor(width / 205)))
                             cellHeight: Math.round(cellWidth * 0.62) + 26
-                            model: images
+                            model: {
+                                const entries = [];
+                                for (let i = 0; i < images.count; i++)
+                                    entries.push({ fileName: images.get(i, "fileName"), filePath: images.get(i, "filePath"),
+                                        fileUrl: images.get(i, "fileUrl") });
+                                return Fuzzy.search(entries, search.text, entry => entry.fileName);
+                            }
+                            onModelChanged: { currentIndex = model.length ? 0 : -1; positionViewAtBeginning(); }
                             ScrollBar.vertical: ScrollBar { policy: ScrollBar.AsNeeded }
                             Keys.onReturnPressed: event => { if (!event.isAutoRepeat) root.apply(); }
                             Keys.onEnterPressed: event => { if (!event.isAutoRepeat) root.apply(); }
@@ -131,8 +148,9 @@ ShellRoot {
                             delegate: Item {
                                 id: tile
                                 required property int index
-                                required property string fileName
-                                required property url fileUrl
+                                required property var modelData
+                                readonly property string fileName: modelData.fileName
+                                readonly property url fileUrl: modelData.fileUrl
                                 width: grid.cellWidth
                                 height: grid.cellHeight
 
@@ -167,10 +185,10 @@ ShellRoot {
                                         Text {
                                             Layout.fillWidth: true
                                             text: tile.fileName
-                                            font.pixelSize: Theme.bodyFontSize
+                                            font.pixelSize: Theme.menuBodyFontSize
                                             textFormat: Text.PlainText
                                             elide: Text.ElideRight
-                                            color: Theme.foreground
+                                            color: Theme.menuText(grid.currentIndex === tile.index)
                                         }
                                     }
                                 }
@@ -179,9 +197,9 @@ ShellRoot {
 
                         Text {
                             anchors.centerIn: parent
-                            visible: images.count === 0
-                            text: images.status === FolderListModel.Loading ? "Loading wallpapers…" : "No supported images found."
-                            font.pixelSize: Theme.bodyFontSize
+                            visible: grid.count === 0
+                            text: images.status === FolderListModel.Loading ? "Loading wallpapers…" : "No matching wallpapers."
+                            font.pixelSize: Theme.menuBodyFontSize
                             color: Theme.muted
                         }
                     }
@@ -193,15 +211,28 @@ ShellRoot {
                         Text {
                             Layout.fillWidth: true
                             text: root.errorMessage || "Arrow keys to browse  ·  Enter to apply  ·  Esc to close"
-                            font.pixelSize: Theme.bodyFontSize
+                            font.pixelSize: Theme.menuBodyFontSize
                             textFormat: Text.PlainText
                             color: root.errorMessage ? Theme.errorText : Theme.muted
                             wrapMode: Text.Wrap
                         }
 
                         Button {
+                            id: applyButton
                             text: applyProcess.running ? "Applying…" : "Apply wallpaper"
-                            font.pixelSize: Theme.bodyFontSize
+                            font.pixelSize: Theme.menuBodyFontSize
+                            contentItem: Text {
+                                text: applyButton.text
+                                font: applyButton.font
+                                color: Theme.menuText()
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            background: Rectangle {
+                                radius: 8
+                                color: !applyButton.enabled ? Theme.disabled : applyButton.hovered ? Theme.buttonHover : Theme.button
+                                border.color: applyButton.enabled ? Theme.accent : Theme.outline
+                            }
                             enabled: grid.currentIndex >= 0 && !applyProcess.running
                             focusPolicy: Qt.NoFocus
                             onClicked: root.apply()

@@ -3,13 +3,9 @@ import QtQuick.Controls
 import "./theme"
 
 Text {
-    id: label
     property string hint: ""
+    Accessible.description: hint
     font.family: "JetBrainsMono Nerd Font"
-    HoverHandler { id: hover; enabled: label.hint !== "" }
-    ToolTip.visible: hover.hovered
-    ToolTip.text: hint
-    ToolTip.delay: 350
     textFormat: Text.PlainText
     color: Theme.foreground
     font.pixelSize: Theme.bodyFontSize

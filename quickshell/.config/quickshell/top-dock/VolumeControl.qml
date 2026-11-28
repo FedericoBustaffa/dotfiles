@@ -34,11 +34,11 @@ Button {
 
     background: Rectangle {
         radius: 7
-        color: button.progress > 0 ? Theme.selectedButton : "transparent"
+        color: button.hovered || button.progress > 0 ? Theme.dockHover : "transparent"
     }
     contentItem: DockReadout {
         icon: button.muted ? "󰝟" : "󰕾"
-        iconColor: button.muted ? Theme.muted : Theme.dockIcons.volume
+        iconColor: Theme.dockGlyph
         text: button.text
     }
 

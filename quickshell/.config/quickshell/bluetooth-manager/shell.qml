@@ -53,8 +53,8 @@ ShellRoot {
     Timer { id: forgetTimeout; interval: 4000; onTriggered: root.forgetAddress = "" }
 
     component LabelText: Text {
-        color: root.foreground
-        font.pixelSize: Theme.bodyFontSize
+        color: Theme.menuText()
+        font.pixelSize: Theme.menuBodyFontSize
         verticalAlignment: Text.AlignVCenter
         textFormat: Text.PlainText
     }
@@ -69,15 +69,15 @@ ShellRoot {
         hoverEnabled: true
         contentItem: Text {
             text: action.text
-            color: !action.enabled ? root.muted : action.accented ? Theme.background : root.foreground
-            font.pixelSize: Theme.bodyFontSize
+            color: Theme.menuText()
+            font.pixelSize: Theme.menuBodyFontSize
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
         }
         background: Rectangle {
             radius: 8
-            color: action.accented && action.enabled ? (action.hovered ? Theme.accentHover : root.accent)
-                : !action.enabled ? Theme.disabled : action.hovered ? Theme.buttonHover : Theme.button
+            color: !action.enabled ? Theme.disabled : action.hovered ? Theme.buttonHover : Theme.button
+            border.color: action.accented && action.enabled ? Theme.accent : Theme.outline
         }
     }
 
@@ -97,7 +97,7 @@ ShellRoot {
             id: surface
             anchors.fill: parent
             focus: true
-            Keys.onEscapePressed: root.dismiss()
+            Keys.onEscapePressed: { root.stopScan(); card.dismissFromKeyboard(); }
 
             TapHandler {
                 onTapped: point => {
@@ -105,12 +105,10 @@ ShellRoot {
                 }
             }
 
-            Rectangle {
+            DropUpCard {
                 id: card
-                anchors.centerIn: parent
                 width: Math.min(520, surface.width - 32)
                 height: Math.min(440, surface.height - 32)
-                radius: 18
                 color: Theme.background
                 border.color: Theme.outline
 
@@ -123,7 +121,7 @@ ShellRoot {
                         LabelText {
                             Layout.fillWidth: true
                             text: "Bluetooth"
-                            font { pixelSize: Theme.titleFontSize; bold: true }
+                            font { pixelSize: Theme.menuTitleFontSize; bold: true }
                         }
                         ActionButton {
                             text: "Close"
@@ -138,7 +136,7 @@ ShellRoot {
                             color: root.muted
                             elide: Text.ElideRight
                             text: root.adapter?.name ?? "No Bluetooth adapter"
-                            font.pixelSize: Theme.subtitleFontSize
+                            font.pixelSize: Theme.menuSubtitleFontSize
                         }
                         Switch {
                             id: powerSwitch
@@ -204,6 +202,7 @@ ShellRoot {
                                             Layout.fillWidth: true
                                             elide: Text.ElideRight
                                             text: row.device.name || row.device.address
+                                            color: Theme.menuText(row.device.connected)
                                             font.bold: row.device.connected
                                         }
                                         LabelText {

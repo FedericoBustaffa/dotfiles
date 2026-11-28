@@ -38,20 +38,15 @@ Button {
         return profile === "power-saver" ? "" : profile === "performance" ? "" : "";
     }
 
-    function colorFor(profile: string): color {
-        return profile === "power-saver" ? Theme.dockIcons.powerSaver
-            : profile === "performance" ? Theme.dockIcons.performance : Theme.dockIcons.balanced;
-    }
-
     background: Rectangle {
         radius: 7
-        color: control.progress > 0 ? Theme.selectedButton : "transparent"
+        color: control.hovered || control.progress > 0 ? Theme.dockHover : "transparent"
         Behavior on color { ColorAnimation { duration: 150 } }
     }
     contentItem: Item {
         CenteredGlyph {
             text: control.iconFor(control.activeProfile)
-            color: control.colorFor(control.activeProfile)
+            color: Theme.dockGlyph
         }
     }
 
@@ -86,6 +81,7 @@ Button {
 
         Column {
             id: options
+            z: 1
             spacing: panel.rowGap
             x: 6
             y: 9
@@ -102,22 +98,23 @@ Button {
                     focusPolicy: Qt.NoFocus
                     hoverEnabled: true
                     Accessible.name: control.labelFor(modelData) + (selected ? ", active" : "")
-                    ToolTip.visible: hovered && !!control.error
-                    ToolTip.delay: 300
-                    ToolTip.text: control.error
+                    Accessible.description: control.error
                     onClicked: if (!selected && !control.busy) control.profileRequested(modelData)
                     background: Rectangle {
                         height: option.height
                         radius: 8
-                        color: Theme.accent
+                        z: 0
                         visible: !option.selected && !selectionSlide.running
-                        opacity: option.down ? 0.23 : option.hovered ? 0.12 : 0
+                        color: option.down ? Theme.selectedButton : option.hovered ? Theme.dockHover : Theme.background
+                        // Fade the background, never the glyph above it.
+                        opacity: option.hovered || option.down ? 1 : 0
                         Behavior on opacity { NumberAnimation { duration: 135; easing.type: Easing.OutCubic } }
                     }
                     contentItem: Item {
+                        z: 1
                         CenteredGlyph {
                             text: control.iconFor(option.modelData)
-                            color: control.colorFor(option.modelData)
+                            color: Theme.dockGlyph
                         }
                     }
                 }

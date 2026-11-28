@@ -7,14 +7,11 @@ import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Wayland
 import "."
+import "Fuzzy.js" as Fuzzy
 
 ShellRoot {
     id: root
     property string pendingTheme: ""
-
-    function normalize(text: string): string {
-        return text.toLowerCase().replace(/[^a-z0-9]/g, "");
-    }
 
     function choose(id: string): void {
         if (Theme.saving) return;
@@ -52,12 +49,10 @@ ShellRoot {
                 }
             }
 
-            Rectangle {
+            DropUpCard {
                 id: card
-                anchors.centerIn: parent
                 width: Math.min(420, surface.width - 32)
                 height: Math.min(280, surface.height - 32)
-                radius: 16
                 color: Theme.background
                 border.color: Theme.outline
 
@@ -68,7 +63,7 @@ ShellRoot {
                     Text {
                         text: "Themes"
                         color: Theme.foreground
-                        font { pixelSize: Theme.titleFontSize; bold: true }
+                        font { pixelSize: Theme.menuTitleFontSize; bold: true }
                     }
 
                     TextField {
@@ -82,10 +77,10 @@ ShellRoot {
                         placeholderTextColor: Theme.muted
                         selectionColor: Theme.accent
                         selectedTextColor: Theme.background
-                        font.pixelSize: Theme.bodyFontSize
+                        font.pixelSize: Theme.menuBodyFontSize
                         background: Rectangle { radius: 8; color: Theme.raised; border.color: Theme.outline }
                         Component.onCompleted: forceActiveFocus()
-                        Keys.onEscapePressed: Qt.quit()
+                        Keys.onEscapePressed: card.dismissFromKeyboard()
                         Keys.onDownPressed: if (results.count) results.currentIndex = (results.currentIndex + 1) % results.count
                         Keys.onUpPressed: if (results.count) results.currentIndex = (results.currentIndex + results.count - 1) % results.count
                         onAccepted: {
@@ -102,8 +97,7 @@ ShellRoot {
                         spacing: 4
                         keyNavigationEnabled: false
                         model: {
-                            const query = root.normalize(search.text);
-                            return Theme.choices.filter(choice => root.normalize(choice.label).includes(query));
+                            return Fuzzy.search(Theme.choices, search.text, choice => choice.label, choice => [choice.id]);
                         }
                         onModelChanged: {
                             currentIndex = count ? 0 : -1;
@@ -126,8 +120,8 @@ ShellRoot {
                             Text {
                                 anchors { left: parent.left; leftMargin: 10; verticalCenter: parent.verticalCenter }
                                 text: row.modelData.label
-                                color: Theme.foreground
-                                font.pixelSize: Theme.bodyFontSize
+                                color: Theme.menuText(row.highlighted || row.modelData.id === Theme.current)
+                                font.pixelSize: Theme.menuBodyFontSize
                             }
                             Text {
                                 anchors { right: parent.right; rightMargin: 10; verticalCenter: parent.verticalCenter }

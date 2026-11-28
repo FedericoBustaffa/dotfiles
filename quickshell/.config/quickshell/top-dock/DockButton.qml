@@ -5,7 +5,7 @@ import "./theme"
 Button {
     id: control
     property string glyph: ""
-    property color glyphColor: Theme.foreground
+    property bool drawerOpen: false
     implicitWidth: Math.max(26, implicitContentWidth + 12)
     implicitHeight: 24
     padding: 0
@@ -13,11 +13,11 @@ Button {
     focusPolicy: Qt.NoFocus
     background: Rectangle {
         radius: 7
-        color: control.hovered ? Theme.outline : "transparent"
+        color: control.hovered || control.drawerOpen ? Theme.dockHover : "transparent"
     }
     contentItem: DockReadout {
         icon: control.glyph
-        iconColor: control.glyphColor
+        iconColor: Theme.dockGlyph
         text: control.text
     }
 }

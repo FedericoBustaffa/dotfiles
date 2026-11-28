@@ -22,6 +22,13 @@ Singleton {
     readonly property int titleFontSize: 22
     readonly property int subtitleFontSize: 16
     readonly property int bodyFontSize: 13
+    readonly property int menuBodyFontSize: 16
+    readonly property int menuSubtitleFontSize: 19
+    readonly property int menuTitleFontSize: 25
+
+    function menuText(selected = false): color {
+        return selected ? accent : "white";
+    }
     readonly property bool vague: current === "vague"
     readonly property bool tokyoNight: current === "tokyo-night"
 
@@ -47,6 +54,13 @@ Singleton {
         const match = accents.text().match(new RegExp("^" + current + "=([0-9a-f]{6})$", "m"));
         return match ? "#" + match[1] : "#79d2a7";
     }
+    readonly property color dockGlyph: "white"
+    readonly property color dockHover: Qt.tint(background, Qt.rgba(accent.r, accent.g, accent.b, 0.25))
+    readonly property var resourceTints: ({
+        cpu: accent,
+        memory: Qt.tint(accent, Qt.rgba(1, 1, 1, 0.32)),
+        disk: Qt.tint(accent, Qt.rgba(0, 0, 0, 0.20))
+    })
     readonly property color accentHover: tokyoNight ? "#9ab8ff" : vague ? "#8ba9c1" : "#a1d9bc"
     readonly property color background: tokyoNight ? "#1a1b26" : vague ? "#141415" : "#111316"
     readonly property color raised: tokyoNight ? "#24283b" : vague ? "#1c1c24" : "#1b2023"

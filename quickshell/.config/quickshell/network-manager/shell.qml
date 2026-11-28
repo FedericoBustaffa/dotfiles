@@ -94,8 +94,8 @@ ShellRoot {
     Timer { id: forgetTimeout; interval: 4000; onTriggered: root.forgetPath = "" }
 
     component LabelText: Text {
-        color: root.foreground
-        font.pixelSize: Theme.bodyFontSize
+        color: Theme.menuText()
+        font.pixelSize: Theme.menuBodyFontSize
         textFormat: Text.PlainText
         verticalAlignment: Text.AlignVCenter
     }
@@ -110,15 +110,15 @@ ShellRoot {
         hoverEnabled: true
         contentItem: Text {
             text: button.text
-            color: !button.enabled ? root.muted : button.accented ? Theme.background : root.foreground
-            font.pixelSize: Theme.bodyFontSize
+            color: Theme.menuText()
+            font.pixelSize: Theme.menuBodyFontSize
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
         }
         background: Rectangle {
             radius: 8
-            color: button.accented && button.enabled ? (button.hovered ? Theme.accentHover : root.accent)
-                : !button.enabled ? Theme.disabled : button.hovered ? Theme.buttonHover : Theme.button
+            color: !button.enabled ? Theme.disabled : button.hovered ? Theme.buttonHover : Theme.button
+            border.color: button.accented && button.enabled ? Theme.accent : Theme.outline
         }
     }
 
@@ -137,19 +137,17 @@ ShellRoot {
             id: surface
             anchors.fill: parent
             focus: true
-            Keys.onEscapePressed: root.passwordNetwork ? root.cancelPassword() : Qt.quit()
+            Keys.onEscapePressed: root.passwordNetwork ? root.cancelPassword() : card.dismissFromKeyboard()
             TapHandler {
                 onTapped: point => {
                     if (!card.contains(card.mapFromItem(surface, point.position))) Qt.quit();
                 }
             }
 
-            Rectangle {
+            DropUpCard {
                 id: card
-                anchors.centerIn: parent
                 width: Math.min(560, surface.width - 32)
                 height: Math.min(480, surface.height - 32)
-                radius: 18
                 color: Theme.background
                 border.color: Theme.outline
 
@@ -158,7 +156,7 @@ ShellRoot {
                     spacing: 10
 
                     RowLayout {
-                        LabelText { Layout.fillWidth: true; text: "Network"; font { pixelSize: Theme.titleFontSize; bold: true } }
+                        LabelText { Layout.fillWidth: true; text: "Network"; font { pixelSize: Theme.menuTitleFontSize; bold: true } }
                         ActionButton { text: "Close"; onClicked: Qt.quit() }
                     }
 
@@ -184,7 +182,7 @@ ShellRoot {
                     }
 
                     RowLayout {
-                        LabelText { Layout.fillWidth: true; text: "Wi-Fi"; font { pixelSize: Theme.subtitleFontSize; bold: true } }
+                        LabelText { Layout.fillWidth: true; text: "Wi-Fi"; font { pixelSize: Theme.menuSubtitleFontSize; bold: true } }
                         Switch {
                             text: "Wi-Fi power"
                             Accessible.name: text
@@ -213,7 +211,7 @@ ShellRoot {
                             id: password
                             Layout.fillWidth: true
                             placeholderText: "Wi-Fi password"
-                            font.pixelSize: Theme.bodyFontSize
+                            font.pixelSize: Theme.menuBodyFontSize
                             echoMode: TextInput.Password
                             onAccepted: root.join()
                         }
@@ -251,6 +249,7 @@ ShellRoot {
                                         LabelText {
                                             Layout.fillWidth: true
                                             text: row.modelData.name
+                                            color: Theme.menuText(row.modelData.active)
                                             font.bold: row.modelData.active
                                             elide: Text.ElideRight
                                         }
