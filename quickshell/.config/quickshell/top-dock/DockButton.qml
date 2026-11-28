@@ -5,6 +5,7 @@ import "./theme"
 Button {
     id: control
     property string glyph: ""
+    property color textColor: Theme.foreground
     property bool drawerOpen: false
     implicitWidth: Math.max(26, implicitContentWidth + 12)
     implicitHeight: 24
@@ -19,5 +20,6 @@ Button {
         icon: control.glyph
         iconColor: Theme.dockGlyph
         text: control.text
+        textColor: control.textColor
     }
 }

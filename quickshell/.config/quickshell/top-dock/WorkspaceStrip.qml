@@ -83,27 +83,27 @@ Item {
         id: transition
         NumberAnimation {
             target: workspaceStrip; property: "reveal"; to: 1
-            duration: workspaceStrip.reveal < 1 ? 175 : 0
+            duration: workspaceStrip.reveal < 1 ? 105 : 0
             easing.type: Easing.OutCubic
         }
         NumberAnimation {
             target: workspaceStrip; property: "travel"; to: 1
-            duration: 210; easing.type: Easing.OutCubic
+            duration: 140; easing.type: Easing.OutCubic
         }
         onFinished: workspaceStrip.previousId = 0
     }
     implicitWidth: Math.max(0, workspaceRow.implicitWidth - buttonSpacing)
     implicitHeight: 24
 
-    SelectionOutline {
+    Rectangle {
+        id: marker
         readonly property real endX: workspaceStrip.endSlot?.x ?? 0
         readonly property real startX: workspaceStrip.startSlot?.x ?? endX
         x: startX + (endX - startX) * workspaceStrip.travel
         width: workspaceStrip.buttonWidth
         height: workspaceStrip.height
         radius: 7
-        color: Theme.selectedButton
-        borderColor: Theme.accent
+        color: Theme.accent
         opacity: workspaceStrip.endSlot ? 1 : 0
         Behavior on opacity { NumberAnimation { duration: 120 } }
     }
@@ -126,7 +126,7 @@ Item {
                 // The active destination already has its own reveal animation.
                 Behavior on presence {
                     enabled: slot.owned && slot.modelData !== workspaceStrip.destinationId
-                    NumberAnimation { duration: 175; easing.type: Easing.OutCubic }
+                    NumberAnimation { duration: 105; easing.type: Easing.OutCubic }
                 }
                 width: owned ? presence * (workspaceStrip.buttonWidth + workspaceStrip.buttonSpacing) : 0
                 height: workspaceStrip.height
@@ -137,6 +137,10 @@ Item {
                     readonly property bool selected: workspaceStrip.activeWorkspaceId === slot.modelData
                     width: workspaceStrip.buttonWidth
                     text: String(slot.modelData)
+                    // Keep numbers readable as the accent slides underneath them.
+                    readonly property real labelCenter: slot.x + width / 2
+                    textColor: marker.opacity > 0.5 && labelCenter >= marker.x && labelCenter < marker.x + marker.width
+                        ? "black" : Theme.foreground
                     opacity: slot.presence
                     scale: 0.75 + 0.25 * slot.presence
                     enabled: slot.shown && slot.presence > 0.5

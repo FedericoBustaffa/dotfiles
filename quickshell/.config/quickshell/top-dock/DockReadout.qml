@@ -8,6 +8,7 @@ Item {
     property string icon: ""
     property color iconColor: Theme.foreground
     property string text: ""
+    property color textColor: Theme.foreground
     property string hint: ""
     property bool highlightOnHover: false
     property int iconSize: Theme.bodyFontSize
@@ -30,7 +31,7 @@ Item {
         spacing: 7
 
         DockLabel { visible: !!readout.icon; text: readout.icon; color: readout.iconColor; font.pixelSize: readout.iconSize }
-        DockLabel { visible: !!readout.text; text: readout.text }
+        DockLabel { visible: !!readout.text; text: readout.text; color: readout.textColor }
     }
 
 }
