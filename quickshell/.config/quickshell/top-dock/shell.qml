@@ -1,7 +1,6 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Bluetooth
@@ -15,13 +14,71 @@ ShellRoot {
     id: root
 
     readonly property color accent: Theme.accent
-    readonly property string directory: Quickshell.env("HOME") + "/dotfiles/quickshell/.config/quickshell/top-dock"
+    function siblingConfig(name) { return Quickshell.shellDir + "/../" + name; }
+
+    function openManager(name, outputVariable, screen) {
+        Quickshell.execDetached(["env", outputVariable + "=" + screen.name,
+            "quickshell", "-n", "-p", siblingConfig(name)]);
+    }
     property var status: ({})
+    property var workspaceOwners: ({})
+
+    Process {
+        id: workspaceRules
+        running: true
+        command: ["hyprctl", "workspacerules", "-j"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                try {
+                    const owners = {};
+                    for (const rule of JSON.parse(text)) {
+                        if (rule.enabled && rule.monitor && /^\d+$/.test(rule.workspaceString))
+                            owners[Number(rule.workspaceString)] = rule.monitor;
+                    }
+                    root.workspaceOwners = owners;
+                } catch (_) {}
+            }
+        }
+    }
+    Connections {
+        target: Hyprland
+        function onRawEvent(event) {
+            if (event.name === "configreloaded") workspaceRules.running = true;
+        }
+    }
     property string profileError: ""
+    property var savedNetworks: []
+    property string networkError: ""
+    readonly property var savedBluetooth: (bluetoothAdapter?.devices.values ?? [])
+        .filter(device => device.connected || device.paired || device.bonded)
+        .map(device => ({ name: device.name || device.address, active: device.connected,
+            available: bluetoothAdapter.enabled, device: device }))
+        .sort((a, b) => Number(b.active) - Number(a.active) || a.name.localeCompare(b.name))
+
+    function refreshNetworks() { networkList.running = true; }
+    Process {
+        id: networkList
+        command: ["python", root.siblingConfig("network-manager") + "/network.py", "quick-connections"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                try {
+                    const data = JSON.parse(text);
+                    root.savedNetworks = Array.isArray(data) ? data : [];
+                    if (data.error) root.networkError = data.error;
+                } catch (_) { root.savedNetworks = []; }
+            }
+        }
+    }
+    Process {
+        id: networkConnect
+        stderr: StdioCollector { id: connectError }
+        onExited: (code, status) => {
+            root.networkError = code === 0 ? "" : connectError.text.trim() || "Connection failed";
+            root.refreshNetworks();
+        }
+    }
     readonly property var powerProfiles: ["power-saver", "balanced", "performance"].filter(
         profile => (status.profiles ?? "").split(",").includes(profile))
-    readonly property string nextPowerProfile: powerProfiles.length > 1
-        ? powerProfiles[(powerProfiles.indexOf(status.profile) + 1) % powerProfiles.length] : ""
     readonly property var bluetoothAdapter: Bluetooth.defaultAdapter
     readonly property bool bluetoothConnected: bluetoothAdapter?.devices.values.some(device => device.connected) ?? false
     readonly property var audio: Pipewire.defaultAudioSink?.audio ?? null
@@ -135,7 +192,7 @@ ShellRoot {
 
     Process {
         id: statusProcess
-        command: ["bash", root.directory + "/status.sh"]
+        command: ["bash", Quickshell.shellDir + "/status.sh"]
         stdout: StdioCollector {
             onStreamFinished: {
                 const snapshot = {};
@@ -167,108 +224,64 @@ ShellRoot {
         onTriggered: statusProcess.running = true
     }
 
-    component DockButton: Button {
-        id: control
-        property string glyph: ""
-        property color glyphColor: Theme.foreground
-        implicitWidth: Math.max(26, implicitContentWidth + 12)
-        implicitHeight: 24
-        padding: 0
-        hoverEnabled: true
-        focusPolicy: Qt.NoFocus
-        background: Rectangle {
-            radius: 7
-            color: control.hovered ? Theme.outline : "transparent"
-        }
-        contentItem: DockReadout {
-            icon: control.glyph
-            iconColor: control.glyphColor
-            text: control.text
-        }
-    }
-
     Variants {
         model: Quickshell.screens
 
         Scope {
             id: output
             required property var modelData
-            readonly property var monitor: Hyprland.monitorFor(modelData)
-            readonly property int activeWorkspaceId: monitor?.activeWorkspace?.id ?? 0
-            readonly property var visibleWorkspaceIds: {
-                const ids = Hyprland.workspaces.values.filter(workspace =>
-                    workspace.id >= 1 && workspace.id <= 10 && workspace.toplevels.values.length > 0
-                    && (Quickshell.screens.length === 1 || workspace.monitor?.name === output.modelData.name)
-                ).map(workspace => workspace.id);
-                if (activeWorkspaceId > 0 && !ids.includes(activeWorkspaceId))
-                    ids.push(activeWorkspaceId);
-                return ids.sort((a, b) => a - b);
-            }
-            readonly property int activeIndex: visibleWorkspaceIds.indexOf(activeWorkspaceId)
 
             DockPanel {
+                id: dockPanel
                 screen: output.modelData
                 extension: resources.drawer
-                sideExtension: volumeControl.drawer
-                sideAnchor: volumeControl
 
-                DockLabel { text: "󰣇"; hint: "Arch Linux"; color: Theme.accent; font.pixelSize: 17 }
+                // A drag owns the drawer until release; otherwise the hovered button wins.
+                readonly property var sideDrawers: [
+                    { anchor: volumeControl, menu: volumeControl },
+                    { anchor: bluetoothButton, menu: bluetoothQuick },
+                    { anchor: networkButton, menu: networkQuick },
+                    { anchor: powerProfile, menu: powerProfile }
+                ]
+                readonly property var requestedMenu: volumeControl.adjusting ? volumeControl
+                    : resources.hovered ? resources
+                    : sideDrawers.find(entry => entry.anchor.visible && entry.anchor.hovered)?.menu ?? null
+                readonly property var activeSide: sideDrawers.find(entry =>
+                    entry.menu === requestedMenu && entry.menu.progress > 0)
+                    ?? sideDrawers.find(entry => entry.menu.progress > 0) ?? null
+                function yieldsTo(menu) { return requestedMenu !== null && requestedMenu !== menu; }
+                sideExtension: activeSide?.menu.drawer ?? null
+                sideAnchor: activeSide?.anchor ?? null
 
-                Item {
-                    id: workspaceStrip
-                    readonly property int buttonWidth: 26
-                    readonly property int buttonSpacing: Theme.dockSpacing
-                    visible: output.visibleWorkspaceIds.length > 0
-                    implicitWidth: workspaceRow.implicitWidth
-                    implicitHeight: 24
-
+                leftItems: [
+                    DockLabel { text: "󰣇"; color: Theme.accent; font.pixelSize: 17 },
+                    WorkspaceStrip {
+                        id: workspaceStrip
+                        screen: output.modelData
+                        owners: root.workspaceOwners
+                    },
                     Rectangle {
-                        x: Math.max(0, output.activeIndex) * (workspaceStrip.buttonWidth + workspaceStrip.buttonSpacing)
-                        width: workspaceStrip.buttonWidth
-                        height: workspaceStrip.height
-                        radius: 7
-                        color: Theme.selectedButton
-                        border.color: root.accent
-                        opacity: output.activeIndex >= 0 ? 1 : 0
-                        Behavior on x { NumberAnimation { duration: 210; easing.type: Easing.OutCubic } }
-                        Behavior on opacity { NumberAnimation { duration: 120 } }
+                        visible: workspaceStrip.visible
+                        Layout.preferredWidth: 1
+                        Layout.preferredHeight: 16
+                        color: Theme.outline
                     }
-
-                    Row {
-                        id: workspaceRow
-                        spacing: workspaceStrip.buttonSpacing
-                        Repeater {
-                            model: output.visibleWorkspaceIds
-                            DockButton {
-                                id: workspaceButton
-                                required property int modelData
-                                readonly property bool selected: output.activeWorkspaceId === modelData
-                                width: workspaceStrip.buttonWidth
-                                text: String(modelData)
-                                background: Rectangle {
-                                    radius: 7
-                                    color: workspaceButton.hovered && !workspaceButton.selected ? Theme.outline : "transparent"
-                                }
-                                Accessible.name: `Workspace ${modelData}`
-                                onClicked: Hyprland.dispatch(`hl.dsp.focus({ workspace = ${modelData} })`)
-                            }
-                        }
+                ]
+                centerItems: [
+                    DockLabel {
+                        Layout.preferredWidth: 148
+                        horizontalAlignment: Text.AlignHCenter
+                        elide: Text.ElideRight
+                        text: Qt.formatDateTime(clock.date, "ddd d MMM · HH:mm")
+                    },
+                    DockButton {
+                        glyph: notifications.dnd ? "󰂛" : notifications.count ? "󱅫" : "󰂜"
+                        implicitWidth: 48
+                        text: notifications.count > 99 ? "99+" : notifications.count ? String(notifications.count) : ""
+                        Accessible.name: "Notifications: " + notifications.count
+                        onClicked: notifications.toggle(output.modelData)
                     }
-                }
-
-                Rectangle {
-                    visible: workspaceStrip.visible
-                    Layout.preferredWidth: 1
-                    Layout.preferredHeight: 16
-                    color: Theme.outline
-                }
-                DockLabel { text: Qt.formatDateTime(clock.date, "ddd d MMM · HH:mm") }
-                DockButton {
-                    glyph: notifications.dnd ? "󰂛" : notifications.count ? "󱅫" : "󰂜"
-                    text: notifications.count ? String(notifications.count) : ""
-                    Accessible.name: "Notifications"
-                    onClicked: notifications.toggle(output.modelData)
-                }
+                ]
 
                 Rectangle {
                     Layout.preferredWidth: 1
@@ -278,59 +291,86 @@ ShellRoot {
                 ResourceControl {
                     id: resources
                     snapshot: root.status
-                    drawerObscured: volumeControl.progress > 0
+                    drawerObscured: dockPanel.activeSide !== null
                 }
                 VolumeControl {
                     id: volumeControl
                     audio: root.audio
-                    yieldDrawer: resources.hovered
+                    yieldDrawer: dockPanel.yieldsTo(volumeControl)
                     onAdjustingChanged: {
                         if (adjusting) root.adjustingControl = volumeControl;
                         else if (root.adjustingControl === volumeControl) root.adjustingControl = null;
                     }
                 }
                 DockButton {
+                    id: bluetoothButton
                     visible: !!root.bluetoothAdapter
                     glyph: !root.bluetoothAdapter?.enabled ? "󰂲" : root.bluetoothConnected ? "󰂱" : "󰂯"
                     glyphColor: root.bluetoothAdapter?.enabled ? Theme.dockIcons.bluetooth : Theme.muted
                     Accessible.name: "Bluetooth settings"
-                    onClicked: Quickshell.execDetached([
-                        "env", "BLUETOOTH_MANAGER_OUTPUT=" + output.modelData.name, "quickshell", "-n", "-p",
-                        Quickshell.env("HOME") + "/dotfiles/quickshell/.config/quickshell/bluetooth-manager"
-                    ])
+                    onClicked: root.openManager("bluetooth-manager", "BLUETOOTH_MANAGER_OUTPUT", output.modelData)
                 }
                 DockButton {
+                    id: networkButton
                     visible: !!root.status.network
+                    onHoveredChanged: if (hovered) {
+                        root.networkError = "";
+                        root.refreshNetworks();
+                    }
                     glyph: root.status.network === "Wired" ? "󰈀" : root.status.network === "Wi-Fi" ? "󰖩" : "󰖪"
-                    glyphColor: root.status.network === "Wired" ? Theme.dockIcons.wired
-                        : root.status.network === "Wi-Fi" ? Theme.dockIcons.wifi : Theme.muted
+                    glyphColor: root.status.network === "Offline" ? Theme.muted : Theme.dockIcons.wifi
                     Accessible.name: "Network settings"
-                    onClicked: Quickshell.execDetached([
-                        "env", "NETWORK_MANAGER_OUTPUT=" + output.modelData.name, "quickshell", "-n", "-p",
-                        Quickshell.env("HOME") + "/dotfiles/quickshell/.config/quickshell/network-manager"
-                    ])
+                    onClicked: root.openManager("network-manager", "NETWORK_MANAGER_OUTPUT", output.modelData)
                 }
-                DockButton {
-                    visible: !!root.status.profile
-                    glyph: root.status.profile === "performance" ? "" : root.status.profile === "power-saver" ? "" : ""
-                    glyphColor: root.status.profile === "performance" ? Theme.dockIcons.performance
-                        : root.status.profile === "power-saver" ? Theme.dockIcons.powerSaver : Theme.dockIcons.balanced
-                    readonly property string description: "Power profile: " + (root.status.profile ?? "")
-                        + (root.nextPowerProfile ? " · Click for " + root.nextPowerProfile : "")
-                    Accessible.name: description
-                    ToolTip.visible: hovered && !!root.profileError
-                    ToolTip.delay: 350
-                    ToolTip.text: root.profileError
-                    onClicked: {
-                        if (profileProcess.running || !root.nextPowerProfile) return;
+                PowerProfileControl {
+                    id: powerProfile
+                    profiles: root.powerProfiles
+                    activeProfile: root.status.profile ?? ""
+                    error: root.profileError
+                    busy: profileProcess.running
+                    yieldDrawer: dockPanel.yieldsTo(powerProfile)
+                    onProfileRequested: profile => {
+                        if (profileProcess.running || !root.powerProfiles.includes(profile)) return;
                         root.profileError = "";
-                        profileProcess.exec(["powerprofilesctl", "set", root.nextPowerProfile]);
+                        profileProcess.exec(["powerprofilesctl", "set", profile]);
+                    }
+                }
+                ConnectionDrawer {
+                    id: bluetoothQuick
+                    visible: false
+                    triggerHovered: bluetoothButton.visible && bluetoothButton.hovered
+                    blocked: dockPanel.yieldsTo(bluetoothQuick)
+                    entries: root.savedBluetooth
+                    activeColor: Theme.dockIcons.bluetooth
+                    message: root.bluetoothAdapter?.enabled ? "No saved devices" : "Bluetooth is off"
+                    onConnectRequested: entry => entry.device.connect()
+                }
+                ConnectionDrawer {
+                    id: networkQuick
+                    visible: false
+                    triggerHovered: networkButton.visible && networkButton.hovered
+                    blocked: dockPanel.yieldsTo(networkQuick)
+                    entries: root.savedNetworks
+                    activeColor: Theme.dockIcons.wifi
+                    busy: networkConnect.running
+                    error: root.networkError
+                    message: networkList.running ? "Loading…" : "No saved networks"
+                    onConnectRequested: entry => {
+                        root.networkError = "";
+                        networkConnect.exec(["nmcli", "--wait", "20", "connection", "up", "uuid", entry.uuid]);
+                    }
+                    Timer {
+                        interval: 2000
+                        repeat: true
+                        running: networkQuick.engaged
+                        onTriggered: root.refreshNetworks()
                     }
                 }
                 DockReadout {
                     visible: !!root.status.battery
                     icon: "󰁹"
                     iconColor: Theme.dockIcons.battery
+                    Layout.preferredWidth: 48
                     text: root.status.battery ?? ""
                     hint: "Battery"
                 }

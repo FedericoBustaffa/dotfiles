@@ -45,7 +45,7 @@ Singleton {
     })
     readonly property color accent: {
         const match = accents.text().match(new RegExp("^" + current + "=([0-9a-f]{6})$", "m"));
-        return match ? "#" + match[1] : "#8dccad";
+        return match ? "#" + match[1] : "#79d2a7";
     }
     readonly property color accentHover: tokyoNight ? "#9ab8ff" : vague ? "#8ba9c1" : "#a1d9bc"
     readonly property color background: tokyoNight ? "#1a1b26" : vague ? "#141415" : "#111316"

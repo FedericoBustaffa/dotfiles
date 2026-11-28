@@ -17,9 +17,12 @@ fi
 awk '/^MemTotal:/ { total=$2 } /^MemAvailable:/ { available=$2 }
     END { if (total) {
         used = total - available
-        printf "memory=%.0f%%\nmemoryUsed=%.1f GB\n", 100 * used / total, used * 1024 / 1e9
+        printf "memory=%.0f%%\nmemoryUsed=%.1f GiB\n", 100 * used / total, used / 1048576
     } }' /proc/meminfo
-df -kP / | awk 'NR == 2 { printf "disk=%s\ndiskUsed=%.1f GB\n", $5, $3 * 1024 / 1e9 }'
+df -kP / | awk 'NR == 2 && $2 > 0 {
+    format = $2 >= 104857600 ? "%.0f GiB" : "%.1f GiB"
+    printf "disk=%.0f%%\ndiskUsed=%s\n", 100 * $3 / $2, sprintf(format, $3 / 1048576)
+}'
 
 for hwmon in /sys/class/hwmon/hwmon*; do
     [[ -r "$hwmon/name" ]] || continue

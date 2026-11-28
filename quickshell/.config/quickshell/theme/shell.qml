@@ -110,7 +110,7 @@ ShellRoot {
                             positionViewAtBeginning();
                         }
 
-                        delegate: Rectangle {
+                        delegate: SelectionOutline {
                             id: row
                             required property var modelData
                             readonly property bool highlighted: ListView.isCurrentItem
@@ -118,7 +118,7 @@ ShellRoot {
                             height: 36
                             radius: 8
                             color: highlighted ? Theme.selectedButton : hover.hovered ? Theme.buttonHover : Theme.raised
-                            border.color: highlighted ? Theme.accent : "transparent"
+                            borderColor: highlighted ? Theme.accent : "transparent"
                             Accessible.role: Accessible.Button
                             Accessible.name: modelData.label + (modelData.id === Theme.current ? " (active)" : "")
                             Accessible.onPressAction: root.choose(modelData.id)

@@ -190,6 +190,24 @@ def action(client, request):
         raise ValueError("No matching saved connection.")
 
 
+def quick_connections(client):
+    active = {connection.get_uuid() for connection in client.get_active_connections()
+              if connection.get_state() == NM.ActiveConnectionState.ACTIVATED}
+    wifi_enabled = client.wireless_get_enabled()
+    rows = []
+    for profile in client.get_connections():
+        setting = profile.get_setting_connection()
+        kind = setting.get_connection_type()
+        if kind not in ("802-11-wireless", "802-3-ethernet"):
+            continue
+        uuid = setting.get_uuid()
+        connected = uuid in active
+        if connected or setting.get_timestamp():
+            rows.append(dict(name=setting.get_id(), uuid=uuid, active=connected,
+                             available=kind != "802-11-wireless" or wifi_enabled))
+    return sorted(rows, key=lambda row: (not row["active"], row["name"].casefold()))
+
+
 def main():
     try:
         client = NM.Client.new(None)
@@ -197,6 +215,8 @@ def main():
             raise ValueError("NetworkManager is not running.")
         if sys.argv[1:] == ["status"]:
             print(json.dumps(snapshot(client)))
+        elif sys.argv[1:] == ["quick-connections"]:
+            print(json.dumps(quick_connections(client)))
         else:
             action(client, json.loads(sys.stdin.readline()))
             print("{}")

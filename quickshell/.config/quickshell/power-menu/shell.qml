@@ -73,13 +73,15 @@ ShellRoot {
         property bool selected: false
         property color textColor: Theme.foreground
 
+        implicitWidth: implicitContentWidth + leftPadding + rightPadding
         implicitHeight: 40
         focusPolicy: Qt.NoFocus
         font { family: root.fontFamily; pixelSize: Theme.bodyFontSize }
-        background: Rectangle {
+        background: SelectionOutline {
             radius: 8
+            strokeWidth: button.selected ? 1.25 : 1
             color: button.down ? Theme.surface("#3c393f") : button.hovered ? Theme.surface("#33343d") : Theme.surface("#282930")
-            border.color: button.selected ? root.accent : Theme.surface("#3b3c45")
+            borderColor: button.selected ? root.accent : Theme.surface("#3b3c45")
         }
         contentItem: Text {
             text: button.text

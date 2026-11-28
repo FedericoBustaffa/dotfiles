@@ -121,7 +121,8 @@ ShellRoot {
                             anchors { left: parent.left; leftMargin: 10; verticalCenter: parent.verticalCenter }
                             width: 28
                             height: 28
-                            source: row.modelData.icon ? Quickshell.iconPath(row.modelData.icon, "application-x-executable") : Quickshell.iconPath("application-x-executable")
+                            source: (row.modelData.icon ? Quickshell.iconPath(row.modelData.icon, true) : "")
+                                || Quickshell.iconPath("application-x-executable", true)
                             sourceSize { width: 32; height: 32 }
                             fillMode: Image.PreserveAspectFit
                             Text {

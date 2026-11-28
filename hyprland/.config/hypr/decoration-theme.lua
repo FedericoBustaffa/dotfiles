@@ -14,7 +14,7 @@ local function apply()
 	local selected = read(state .. "/quickshell/theme"):match("^%s*([%w-]+)%s*$") or "original"
 
 	local palette = read(home .. "/dotfiles/quickshell/.config/quickshell/theme/accents")
-	local accent = "8dccad"
+	local accent = "79d2a7"
 	for name, hex in palette:gmatch("([%w-]+)=([%da-f]+)") do
 		if name == selected and #hex == 6 then accent = hex end
 	end

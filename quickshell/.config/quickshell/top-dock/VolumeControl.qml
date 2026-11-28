@@ -11,36 +11,25 @@ Button {
     readonly property real level: audio?.volume ?? 0
     readonly property bool muted: audio?.muted ?? false
     property bool adjusting: false
-    property bool drawerHovered: false
     property bool yieldDrawer: false
-    property real progress: 0
+    readonly property real progress: reveal.progress
 
     visible: audio != null
     text: muted ? "" : Math.round(level * 100) + "%"
     Accessible.name: "Volume. Click to toggle mute."
-    implicitWidth: Math.max(60, implicitContentWidth + 12)
+    implicitWidth: 60
     implicitHeight: 24
     padding: 0
     hoverEnabled: true
     focusPolicy: Qt.NoFocus
     onClicked: if (audio) audio.muted = !audio.muted
-    onHoveredChanged: updateDrawer()
-    onYieldDrawerChanged: updateDrawer()
-    onVisibleChanged: if (!visible) {
-        closeDelay.stop();
-        progress = 0;
-    }
-
-    function updateDrawer() {
-        if (yieldDrawer && !adjusting) {
-            closeDelay.stop();
-            progress = 0;
-        } else if (visible && (hovered || drawerHovered || adjusting)) {
-            closeDelay.stop();
-            progress = 1;
-        } else if (progress > 0) {
-            closeDelay.restart();
-        }
+    HoverReveal {
+        id: reveal
+        triggerHovered: button.hovered
+        heldOpen: button.adjusting
+        blocked: !button.visible || (button.yieldDrawer && !button.adjusting)
+        closeDelay: 140
+        duration: 185
     }
 
     background: Rectangle {
@@ -53,16 +42,6 @@ Button {
         text: button.text
     }
 
-    Timer {
-        id: closeDelay
-        interval: 140
-        onTriggered: button.progress = 0
-    }
-
-    Behavior on progress {
-        NumberAnimation { duration: 185; easing.type: Easing.OutCubic }
-    }
-
     readonly property Component drawer: Rectangle {
         id: details
         readonly property int expandedHeight: 152
@@ -70,16 +49,12 @@ Button {
         implicitHeight: Math.round(expandedHeight * button.progress)
         visible: height > 0
         clip: true
-        bottomLeftRadius: 12
-        bottomRightRadius: 12
+        bottomLeftRadius: 16
+        bottomRightRadius: 16
         color: Theme.background
 
-        HoverHandler {
-            onHoveredChanged: {
-                button.drawerHovered = hovered;
-                button.updateDrawer();
-            }
-        }
+        Component.onDestruction: reveal.drawerHovered = false
+        HoverHandler { onHoveredChanged: reveal.drawerHovered = hovered }
 
         ColumnLayout {
             x: 8
@@ -102,7 +77,6 @@ Button {
                 Accessible.name: "Output volume"
                 onPressedChanged: {
                     button.adjusting = pressed;
-                    button.updateDrawer();
                 }
                 onMoved: if (button.audio) {
                     button.audio.volume = value;
