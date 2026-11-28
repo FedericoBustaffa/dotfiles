@@ -67,6 +67,9 @@ ShellRoot {
         leftPadding: 12
         rightPadding: 12
         hoverEnabled: true
+        focusPolicy: Qt.StrongFocus
+        Keys.onReturnPressed: action.clicked()
+        Keys.onEnterPressed: action.clicked()
         contentItem: Text {
             text: action.text
             color: Theme.menuText()
@@ -77,7 +80,8 @@ ShellRoot {
         background: Rectangle {
             radius: 8
             color: !action.enabled ? Theme.disabled : action.hovered ? Theme.buttonHover : Theme.button
-            border.color: action.accented && action.enabled ? Theme.accent : Theme.outline
+            border.color: action.visualFocus || (action.accented && action.enabled) ? Theme.accent : Theme.outline
+            border.width: action.visualFocus ? 2 : 1
         }
     }
 
@@ -125,6 +129,7 @@ ShellRoot {
                         }
                         ActionButton {
                             text: "Close"
+                            Component.onCompleted: forceActiveFocus(Qt.TabFocusReason)
                             onClicked: root.dismiss()
                         }
                     }
@@ -176,11 +181,18 @@ ShellRoot {
                             visible: root.adapter?.enabled ?? false
                             spacing: 6
                             model: root.devices
+                            activeFocusOnTab: count > 0
+                            keyNavigationEnabled: true
+                            Keys.onReturnPressed: currentItem?.activate()
+                            Keys.onEnterPressed: currentItem?.activate()
+                            Keys.onSpacePressed: currentItem?.activate()
                             ScrollBar.vertical: ScrollBar { policy: ScrollBar.AsNeeded }
 
                             delegate: Rectangle {
                                 id: row
+                                required property int index
                                 required property var modelData
+                                function activate() { if (primary.enabled) primary.clicked(); }
                                 readonly property var device: modelData
                                 readonly property bool saved: device.paired || device.bonded
                                 readonly property bool busy: device.state === BluetoothDeviceState.Connecting
@@ -190,6 +202,8 @@ ShellRoot {
                                 height: 58
                                 radius: 10
                                 color: Theme.raised
+                                border.width: 2
+                                border.color: ListView.isCurrentItem && deviceList.activeFocus ? Theme.accent : "transparent"
 
                                 RowLayout {
                                     anchors { fill: parent; leftMargin: 10; rightMargin: 8 }
@@ -216,6 +230,8 @@ ShellRoot {
                                     }
 
                                     ActionButton {
+                                        id: primary
+                                        onActiveFocusChanged: if (activeFocus) deviceList.currentIndex = row.index
                                         text: row.device.pairing ? "Cancel" : row.device.connected ? "Disconnect" : row.saved ? "Connect" : "Pair"
                                         enabled: !row.busy
                                         accented: !row.device.connected && !row.device.pairing
@@ -228,6 +244,7 @@ ShellRoot {
                                     }
                                     ActionButton {
                                         visible: row.saved
+                                        onActiveFocusChanged: if (activeFocus) deviceList.currentIndex = row.index
                                         enabled: !row.busy && !row.device.pairing
                                         text: row.confirmForget ? "Confirm forget" : "Forget"
                                         onClicked: {

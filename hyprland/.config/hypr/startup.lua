@@ -22,7 +22,5 @@ hl.on("hyprland.start", function()
 	-- class "zen"/"firefox" in rules.lua, so a plain exec is enough here.
 	hl.exec_cmd(apps.browser)
 
-	-- hl.exec_cmd("obsidian --enable-features=UseOzonePlatform --ozone-platform=wayland")
-
 	hl.exec_cmd("onedrive --sync")
 end)

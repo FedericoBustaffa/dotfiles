@@ -48,10 +48,55 @@ ShellRoot {
     property string profileError: ""
     property var savedNetworks: []
     property string networkError: ""
+    property string bluetoothError: ""
+    property QtObject pendingBluetooth: null
+    property var previousAudioDevices: []
+
+    function isBluetoothAudio(device) { return (device?.icon ?? "").startsWith("audio-"); }
+
+    function toggleBluetooth(entry) {
+        const device = entry.device;
+        if (!device || pendingBluetooth || !bluetoothAdapter?.enabled) return;
+        bluetoothError = "";
+        if (device.connected) {
+            device.disconnect();
+            return;
+        }
+        // Switch audio devices only after the new link is up. Leave input and other peripherals alone.
+        previousAudioDevices = isBluetoothAudio(device)
+            ? bluetoothAdapter.devices.values.filter(other => other.connected && isBluetoothAudio(other)) : [];
+        pendingBluetooth = device;
+        bluetoothTimeout.restart();
+        device.connect();
+    }
+
+    Connections {
+        target: root.pendingBluetooth
+        function onConnectedChanged() {
+            if (!root.pendingBluetooth?.connected) return;
+            bluetoothTimeout.stop();
+            for (const device of root.previousAudioDevices) {
+                if (device?.connected) device.disconnect();
+            }
+            root.previousAudioDevices = [];
+            root.pendingBluetooth = null;
+        }
+    }
+    Timer {
+        id: bluetoothTimeout
+        interval: 15000
+        onTriggered: {
+            root.bluetoothError = "Bluetooth connection timed out.";
+            root.previousAudioDevices = [];
+            root.pendingBluetooth = null;
+        }
+    }
+
     readonly property var savedBluetooth: (bluetoothAdapter?.devices.values ?? [])
         .filter(device => device.connected || device.paired || device.bonded)
         .map(device => ({ name: device.name || device.address, active: device.connected,
-            available: bluetoothAdapter.enabled, device: device }))
+            available: bluetoothAdapter.enabled && device.state !== BluetoothDeviceState.Connecting
+                && device.state !== BluetoothDeviceState.Disconnecting, device: device }))
         .sort((a, b) => Number(b.active) - Number(a.active) || a.name.localeCompare(b.name))
 
     function refreshNetworks() { networkList.running = true; }
@@ -348,8 +393,11 @@ ShellRoot {
                     triggerHovered: bluetoothButton.visible && bluetoothButton.hovered
                     blocked: dockPanel.yieldsTo(bluetoothQuick)
                     entries: root.savedBluetooth
+                    activeColor: Theme.dockIcons.bluetooth
+                    busy: !!root.pendingBluetooth
+                    error: root.bluetoothError
                     message: root.bluetoothAdapter?.enabled ? "No saved devices" : "Bluetooth is off"
-                    onConnectRequested: entry => entry.device.connect()
+                    onActionRequested: entry => root.toggleBluetooth(entry)
                 }
                 ConnectionDrawer {
                     id: networkQuick
@@ -360,9 +408,11 @@ ShellRoot {
                     busy: networkConnect.running
                     error: root.networkError
                     message: networkList.running ? "Loading…" : "No saved networks"
-                    onConnectRequested: entry => {
+                    onActionRequested: entry => {
+                        if (networkConnect.running) return;
                         root.networkError = "";
-                        networkConnect.exec(["nmcli", "--wait", "20", "connection", "up", "uuid", entry.uuid]);
+                        networkConnect.exec(["nmcli", "--wait", "20", "connection",
+                            entry.active ? "down" : "up", "uuid", entry.uuid]);
                     }
                     Timer {
                         interval: 2000

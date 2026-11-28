@@ -24,10 +24,10 @@ hl.window_rule({ match = { class = "^(sioyek)$" }, workspace = "2" })
 hl.window_rule({ match = { class = "^(mpv)$" }, workspace = "2" })
 hl.window_rule({ match = { class = "^(spotify)$" }, workspace = "3" })
 hl.window_rule({ match = { class = "^(dev.zed.Zed)$" }, workspace = "7" })
-hl.window_rule({ match = { class = "^(code)$" }, workspace = "7" })
+hl.window_rule({ match = { class = "^(code|com[.]microsoft[.]VSCode)$" }, workspace = "7" })
 hl.window_rule({ match = { class = "^(kitty)$" }, workspace = "8" })
 hl.window_rule({ match = { class = "^(com.mitchellh.ghostty)$" }, workspace = "8" })
-hl.window_rule({ match = { class = "^(obsidian)$" }, workspace = "9" })
+hl.window_rule({ match = { class = "^(obsidian|md[.]obsidian[.]Obsidian)$" }, workspace = "8" })
 hl.window_rule({ match = { class = "^(Notion)$" }, workspace = "10" })
 
 -- Layers

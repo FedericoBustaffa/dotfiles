@@ -17,6 +17,7 @@ ShellRoot {
     readonly property color muted: Theme.muted
     readonly property string backend: Quickshell.env("HOME") + "/dotfiles/quickshell/.config/quickshell/network-manager/network.py"
     property var snapshot: null
+    property string snapshotJson: ""
     readonly property var wifi: snapshot?.devices.find(device => device.wifi) ?? null
     readonly property var wired: snapshot?.devices.filter(device => !device.wifi) ?? []
     property var passwordNetwork: null
@@ -62,7 +63,17 @@ ShellRoot {
             try {
                 const result = JSON.parse(statusOutput.text);
                 if (code !== 0 || result.error) throw new Error(result.error || "Could not read network status.");
-                root.snapshot = result;
+                if (root.snapshotJson !== statusOutput.text) {
+                    const selected = networks.currentItem?.modelData;
+                    const wasFocused = networks.activeFocus;
+                    root.snapshotJson = statusOutput.text;
+                    root.snapshot = result;
+                    const index = selected ? (root.wifi?.networks ?? []).findIndex(entry =>
+                        entry.name === selected.name && entry.security === selected.security) : -1;
+                    if (index >= 0) networks.currentIndex = index;
+                    if (wasFocused && !networks.activeFocus && networks.count > 0)
+                        networks.forceActiveFocus(Qt.TabFocusReason);
+                }
                 root.statusError = "";
             } catch (error) {
                 root.statusError = statusOutput.text ? error.message : refreshErrors.text.includes("No module named")
@@ -108,6 +119,9 @@ ShellRoot {
         leftPadding: 12
         rightPadding: 12
         hoverEnabled: true
+        focusPolicy: Qt.StrongFocus
+        Keys.onReturnPressed: button.clicked()
+        Keys.onEnterPressed: button.clicked()
         contentItem: Text {
             text: button.text
             color: Theme.menuText()
@@ -118,7 +132,8 @@ ShellRoot {
         background: Rectangle {
             radius: 8
             color: !button.enabled ? Theme.disabled : button.hovered ? Theme.buttonHover : Theme.button
-            border.color: button.accented && button.enabled ? Theme.accent : Theme.outline
+            border.color: button.visualFocus || (button.accented && button.enabled) ? Theme.accent : Theme.outline
+            border.width: button.visualFocus ? 2 : 1
         }
     }
 
@@ -157,7 +172,11 @@ ShellRoot {
 
                     RowLayout {
                         LabelText { Layout.fillWidth: true; text: "Network"; font { pixelSize: Theme.menuTitleFontSize; bold: true } }
-                        ActionButton { text: "Close"; onClicked: Qt.quit() }
+                        ActionButton {
+                            text: "Close"
+                            Component.onCompleted: forceActiveFocus(Qt.TabFocusReason)
+                            onClicked: Qt.quit()
+                        }
                     }
 
                     Repeater {
@@ -229,16 +248,25 @@ ShellRoot {
                             clip: true
                             spacing: 6
                             model: root.snapshot?.wifiEnabled ? (root.wifi?.networks ?? []) : []
+                            activeFocusOnTab: count > 0
+                            keyNavigationEnabled: true
+                            Keys.onReturnPressed: currentItem?.activate()
+                            Keys.onEnterPressed: currentItem?.activate()
+                            Keys.onSpacePressed: currentItem?.activate()
                             ScrollBar.vertical: ScrollBar { policy: ScrollBar.AsNeeded }
 
                             delegate: Rectangle {
                                 id: row
+                                required property int index
                                 required property var modelData
+                                function activate() { if (primary.enabled) primary.clicked(); }
                                 readonly property bool confirmForget: root.forgetPath === modelData.path
                                 width: networks.width - 10
                                 height: 56
                                 radius: 10
                                 color: Theme.raised
+                                border.width: 2
+                                border.color: ListView.isCurrentItem && networks.activeFocus ? Theme.accent : "transparent"
 
                                 RowLayout {
                                     anchors { fill: parent; leftMargin: 10; rightMargin: 8 }
@@ -262,6 +290,8 @@ ShellRoot {
                                         }
                                     }
                                     ActionButton {
+                                        id: primary
+                                        onActiveFocusChanged: if (activeFocus) networks.currentIndex = row.index
                                         text: row.modelData.active ? "Disconnect" : "Connect"
                                         enabled: !operation.running && !!(row.modelData.active || row.modelData.saved || row.modelData.mode)
                                         accented: !row.modelData.active
@@ -272,6 +302,7 @@ ShellRoot {
                                     }
                                     ActionButton {
                                         visible: row.modelData.saved
+                                        onActiveFocusChanged: if (activeFocus) networks.currentIndex = row.index
                                         enabled: !operation.running
                                         text: row.confirmForget ? "Confirm forget" : "Forget"
                                         onClicked: {

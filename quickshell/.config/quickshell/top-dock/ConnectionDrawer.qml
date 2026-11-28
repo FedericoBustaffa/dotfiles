@@ -16,7 +16,7 @@ Item {
     property bool busy
     readonly property real progress: reveal.progress
     readonly property bool engaged: reveal.engaged
-    signal connectRequested(var entry)
+    signal actionRequested(var entry)
 
     HoverReveal {
         id: reveal
@@ -58,14 +58,18 @@ Item {
                 leftPadding: 18
                 rightPadding: 18
                 hoverEnabled: true
-                enabled: !modelData.active && !root.busy && modelData.available !== false
-                Accessible.name: modelData.name + (modelData.active ? ", connected" : "")
-                onClicked: root.connectRequested(modelData)
+                enabled: !root.busy && modelData.available !== false
+                Accessible.name: (modelData.active ? "Disconnect from " : "Connect to ") + modelData.name
+                ToolTip.visible: hovered && enabled
+                ToolTip.delay: 500
+                ToolTip.text: modelData.active ? "Disconnect" : "Connect"
+                onClicked: root.actionRequested(modelData)
                 background: Rectangle {
                     anchors.fill: parent
                     anchors.margins: 2
                     radius: 8
-                    color: row.modelData.active ? Theme.selectedButton : Theme.outline
+                    color: row.down || row.hovered ? Theme.buttonHover
+                        : row.modelData.active ? Theme.selectedButton : Theme.outline
                     opacity: row.modelData.active || row.hovered ? 1 : 0
                     Behavior on opacity { NumberAnimation { duration: 140 } }
                 }

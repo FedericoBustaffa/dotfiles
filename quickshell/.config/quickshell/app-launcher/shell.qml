@@ -19,6 +19,17 @@ ShellRoot {
         { name: "Power menu", icon: "system-shutdown", menu: "power-menu", keywords: ["shutdown", "reboot", "logout", "lock", "suspend"] }
     ]
 
+    function runShellCommand(command: string): void {
+        if (!command.trim()) return;
+        // Pass the command as data to the wrapper; only Bash interprets its text.
+        Quickshell.execDetached({
+            command: ["env", "-u", "BASH_ENV", "sh", "-c",
+                'exec bash --noprofile --norc -c "$1" </dev/null >/dev/null 2>&1', "launcher", command],
+            workingDirectory: Quickshell.env("HOME")
+        });
+        Qt.quit();
+    }
+
     function launch(app) {
         if (!app) return;
         if (search.commandMode) {
@@ -57,19 +68,20 @@ ShellRoot {
             DropUpCard {
                 id: card
                 width: Math.min(560, surface.width - 32)
-                height: Math.min(470, surface.height - 32)
+                height: Math.min(search.shellMode ? 116 : 470, surface.height - 32)
                 color: Theme.background
                 border.color: Theme.outline
 
                 TextField {
                     id: search
                     readonly property bool commandMode: text.startsWith(">")
+                    readonly property bool shellMode: text.startsWith("$")
                     text: Quickshell.env("QUICKSHELL_PALETTE_QUERY")
                     anchors { top: parent.top; left: parent.left; right: parent.right; margins: 16 }
                     height: 42
                     leftPadding: 12
                     rightPadding: 12
-                    placeholderText: "Search apps · Type > for commands"
+                    placeholderText: "Search apps · > commands · $ Bash"
                     placeholderTextColor: Theme.muted
                     color: Theme.foreground
                     selectionColor: Theme.accent
@@ -82,7 +94,10 @@ ShellRoot {
                         forceActiveFocus();
                     }
                     background: Rectangle { radius: 9; color: Theme.raised; border.color: Theme.outline }
-                    onAccepted: root.launch(results.model[results.currentIndex])
+                    onAccepted: {
+                        if (shellMode) root.runShellCommand(text.slice(1));
+                        else root.launch(results.model[results.currentIndex]);
+                    }
                     Keys.onEscapePressed: Qt.quit()
                     Keys.onDownPressed: if (results.count) results.currentIndex = (results.currentIndex + 1) % results.count
                     Keys.onUpPressed: if (results.count) results.currentIndex = (results.currentIndex + results.count - 1) % results.count
@@ -94,7 +109,9 @@ ShellRoot {
                     clip: true
                     spacing: 4
                     keyNavigationEnabled: false
+                    visible: !search.shellMode
                     model: {
+                        if (search.shellMode) return [];
                         const entries = search.commandMode ? root.commands
                             : DesktopEntries.applications.values.filter(app => app.name && !app.noDisplay && app.command.length)
                                 .sort((a, b) => a.name.localeCompare(b.name));
@@ -151,8 +168,9 @@ ShellRoot {
 
                 Text {
                     anchors.centerIn: results
-                    visible: results.count === 0
-                    text: search.commandMode ? "No matching commands" : "No matching applications"
+                    visible: search.shellMode || results.count === 0
+                    text: search.shellMode ? "Run a Bash command · starts in ~ · no terminal"
+                        : search.commandMode ? "No matching commands" : "No matching applications"
                     color: Theme.muted
                     font.pixelSize: Theme.menuBodyFontSize
                 }
